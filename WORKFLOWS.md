@@ -1,6 +1,34 @@
+-- Creating a Character --
+
+A Character is an entity in the game which can walk around and speak. A Character may also have other animations.
+
+1. Create a spritesheet
+
+- Save the spritesheet to `anims/spritesheets/<characterName>.png`
+  - Can save the Aseprite project here as well.
+- Most "people" Characters are 64px by 64px
+- The first frame on the spritesheet is the default sprite. This is shown when no animation is active.
+- This spritesheet must contain these bare minimum animations
+  - Standing for all headings: up, right, left, down
+  - Walking for all headings: up, right, left, down
+  - Cadences for all headings: up, right, left down
+- This spritesheet can contain any other animations for the Character as well
+
+2. Use the Anims tool to define animations
+
+- For the required animations, these must be named the following:
+  - Standing for all headings: `<characterName>_(u|r|l|d)`
+  - Walking for all headings: `<characterName>_walk_(u|r|l|d)`
+  - Cadences: don't really matter as long as they are defined
+
+3. Click the save button.
+  - To export them into the game, run `yarn export` in the anims directory
+
+4. Boom!
+
 -- Creating a Room ---
 
-A room is a place in the game where a character can walk around. Rooms are JSON files that have been exported from the Tiled tool.
+A Room is a place in the game where a character can walk around. Rooms are JSON files that have been exported from the Tiled tool.
 
 1. Create a Tiled tmx file for your room
 
@@ -8,6 +36,7 @@ A room is a place in the game where a character can walk around. Rooms are JSON 
 
 2. Create a background and a foreground for the room.
 
+- Save them to `tiled/stages/<roomName>-(bg|fg).png`
 - These are png files roughly the size of 128x128 (or smaller).
 - These images are placed in the back and the front respectively.
 
@@ -110,7 +139,7 @@ To add voices to these characters:
   - Have the actor record each line for their character in Audacity.
   - Use the labeling feature to mark the take you want to use for each line.
     - Don't label it with any text
-  - After your done, 
+  - After your done,
 
 2. Convert export names for the cutscene.
 
