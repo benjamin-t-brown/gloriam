@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.2" tiledversion="1.2.5" orientation="orthogonal" renderorder="left-up" width="256" height="128" tilewidth="1" tileheight="1" infinite="0" nextlayerid="5" nextobjectid="28">
+ <tileset firstgid="1" source="control.tsx"/>
+ <tileset firstgid="7" source="props.tsx"/>
+ <imagelayer id="1" name="bg">
+  <image source="../stages/readyroom-bg.png" width="256" height="128"/>
+ </imagelayer>
+ <imagelayer id="2" name="fg">
+  <image source="../stages/readyroom-fg.png" width="256" height="128"/>
+ </imagelayer>
+ <objectgroup id="3" name="walls">
+  <object id="1" x="248.667" y="30.6667" width="8.33333" height="67"/>
+  <object id="2" x="0.166668" y="30.8333" width="8.33333" height="67"/>
+  <object id="3" x="6.83334" y="56.8333" width="243" height="8.66667"/>
+  <object id="4" x="-0.333333" y="122" width="258.667" height="8.33333"/>
+  <object id="22" x="84.6667" y="67" width="56" height="18.3333"/>
+  <object id="23" x="153.333" y="66.3333" width="33" height="13.6667"/>
+  <object id="24" x="9.66667" y="67" width="69.3333" height="13"/>
+ </objectgroup>
+ <objectgroup id="4" name="props">
+  <object id="5" name="entrance1" gid="2" x="-7.66667" y="121" width="64" height="64"/>
+  <object id="6" name="entrance2" gid="2" x="203.667" y="121.667" width="64" height="64"/>
+  <object id="12" name="Next Fight" gid="1" x="184" y="66.3333" width="64" height="64"/>
+  <object id="18" name="Weapons Rack" gid="10" x="9.66667" y="81" width="71" height="71"/>
+  <object id="19" name="Scrivener's Desk" gid="8" x="86" y="92.6667" width="55" height="55"/>
+  <object id="20" gid="7" x="152" y="86.3333" width="36" height="36"/>
+  <object id="21" name="Shield" gid="9" x="128" y="39.3333" width="37" height="37"/>
+  <object id="25" name="Ferelith" gid="4" x="138" y="93.6667" width="64" height="64"/>
+  <object id="26" name="Rydo" gid="5" x="40" y="123.333" width="64" height="64"/>
+ </objectgroup>
+</map>

@@ -1,0 +1,12 @@
+Picture,projectiles,projectiles.png
+SpriteList,projectiles,8,64,64
+Animation,shieldCracker,false
+AnimSprite,projectiles_0,100
+AnimSprite,projectiles_1,100
+AnimSprite,projectiles_2,100
+AnimSprite,projectiles_3,100
+Animation,shieldCrackerExpl,false
+AnimSprite,projectiles_4,100
+AnimSprite,projectiles_5,100
+AnimSprite,projectiles_6,100
+AnimSprite,projectiles_7,100

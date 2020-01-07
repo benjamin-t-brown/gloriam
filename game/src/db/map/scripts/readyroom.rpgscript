@@ -1,0 +1,132 @@
+@readyroom
++setStorageOnce('battleNumber', 0);
+
+@readyroom-test
++?as('Rydo'):{
+	+save();
+	Rydo: "Test"
+	+lookAt('Ferelith', 'Rydo');
+	Ferelith: "Test2"
+	+lookAt('Rydo', 'Ferelith');
+	Rydo: "Test3"
+	+restore();
+}
+
+#readyroom-Weapons Rack
+action,?all(isnot(this), eq(storage.battleNumber, 0)):readyroom-Weapons Rack 1
+action,readyroom-Weapons Rack 2
+@readyroom-Weapons Rack 1
++save();
+Rydo: "It's a weapons rack.  Good.  At least they will allow us to pick the tools we wish to use."
++lookAt('Ferelith', 'Rydo');
+Ferelith: "You are intrigued with those barbaric instruments?"
++lookAt('Rydo', 'Ferelith');
+Rydo: "Tools are made to be used!"
+Rydo: "An extra advantage my be required if we are to meet something truly dangerous."
++lookDirection('Ferelith', 'd');
+Ferelith: "Then I will deal with it when the time comes."
+Ferelith: "With my *magic*."
++lookAt('Ferelith', 'Rydo');
+Ferelith: "Perhaps you may need engage in cute strategizing, but I would rather not bother with such inconvenient trivialities."
+Rydo: "Overconfidant to the last."
++restore();
++openMenu('skills');
+@readyroom-Weapons Rack 2
++?as('Rydo'):{
+	Rydo: "Let me see what the weapons rack has to offer..."
+}
++?as('Ferelith'):{
+	Ferelith: "Perhaps these crude machinations can inspire my creativity..."
+}
++openMenu('skills');
+
+#readyroom-Scrivener's Desk
+action,?all(isnot(this), eq(storage.battleNumber, 0)):readyroom-Scrivener's Desk 1
+action,readyroom-Scrivener's Desk 2
+@readyroom-Scrivener's Desk 1
++save();
+Rydo: "A scrivener's desk?  Are they recording our battles?"
++lookAtEachOther('Rydo', 'Ferelith');
+Ferelith: "Is the man excited at the prospect of having a deed worthy of writing down?"
+Rydo: "For your edification..."
+Rydo: "I employ a scribe to follow me around and make note of my actions."
+Rydo: "Just to have proper documentation of my days' activities."
++setFacing('Ferelith', 'd');
+Ferelith: "Riveting material, I'm sure."
+Rydo: "Every Lord of Elkhain has had this service."
+Rydo: "I frequently peruse those tomes lest I repeat the mistakes of my former peers."
++lookAt('Ferelith', 'Rydo');
+Ferelith: "Oh, you poor, bored hermit!"
+Ferelith: "You must harbor such lonely thoughts."
+Rydo: "And the pot calls the kettle black..."
+Rydo: "Let me take a look at what they have written."
++restore();
++openMenu('save');
+@readyroom-Scrivener's Desk 2
++?as('Rydo'):{
+	Rydo: "Ah yes, what have they written about us now?"
+}
++?as('Ferelith'):{
+	Ferelith: "I do hope these notes are at least somewhat accurate."
+}
++openMenu('save');
+
+#readyroom-Shield
+action,readyroom-Shield 1
+@readyroom-Shield 1
++?as('Rydo'):{
+	Rydo: "That's quite an elaborate shield to have down in the dungeons of a castle."
+}
++?as('Ferelith'):{
+	Ferelith: "Hmph.  A simple, metal shield."
+	Ferelith: "I'd hate to see what would happen to the poor fellow squatting behind it if I decided I wanted to eviscerate him."
+}
+
+#readyroom-Next Fight
+action,?eq(player.battleNumber, 0):readyroom-Next Fight 0
+action,?eq(player.battleNumber, 1):readyroom-Next Fight 1
+action,?eq(player.battleNumber, 2):readyroom-Next Fight 2
+action,?eq(player.battleNumber, 3):readyroom-Next Fight 3
+action,?eq(player.battleNumber, 4):readyroom-Next Fight 4
+action,?eq(player.battleNumber, 5):readyroom-Next Fight 5
+action,?eq(player.battleNumber, 5):readyroom-Next Fight 6
+@readyroom-Next Fight 0
++?as('Rydo'):{
+	+defaultDialogue(Rydo)
+}
+
+@readyroom-Next Fight 1
++?as('Rydo'):{
+	+defaultDialogue(Rydo)
+}
+
+@readyroom-Next Fight 2
++?as('Rydo'):{
+	+defaultDialogue(Rydo)
+}
+
+@readyroom-Next Fight 3
++?as('Rydo'):{
+	+defaultDialogue(Rydo)
+}
+
+@readyroom-Next Fight 4
++?as('Rydo'):{
+	+defaultDialogue(Rydo)
+}
+
+@readyroom-Next Fight 5
++?as('Rydo'):{
+	+defaultDialogue(Rydo)
+}
+
+@readyroom-Next Fight 6
++?as('Rydo'):{
+	+defaultDialogue(Rydo)
+}
+
+@readyroom-Next Fight 6
++?as('Rydo'):{
+	+defaultDialogue(Rydo)
+}
+

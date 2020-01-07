@@ -1,0 +1,5 @@
+Picture,bench,bench.png
+Picture,cell-bars,cell-bars.png
+Picture,desk,desk.png
+Picture,shield,shield.png
+Picture,weapon-rack,weapon-rack.png
