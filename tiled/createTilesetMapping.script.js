@@ -80,3 +80,5 @@ async function main() {
   fs.writeFileSync(dir, JSON.stringify(tilesets));
 }
 main();
+
+66220778
