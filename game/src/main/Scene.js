@@ -62,6 +62,7 @@ class Scene {
         }
       },
       walkTowards: (x, y, time) => {},
+      walkToMarker: (actorName, markerName) => {},
       addActor: (actorName, x, y) => {},
       addActorAtMarker: (actorName, markerName) => {},
       lookAt: (actorName, targetActorName) => {
@@ -111,6 +112,7 @@ class Scene {
         }, ms);
         return true;
       },
+      // preemptible means that a user can cancel it
       waitMSPreemptible: (ms, cb) => {
         const mouseEvents = {
           1: () => {
