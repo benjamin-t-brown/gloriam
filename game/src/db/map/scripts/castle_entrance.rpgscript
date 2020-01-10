@@ -2,13 +2,14 @@
 +setStorageOnce('room', 'CastleEntrance');
 
 #GateGuard
-action,?once:CastleEntrance:GateGuardFirst
+action,?once():CastleEntrance:GateGuardFirst
 action,CastleEntrance:GateGuardDefault
 
 @CastleEntrance-GateGuardFirst
 GateGuard: "Hello there citizen?  What can I do for you today?"
 Rydo: "Hello there good sir!"
-Rydo: "I am Lord Rydo.  I'm certain you've been expecting me."
+Rydo: "I am Lord Rydo."
+Rydo: "I'm certain you've been expecting me."
 GateGuard: "A Guard at Siffsbury Castle must expect many things!"
 GateGuard: "An attack can come at any moment."
 GateGuard: "Like right now!"
@@ -16,20 +17,21 @@ GateGuard: "Like right now!"
 +waitMS(200);
 +setAnimationState(Rydo, hands_up);
 Rydo: "Fear not, my friend!  I do not wish to attack."
-Rydo: "Relinquish your weapon, if  you please."
-+setAnimationState(Rydo, default);
+Rydo: "Relinquish your weapon, if you please."
 +setAnimationState(GateGuard, default);
 GateGuard: "See?  Anything can happen in this castle."
++setAnimationState(Rydo, default);
 Rydo: "That is very sage advice, friend."
 Rydo: "But might I humbly request that you to let me pass?"
 Rydo: "I seek the throne room!"
-Rydo: "I have a very important request for King Siff that I must give in person."
+Rydo: "I have a very important request for the King that I must give in person."
 GateGuard: "The throne room!"
 GateGuard: "That room is closely guarded!"
 GateGuard: "(Might he be an assassin in disguise?)" (aside)
 +setAnimationState(GateGuard, blocking);
 GateGuard: "Who did you say you were again?" (suspicious)
-Rydo: "Why... you are speaking to the illustrious Lord Rydo, from the great lands of Elkhain!"
+Rydo: "Why... you are speaking to the illustrious Lord Rydo..."
+Rydo: "...from the great lands of Elkhain!"
 GateGuard: "AHA!"
 GateGuard: "I knew you were an assassin!"
 GateGuard: "No lands of that name exist!"
@@ -44,7 +46,8 @@ GateGuard: "Your words belay your lies!"
 GateGuard: "The Warlow Road ends at the Angol Mountains!"
 GateGuard: "Everyone knows that!"
 Rydo: "You have me at a loss..."
-Rydo: "The road does continue there.  Elkhain does indeed exist."
+Rydo: "The road does continue there."
+Rydo: "Elkhain does indeed exist."
 Rydo: "I do not know what further to say."
 +setAnimationState(GateGuard, blocking_shake);
 +waitMS(200);

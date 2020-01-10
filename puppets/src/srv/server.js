@@ -3,7 +3,7 @@ const fs = require('fs');
 const bodyParser = require('body-parser');
 
 const PORT = 8888;
-const SOUNDS_DIR = `${__dirname}/../../sounds`;
+const SOUNDS_DIR = `${__dirname}/../../../game/dist/snd`;
 const SPRITESHEETS_DIR = `${__dirname}/../../spritesheets`;
 const CADENCES_DIR = `${__dirname}/../../cadences`;
 
@@ -12,7 +12,11 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(express.static(`${__dirname}/../../public`));
 app.use(express.static(`${__dirname}/../../spritesheets`));
-app.use(express.static(`${__dirname}/../../sounds`));
+app.use(express.static(SOUNDS_DIR));
+
+const isSound = url => {
+  return ['mp3', 'wav', 'ogg'].includes(url.slice(-3));
+};
 
 app.get('/spritesheets', (req, res) => {
   console.log(`[Puppets SRV] GET/spritesheets`, req.body);
@@ -38,11 +42,39 @@ app.get('/sounds', (req, res) => {
     err: null,
   };
 
-  fs.readdir(SOUNDS_DIR, (err, files) => {
+  fs.readdir(SOUNDS_DIR, async (err, files) => {
     if (err) {
       resp.err = err;
     } else {
-      resp.files = files;
+      const folders = [];
+      resp.files = [];
+      console.log('FILES', files);
+      for (let i = 0; i < files.length; i++) {
+        const fName = files[i];
+
+        const url = `${SOUNDS_DIR}/${fName}`;
+        const stat = await fs.promises.lstat(url);
+        if (stat.isFile()) {
+          if (!isSound(fName)) {
+            continue;
+          }
+          resp.files.push(fName);
+        } else {
+          folders.push(fName);
+        }
+      }
+
+      for (let i = 0; i < folders.length; i++) {
+        const folderUrl = SOUNDS_DIR + '/' + folders[i];
+        const files = await fs.promises.readdir(folderUrl);
+        files.forEach(file => {
+          if (err) {
+            resp.err = err;
+          } else {
+            resp.files.push(folders[i] + '/' + file);
+          }
+        });
+      }
     }
     res.send(JSON.stringify(resp));
   });

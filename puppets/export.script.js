@@ -19,8 +19,10 @@ const exportSoundDir = process.env.EXPORT_SOUND_DIR;
 const main = async () => {
   const cmd = `cp -r cadences/*.cadence.json ${exportDir}`;
   await execAsync(cmd);
-  const cmd2 = `cp -r sounds/ ${exportSoundDir}`;
-  await execAsync(cmd2);
+  if (exportSoundDir) {
+    const cmd2 = `cp -r sounds/ ${exportSoundDir}`;
+    await execAsync(cmd2);
+  }
 };
 console.log('exporting to', exportDir);
 main();

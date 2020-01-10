@@ -262,7 +262,7 @@
       <array> 
         <dict>
           <key>begin</key>
-          <string>(\b(isnot|gt|lt|is|all|one|as|eq|once))</string>
+          <string>(\b(isnot|gt|lt|is|all|one|as|once|eq))</string>
           <key>beginCaptures</key>
           <dict>
             <key>1</key>

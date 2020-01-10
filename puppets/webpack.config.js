@@ -35,6 +35,8 @@ module.exports = {
       '/cadence': 'http://localhost:8888',
       '/*.png': 'http://localhost:8888',
       '/*.wav': 'http://localhost:8888',
+      '/*.mp3': 'http://localhost:8888',
+      '/*.ogg': 'http://localhost:8888',
       '/*.json': 'http://localhost:8888',
     },
   },
