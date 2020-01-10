@@ -151,9 +151,11 @@ display.createSprite = function(name, pic, x, y, w, h) {
 };
 
 display.updateAnimation = function(anim, imageName, loop, sprites) {
+  const isCadence = anim.isCadence;
   display.createAnimation(anim.name, imageName, currentAnim => {
     let a = new Animation(loop, display);
     a.name = anim.name;
+    a.isCadence = isCadence;
     sprites.forEach(obj => {
       a.addSprite({
         name: obj.name,
@@ -525,13 +527,21 @@ display.getFormattedTxtForAnimation = function(animation) {
   if (!animation) {
     return '';
   }
-  let txt = `Animation,${animation.name},${animation.loop}\n`;
-  txt += animation.sprites
-    .map(spr => {
-      return `AnimSprite,${spr.name},${spr.durationMs}`;
-    })
-    .join('\n');
-  return txt + '\n';
+  if (animation.isCadence) {
+    let txt = `Cadence,${animation.name},`;
+    txt += animation.sprites.slice(0, 3).map(spr => {
+      return `${spr.name}`;
+    });
+    return txt + '\n';
+  } else {
+    let txt = `Animation,${animation.name},${animation.loop}\n`;
+    txt += animation.sprites
+      .map(spr => {
+        return `AnimSprite,${spr.name},${spr.durationMs}`;
+      })
+      .join('\n');
+    return txt + '\n';
+  }
 };
 
 display.getFormattedTxtForImage = function(imageName) {

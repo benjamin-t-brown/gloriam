@@ -32,6 +32,9 @@ export const colors = {
   lightRed: '#E1534A',
   red: '#A93B3B',
   darkRed: '#5E3643',
+  purple: '#AE57A4',
+  darkPurple: '#564064',
+  darkerPurple: '#39314B',
 };
 
 export const spritesheetModes = {

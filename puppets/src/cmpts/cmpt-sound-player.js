@@ -173,6 +173,7 @@ class SoundPlayerCmpt extends Component {
         </div>
       );
     }
+
     return (
       <div className="audio-player">
         <div className="label no-select">

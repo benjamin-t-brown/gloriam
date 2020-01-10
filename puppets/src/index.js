@@ -11,6 +11,7 @@ import {
   selectSound,
   setSoundCursorPercentage,
   getSoundPlaybackPercentage,
+  setFolder,
 } from './content/sounds';
 import {
   loadImages,
@@ -44,7 +45,7 @@ async function init() {
     } else {
       const sounds = getSoundList();
       if (sounds.length) {
-        soundUrl = sounds[0];
+        soundUrl = sounds[0].url;
         let soundName = urlToSoundName(soundUrl);
         selectSound(soundName, soundUrl);
       }
@@ -65,6 +66,17 @@ async function init() {
       const sprites = getSpriteList();
       if (sprites.length) {
         selectSprite(sprites[0].spriteId);
+      }
+    }
+  }
+
+  if (state.sound.folder === null) {
+    const f = localStore('folder');
+    if (f) {
+      try {
+        setFolder(f);
+      } catch (e) {
+        console.error('Cant set folder from localStore', e);
       }
     }
   }

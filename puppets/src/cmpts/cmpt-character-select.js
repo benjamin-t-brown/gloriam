@@ -57,7 +57,7 @@ class CharacterSelectCmpt extends React.Component {
 
   render() {
     return (
-      <div className="column">
+      <div className="column-right">
         <div className="column-title">Sprites</div>
         <div>{this.renderSpriteList()}</div>
       </div>

@@ -8,6 +8,7 @@ class Animation {
     this.timestampStart = 0;
     this.spriteMap = {};
     this.display = display;
+    this.isCadence = false;
   }
 
   reset() {

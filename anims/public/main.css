@@ -52,6 +52,11 @@ body {
   background-color: #2e3740;
 }
 
+.button-cadence {
+  color: #AE57A4;
+  border: 1px solid #AE57A4;
+}
+
 .button-cancel {
   color: #e1534a;
   border: 1px solid #e1534a;

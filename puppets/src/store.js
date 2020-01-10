@@ -3,6 +3,7 @@ import { createStore } from 'redux';
 const initialState = {
   soundList: [],
   sound: {
+    folder: null,
     soundUrl: '',
     soundName: '',
     soundDuration: 0,

@@ -22,9 +22,22 @@ A Character is an entity in the game which can walk around and speak. A Characte
   - Cadences: don't really matter as long as they are defined
 
 3. Click the save button.
-  - To export them into the game, run `yarn export` in the anims directory
 
-4. Boom!
+- To export them into the game, run `yarn export` in the anims directory
+
+4. Create an entry in the character database.
+
+- Open the file `game/src/db/characters.js`
+- Add an entry at the bottom that looks like this:
+
+```
+  {
+    const c = createTemplate(<characterName>);
+    c.spriteBase = <spritesheetName>;
+  }
+```
+
+5. Boom!
 
 -- Creating a Room ---
 

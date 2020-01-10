@@ -94,6 +94,7 @@ class CadenceMakerCmpt extends Component {
         .then(async response => {
           const json = await response.json();
           if (json.err) {
+            console.error(json.err);
             throw new Error(json.err);
           }
           console.log('[fetch]', 'result', type, url, json);

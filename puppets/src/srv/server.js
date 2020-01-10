@@ -2,10 +2,11 @@ const express = require('express');
 const fs = require('fs');
 const bodyParser = require('body-parser');
 
-const PORT = 8888;
+const PORT = 8889;
 const SOUNDS_DIR = `${__dirname}/../../../game/dist/snd`;
 const SPRITESHEETS_DIR = `${__dirname}/../../spritesheets`;
-const CADENCES_DIR = `${__dirname}/../../cadences`;
+//const CADENCES_DIR = `${__dirname}/../../cadences`;
+const CADENCES_DIR = `${__dirname}/../../../game/src/db/cadences`;
 
 const app = express();
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -13,6 +14,8 @@ app.use(bodyParser.json());
 app.use(express.static(`${__dirname}/../../public`));
 app.use(express.static(`${__dirname}/../../spritesheets`));
 app.use(express.static(SOUNDS_DIR));
+
+console.log('Serving sounds from:', SOUNDS_DIR);
 
 const isSound = url => {
   return ['mp3', 'wav', 'ogg'].includes(url.slice(-3));
@@ -48,7 +51,6 @@ app.get('/sounds', (req, res) => {
     } else {
       const folders = [];
       resp.files = [];
-      console.log('FILES', files);
       for (let i = 0; i < files.length; i++) {
         const fName = files[i];
 
@@ -87,17 +89,38 @@ app.get('/cadences', (req, res) => {
     err: null,
   };
 
-  fs.readdir(CADENCES_DIR, (err, files) => {
+  fs.readdir(CADENCES_DIR, async (err, files) => {
     if (err) {
       resp.err = err;
     } else {
-      files.forEach(fileName => {
-        if (fileName === 'DO_NOT_DELETE') {
-          return;
+      const folders = [];
+      for (let i = 0; i < files.length; i++) {
+        const fName = files[i];
+        const stat = await fs.promises.lstat(`${CADENCES_DIR}/${fName}`);
+        if (stat.isFile()) {
+          if (fName.slice(-5) === '.json') {
+            const data = fs.readFileSync(`${CADENCES_DIR}/${fName}`);
+            resp.cadences.push(JSON.parse(data.toString()));
+          }
+        } else {
+          folders.push(fName);
         }
-        const data = fs.readFileSync(`${CADENCES_DIR}/${fileName}`);
-        resp.cadences.push(JSON.parse(data.toString()));
-      });
+      }
+      for (let i = 0; i < folders.length; i++) {
+        const folderUrl = CADENCES_DIR + '/' + folders[i];
+        const files = await fs.promises.readdir(folderUrl);
+        files.forEach(file => {
+          //eslint-disable-line
+          if (err) {
+            resp.err = err;
+          } else {
+            const data = fs.readFileSync(
+              `${CADENCES_DIR}/${folders[i]}/${file}`
+            );
+            resp.cadences.push(JSON.parse(data.toString()));
+          }
+        });
+      }
     }
     res.send(JSON.stringify(resp));
   });
@@ -120,6 +143,14 @@ app.post('/cadence', (req, res) => {
   }
 
   if (valid) {
+    const arr = req.body.name.split('/');
+    if (arr.length > 1) {
+      const dir = CADENCES_DIR + '/' + arr.slice(0, -1).join('/');
+      if (!fs.existsSync(dir)) {
+        fs.mkdirSync(dir);
+      }
+    }
+
     fs.writeFile(
       `${CADENCES_DIR}/${req.body.name}.cadence.json`,
       JSON.stringify(req.body.cadence, null, 2),

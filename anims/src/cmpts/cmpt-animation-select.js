@@ -217,7 +217,13 @@ const AnimationItem = ({
         justifyContent: 'space-between',
         alignItems: 'center',
         margin: '5px',
-        backgroundColor: isSelected ? colors.darkGreen : null,
+        backgroundColor: isSelected
+          ? anim.isCadence
+            ? colors.darkPurple
+            : colors.darkGreen
+          : anim.isCadence
+          ? colors.darkerPurple
+          : null,
         borderColor: isSelected ? colors.green : null,
       }}
     >
@@ -258,6 +264,24 @@ const AnimationItem = ({
             Rename
           </Button>
         </div>
+        <Button
+          style={{
+            margin: '2px',
+            fontSize: '10px',
+            padding: '2px',
+            width: '80px',
+            position: 'relative',
+            left: -5,
+          }}
+          type={anim.isCadence ? 'secondary' : 'cadence'}
+          onClick={() => {
+            anim.isCadence = !anim.isCadence;
+            display.updateAnimation(anim, null, anim.loop, anim.sprites);
+            appInterface.setAnimation(display.getAnimation(anim.name));
+          }}
+        >
+          {anim.isCadence ? 'To Anim' : 'To Cadence'}
+        </Button>
       </div>
       <canvas
         style={{ margin: '5px' }}
@@ -302,8 +326,6 @@ const AnimationSelect = ({ appInterface }) => {
           <Button type="primary" onClick={() => setCreateAnimDialogOpen(true)}>
             + Anim
           </Button>
-          <Button type="primary">+ Prop</Button>
-          <Button type="primary">+ Cadence</Button>
         </div>
       ) : null}
       <div

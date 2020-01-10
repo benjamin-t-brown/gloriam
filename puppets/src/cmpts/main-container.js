@@ -45,7 +45,7 @@ export default () => {
               height: dims[1] + 'px',
             }}
           >
-            <SoundSelect />
+            <SoundSelect sound={sound} />
             <div className="middle-container">
               <AnimationArea sound={sound} />
               <SoundPlayer sound={sound} />

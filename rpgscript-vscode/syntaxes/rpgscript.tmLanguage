@@ -40,7 +40,7 @@
         </dict>
         <dict>
           <key>match</key>
-          <string>((^(\w)+:)|(^(\s)+(\w)+:))</string>
+          <string>((^(\w|\s)+:)|(^(\s)+(\w)+:))</string>
           <key>name</key>
           <string>storage.type.function.rpgscript</string>
         </dict>

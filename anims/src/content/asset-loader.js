@@ -14,6 +14,25 @@ class AssetLoader {
     const sprite_cbs = [];
     const display = this.display;
 
+    const _Cadence = async function(line) {
+      let [_, cadenceName, spr1, spr2, spr3] = line;
+      currentAnim.name = cadenceName;
+      currentAnim.loop = true;
+      currentAnim.isCadence = true;
+      currentAnim.sprites.push({
+        name: spr1,
+        duration: 100,
+      });
+      currentAnim.sprites.push({
+        name: spr2,
+        duration: 100,
+      });
+      currentAnim.sprites.push({
+        name: spr3,
+        duration: 100,
+      });
+    };
+
     const _Picture = async function(line) {
       let [_, pictureName, __, spriteWidth, spriteHeight] = line;
       if (pictureName === 'invisible') {
@@ -76,6 +95,7 @@ class AssetLoader {
         function(currentAnim) {
           let a = new Animation(currentAnim.loop, display);
           a.name = currentAnim.name;
+          a.isCadence = currentAnim.isCadence;
           currentAnim.sprites.forEach(obj => {
             a.addSprite({
               name: obj.name,
@@ -128,6 +148,13 @@ class AssetLoader {
         };
         _Animation(line, currentAnim);
         continue;
+      } else if (type === 'Cadence') {
+        currentAnim = {
+          name: '',
+          loop: true,
+          sprites: [],
+        };
+        _Cadence(line);
       }
     }
 

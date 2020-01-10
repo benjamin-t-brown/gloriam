@@ -30,7 +30,16 @@ function createSound(soundUrl, audio) {
   return sound;
 }
 
+export function setFolder(folderName) {
+  assignState('sound', null, { folder: folderName });
+  localStore('folder', folderName || '');
+}
+
 export function hasSound(soundName) {
+  const ext = soundName.slice(-4);
+  if (ext === '.mp3' || ext === '.wav' || ext === '.ogg') {
+    soundName = soundName.slice(0, -4);
+  }
   const sound = getStatic(`sounds.${soundName}`);
   if (sound) {
     return !sound.loading;
@@ -176,20 +185,25 @@ export async function loadSounds() {
   assignStatic(
     'soundList',
     data.files
-      .map(fileName => {
-        let [name, num] = fileName.split('-');
+      .map(url => {
+        const fileType = url.slice(-4);
+        const fileName = url.slice(0, -4);
+        const arr = fileName.split('-');
+        let name = arr.slice(0, -1).join('-');
+        let num = arr[arr.length - 1];
         let noNumber = true;
         let ext;
-        if (num === undefined) {
+        if (isNaN(parseInt(num))) {
           num = 0;
-          ext = name.slice(-4);
+          ext = fileType;
           name = name.slice(0, -4);
         } else {
-          ext = num.slice(-4);
-          num = Number(num.slice(0, -4));
+          ext = fileType;
+          num = Number(num);
           noNumber = false;
         }
         const ret = {
+          url,
           name,
           num,
           ext,
@@ -198,14 +212,31 @@ export async function loadSounds() {
         return ret;
       })
       .sort((a, b) => {
-        if (a.num === b.num) {
-          return a.name < b.name ? -1 : 1;
+        if (a.name === b.name) {
+          if (a.num === b.num) {
+            return a.name < b.name ? -1 : 1;
+          } else {
+            return a.num < b.num ? -1 : 1;
+          }
         } else {
-          return a.num < b.num ? -1 : 1;
+          return a.name < b.name ? -1 : 1;
         }
       })
-      .map(({ name, num, ext, noNumber }) => {
-        return noNumber ? name + ext : name + '-' + num + ext;
+      .map(({ name, num, ext, noNumber, url }) => {
+        const arr = url.split('/');
+        if (arr.length > 1) {
+          return {
+            url,
+            folder: arr[0],
+            fileName: arr[1],
+          };
+        } else {
+          return {
+            url,
+            folder: null,
+            fileName: arr[0],
+          };
+        }
       })
   );
 }

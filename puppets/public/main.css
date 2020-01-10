@@ -74,10 +74,11 @@ input {
 }
 
 .label {
-  font-size: 24px;
+  font-size: 16px;
   color: #3fc778;
   padding: 5px;
   text-align: left;
+  white-space: nowrap;
 }
 
 .middle-container {
@@ -88,7 +89,14 @@ input {
 }
 
 .column {
-  width: 256px;
+  width: 500px;
+  background-color: #111;
+  overflow-y: auto;
+  overflow-x: hidden;
+  border: 2px solid #f8f8f8;
+}
+.column-right {
+  width: 200px;
   background-color: #111;
   overflow-y: auto;
   overflow-x: hidden;
@@ -116,6 +124,9 @@ input {
 }
 .column-item:hover {
   border: 1px solid #f8f8f8;
+}
+.column-item-folder {
+  color: #92f4ff;
 }
 .column-item-uninitialized {
   color: #e1534a;
@@ -231,6 +242,8 @@ input {
 }
 
 .cadence-flash {
+  width: 600px;
+  height: 600px;
   background-color: rgba(255, 255, 255, 0);
   animation-name: flash;
   animation-duration: 0.5s;
