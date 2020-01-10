@@ -1,0 +1,3 @@
+Picture,readyroom-bg,readyroom-bg.png
+Picture,readyroom-fg,readyroom-fg.png
+Picture,rvb-bg,rvb-bg.png

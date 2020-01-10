@@ -1,3 +1,3 @@
 @setup
 +setStorageOnce('battleNumber', 0);
-+setStorageOnce('room', 'readyroom');
++setStorageOnce('room', 'rvb');

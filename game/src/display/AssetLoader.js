@@ -26,7 +26,6 @@ class AssetLoader {
       const img = await display.loadPicture(pictureName, 'img/' + url);
       if (spriteWidth && spriteHeight) {
         const n = (img.width / spriteWidth) * (img.height / spriteHeight);
-        console.log('PICTURE', pictureName, n);
         _SpriteList([_, pictureName, n, spriteWidth, spriteHeight], pictureName, 0);
       }
       return img;
@@ -80,6 +79,11 @@ class AssetLoader {
         name: spriteName,
         duration: ms,
       });
+    };
+
+    const _Cadence = function(line) {
+      const [name, sprite] = line.slice(1);
+      display.addCadenceSprite(name, sprite);
     };
 
     const res = (display.resources = text.split('\n'));
@@ -141,6 +145,8 @@ class AssetLoader {
         };
         _Animation(line, currentAnim);
         continue;
+      } else if (type === 'Cadence') {
+        _Cadence(line);
       }
     }
 

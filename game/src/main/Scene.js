@@ -39,12 +39,19 @@ class Scene {
         console.log('CONTROLLER');
         console.log('PLAY DIALOG', actorName, subtitle, soundName);
         const actor = this.gameInterface.getActor(actorName);
+        let ms = null;
         if (this.voiceEnabled) {
+          const soundObject = display.getSound(soundName);
+          if (soundObject) {
+            ms = soundObject.soundDuration * 1000;
+          } else {
+            ms = normalizeClamp(subtitle.length, 5, 40, 750, 3000);
+          }
           actor.sayDialogue(subtitle, soundName);
         } else {
+          ms = normalizeClamp(subtitle.length, 5, 40, 750, 3000);
           actor.sayDialogue(subtitle);
         }
-        const ms = normalizeClamp(subtitle.length, 5, 40, 750, 3000);
         input.setUIInputDisabled(true);
         return commands.waitMSPreemptible(ms, () => {
           actor.stopDialogue();
@@ -62,7 +69,6 @@ class Scene {
         }
       },
       walkTowards: (x, y, time) => {},
-      walkToMarker: (actorName, markerName) => {},
       addActor: (actorName, x, y) => {},
       addActorAtMarker: (actorName, markerName) => {},
       lookAt: (actorName, targetActorName) => {
@@ -112,7 +118,6 @@ class Scene {
         }, ms);
         return true;
       },
-      // preemptible means that a user can cancel it
       waitMSPreemptible: (ms, cb) => {
         const mouseEvents = {
           1: () => {

@@ -19,6 +19,14 @@ const MAP_CONTROLLED = ['rooms', 'triggers', 'scripts'];
 
 export const db = _db;
 
+export function addElem(type, key, data) {
+  if (_db[type]) {
+    _db[type][key] = data;
+  } else {
+    console.error('[DB] Cannot add elem to db', type, key, data);
+  }
+}
+
 export function getElem(type, key) {
   let e = null;
   if (MAP_CONTROLLED.includes(type)) {

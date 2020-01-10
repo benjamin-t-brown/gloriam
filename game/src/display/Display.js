@@ -16,6 +16,7 @@ const display = {
   animations: {},
   objects: {},
   screens: {},
+  cadenceSprites: {},
   frame: 0,
   width: 256,
   height: 256,
@@ -155,7 +156,7 @@ display.getSound = function(name) {
   const s = {
     ...soundObj,
     //soundDuration merged in from soundObj
-    audio: soundObj.cloneNode(),
+    audio: soundObj.audio.cloneNode(),
     soundName: name,
     duration: 0,
     isPlaying: false,
@@ -181,6 +182,14 @@ display.stopSound = function(soundObj) {
   sound.pause();
   sound.currentTime = 0;
   soundObj.isPlaying = false;
+};
+
+display.addCadenceSprite = function(name, spriteName) {
+  display.cadenceSprites[name] = spriteName;
+};
+
+display.getCadenceSprite = function(name) {
+  return display.cadenceSprites[name];
 };
 
 display.createSprite = function(name, pic, x, y, w, h) {
@@ -529,7 +538,7 @@ display.drawTextWrapped = function(text, x, y, maxWidth, params) {
   }
 
   if (backgroundColor) {
-    const w = obj.width + backgroundPadding * 2;
+    const w = obj.width + backgroundPadding * 4;
     const h = height;
     display.drawRect(
       x - backgroundPadding - w / 2,

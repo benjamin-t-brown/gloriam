@@ -12,6 +12,7 @@ class RoomActor extends Actor {
     this.camera = camera;
 
     this.shouldUseHeading = !!heading;
+    this.shouldAnimUseHeading = !!heading;
     this.heading = HEADINGS.DOWN;
     this.name = name;
     this.width = width || room.baseSize;

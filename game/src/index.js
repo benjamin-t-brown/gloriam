@@ -2,9 +2,10 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import App from 'cmpts/App';
 import display from 'display/Display';
-import { elemExists } from 'db';
+import { elemExists, addElem } from 'db';
 import scene from 'main/Scene';
-import { load } from 'db/map';
+import { loadMapElements } from 'db/map';
+import { loadCadences } from 'db/cadences';
 
 const loadSave = async () => {
   await scene.callScript('setup');
@@ -12,7 +13,8 @@ const loadSave = async () => {
 
 async function main() {
   await display.init();
-  await load({ elemExists }, scene);
+  await loadMapElements({ elemExists }, scene);
+  await loadCadences({ addElem });
   await loadSave();
   ReactDOM.render(<App />, document.getElementById('root'));
 }

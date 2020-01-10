@@ -7,6 +7,8 @@ import tilesets from './tilesets.json';
 const scriptFiles = {};
 const mapFiles = {};
 
+const SOUND_EXTENSION = '.wav';
+
 async function requireAll(r, obj) {
   r.keys().forEach(async key => (obj[key] = r(key)));
 }
@@ -17,7 +19,7 @@ let rooms = {};
 let triggers = {};
 let scripts = {};
 
-export async function load(db, scene) {
+export async function loadMapElements(db, scene) {
   let soundsToLoad = [];
   for (let scriptFileName in scriptFiles) {
     const text = scriptFiles[scriptFileName].default;
@@ -39,11 +41,11 @@ export async function load(db, scene) {
     for (let i = 0; i < soundsToLoad.length; i++) {
       const soundName = soundsToLoad[i];
       try {
-        await display.loadSound(soundName, 'snd/' + soundName);
+        await display.loadSound(soundName, 'snd/' + soundName + SOUND_EXTENSION);
       } catch (e) {
         // uncomment out when you want to check which dialogue sounds are missing.
         // console.log('Failed to load sound', soundName);
-        continue;
+        // continue;
       }
     }
   }

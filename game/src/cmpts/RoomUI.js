@@ -18,6 +18,10 @@ class RoomUI extends React.Component {
         //   display.pause();
         // }
       },
+      r: ev => {
+        ev.preventDefault();
+        window.scene.callScript('rvb');
+      },
     };
 
     this.calculateAndSetScale();

@@ -77,8 +77,18 @@ function createTemplate(name, battleOnly) {
 }
 
 {
-  const c = createTemplate('Gate Guard');
+  const c = createTemplate('Young Guard');
   c.spriteBase = 'youngguard';
+}
+
+{
+  const c = createTemplate('Grif');
+  c.spriteBase = 'grif';
+}
+
+{
+  const c = createTemplate('Simmons');
+  c.spriteBase = 'simmons';
 }
 
 export default characters;

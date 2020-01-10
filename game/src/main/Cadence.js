@@ -1,12 +1,13 @@
 export default class Cadence {
-  constructor(sound) {
-    this.sound = sound;
+  constructor(json) {
     this.openPoints = [];
 
     this.middleFrameMinimumMS = 50;
     this.middleFrameMaximumMS = 60;
     this.maxFrameMinimumMS = 40;
     this.maxFrameMaximumMS = 90;
+
+    this.fromJson(json);
   }
 
   fromJson(json) {

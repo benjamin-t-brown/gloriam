@@ -111,9 +111,10 @@ class Actor {
     if (this.shouldAnimUseHeading) {
       cadenceBase += '_' + this.heading;
     }
-    const desiredSprite = this.cadenceSprites[cadenceBase];
+    const desiredSprite = display.getCadenceSprite(cadenceBase);
     if (desiredSprite) {
-      const i = desiredSprite.lastIndexOf('-') + 1;
+      console.log('DESIRED', desiredSprite, cadenceBase);
+      const i = desiredSprite.lastIndexOf('_') + 1;
       let name = desiredSprite.slice(0, i);
       let num = Number(desiredSprite.slice(i));
       return [desiredSprite, name + (num + 1), name + (num + 2)];
@@ -169,8 +170,8 @@ class Actor {
   sayDialogue(text, soundName) {
     this.subtitleText = text;
     if (soundName) {
-      if (elemExists('cadence', soundName)) {
-        this.cadence = getElem('cadence', soundName);
+      if (elemExists('cadences', soundName)) {
+        this.cadence = getElem('cadences', soundName);
       } else {
         console.warn('Dialogue sound without cadence:', soundName);
       }
@@ -208,8 +209,11 @@ class Actor {
       const { audio } = this.subtitleSound;
       const cadence = this.cadence;
       const i = cadence.getAnimIndex(audio.currentTime);
-      // const
-      // display.drawSprite();
+      const sprites = this.getCadenceSprites();
+      display.drawSprite(sprites[i], this.renderX, this.renderY, {
+        centered: true,
+        scale: this.scale,
+      });
     } else if (this.spriteBase) {
       display.drawAnimation(this.getCurrentAnimation(), this.renderX, this.renderY, {
         centered: true,

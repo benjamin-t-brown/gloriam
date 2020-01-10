@@ -1,11 +1,21 @@
-const requireDir = require('require-dir');
+import Cadence from 'main/Cadence';
+
 const cadenceFiles = {};
 
-requireDir('./', { recurse: true, extensions: ['.js', '.json'] })
+async function requireAll(r, obj) {
+  r.keys().forEach(async key => (obj[key] = r(key)));
+}
+requireAll(require.context('.', true, /\.cadence\.json$/), cadenceFiles);
 
-// async function requireAll(r, obj) {
-//   r.keys().forEach(async key => (obj[key] = r(key)));
-// }
-// requireAll(require.context('.', true, /\.cadence\.json$/), cadenceFiles);
+export async function loadCadences(db) {
+  const ext = '.cadence.json';
 
-export async function load(db) {}
+  for (let fileName in cadenceFiles) {
+    const cadence = cadenceFiles[fileName];
+    const cadenceName = fileName.slice(2, -ext.length);
+    db.addElem('cadences', cadenceName, new Cadence(cadence));
+  }
+}
+
+// this is here just so the above require includes all the cadence files
+export default {};

@@ -185,7 +185,11 @@ class Room {
   }
 
   getActiveActor() {
-    return this.getActor('Rydo');
+    let ret = this.getActor('Rydo');
+    if (!ret) {
+      ret = this.actors[0];
+    }
+    return ret;
   }
 
   addRenderable(id, render) {

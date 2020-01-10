@@ -109,8 +109,12 @@ class RoomParser {
     const { image: bgImagePath } = this.getLayer(layers, 'bg');
     const { image: fgImagePath } = this.getLayer(layers, 'fg');
 
-    roomTemplate.bgImage = bgImagePath.split('/')[1].slice(0, -4);
-    roomTemplate.fgImage = fgImagePath.split('/')[1].slice(0, -4);
+    roomTemplate.bgImage = bgImagePath
+      ? bgImagePath.split('/')[1].slice(0, -4)
+      : 'invisible';
+    roomTemplate.fgImage = fgImagePath
+      ? fgImagePath.split('/')[1].slice(0, -4)
+      : 'invisible';
 
     roomTemplate.width = json.width;
     roomTemplate.height = json.height;

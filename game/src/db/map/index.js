@@ -1,1 +1,1 @@
-export { get, exists, load } from './map.js';
+export { get, exists, loadMapElements } from './map.js';
