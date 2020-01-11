@@ -19,4 +19,5 @@ async function main() {
   ReactDOM.render(<App />, document.getElementById('root'));
 }
 
+console.log('MAIN BRO?');
 main();

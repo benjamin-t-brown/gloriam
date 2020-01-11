@@ -238,7 +238,7 @@ export class ScriptParser {
 
   parseConditional(conditionalSrc, lineNum, script) {
     const { type, args } = this.parseCommand(conditionalSrc, lineNum, script);
-    const validTypes = ['is', 'isnot', 'gt', 'lt', 'eq', 'any', 'all', 'as'];
+    const validTypes = ['is', 'isnot', 'gt', 'lt', 'eq', 'any', 'all', 'as', 'once'];
     if (!validTypes.includes(type)) {
       this.throwParsingError(
         `Invalid conditional, no type named "${type}"`,

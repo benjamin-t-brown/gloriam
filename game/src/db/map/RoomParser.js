@@ -16,16 +16,18 @@ class RoomParser {
     console.warn('[RoomParser]', `roomName="${this.name}"`, msg);
   }
 
-  getLayer(layers, layerName) {
+  getLayer(layers, layerName, ignoreIfNotFound) {
     for (let i in layers) {
       const layer = layers[i];
       if (layer.name === layerName) {
         return layer;
       }
     }
-    this.throwParsingError(
-      'Malformed tiled JSON, no layer found named "' + layerName + '".'
-    );
+    if (!ignoreIfNotFound) {
+      this.throwParsingError(
+        'Malformed tiled JSON, no layer found named "' + layerName + '".'
+      );
+    }
     return null;
   }
 
@@ -66,11 +68,12 @@ class RoomParser {
       );
     }
 
-    const ind = gid - tilesetFirstGid;
+    const ind = (gid - tilesetFirstGid) % this.tilesets[tilesetName].length;
 
     if (!this.tilesets[tilesetName][ind]) {
+      console.error(this.tilesets[tilesetName]);
       throw new Error(
-        `Invalid tileset specified for gid="${gid}" tileset="${tilesetName}"`
+        `Invalid tileset specified for gid="${gid}" ind=${ind} tileset="${tilesetName}"`
       );
     }
 
@@ -107,7 +110,11 @@ class RoomParser {
     const triggersLayer = this.getLayer(layers, 'triggers');
     const charactersLayer = this.getLayer(layers, 'characters');
     const { image: bgImagePath } = this.getLayer(layers, 'bg');
-    const { image: fgImagePath } = this.getLayer(layers, 'fg');
+    const fgLayer = this.getLayer(layers, 'fg', true);
+    let fgImagePath = '';
+    if (fgLayer) {
+      fgImagePath = fgLayer.image;
+    }
 
     roomTemplate.bgImage = bgImagePath
       ? bgImagePath.split('/')[1].slice(0, -4)

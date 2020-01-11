@@ -1,4 +1,7 @@
 import Cadence from 'main/Cadence';
+// const requireDir = require('require-dir');
+
+// requireDir('./', { recurse: true, extensions: ['.js', '.json'] });
 
 const cadenceFiles = {};
 

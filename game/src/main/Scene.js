@@ -99,7 +99,10 @@ class Scene {
       setFacingTowards: (actorName, otherActorName) => {},
       setAnimation: (actorName, animationName) => {},
       setAnimationAndWait: (actorName, animationName) => {},
+      setAnimationState: function() {},
+      walkToMarker: function() {},
       openMenu: () => {},
+      walkWait: function() {},
       waitSeconds: (seconds, cb) => {
         this.isWaitingForTime = true;
         display.clearTimeout(this.waitTimeoutId);
