@@ -114,13 +114,13 @@ input {
 }
 
 .column-item {
-  font-size: 16px;
+  font-size: 12px;
   color: #3fc778;
   border: 1px solid #111;
   text-align: left;
   background-color: #2e3740;
   cursor: pointer;
-  padding: 3px;
+  padding: 5px;
 }
 .column-item:hover {
   border: 1px solid #f8f8f8;
