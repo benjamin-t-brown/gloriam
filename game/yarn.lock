@@ -1271,6 +1271,11 @@ batch@0.6.1:
   resolved "https://registry.yarnpkg.com/batch/-/batch-0.6.1.tgz#dc34314f4e679318093fc760272525f94bf25c16"
   integrity sha1-3DQxT05nkxgJP8dgJyUl+UvyXBY=
 
+before-build-webpack@^0.2.9:
+  version "0.2.9"
+  resolved "https://registry.yarnpkg.com/before-build-webpack/-/before-build-webpack-0.2.9.tgz#5929bfdeee5b1b609e2890839313cc41f5a8e026"
+  integrity sha512-zhRNAqPATAx0ojj/0LaKyQRjU/6tTMw5JEu2XGYKCzg94istvI1Mk7nOMH2+8cDXLPCgEugBVjGa/YEG0kvHcA==
+
 bfj@^6.1.1:
   version "6.1.2"
   resolved "https://registry.yarnpkg.com/bfj/-/bfj-6.1.2.tgz#325c861a822bcb358a41c78a33b8e6e2086dde7f"
@@ -4508,6 +4513,11 @@ posix-character-classes@^0.1.0:
   version "0.1.1"
   resolved "https://registry.yarnpkg.com/posix-character-classes/-/posix-character-classes-0.1.1.tgz#01eac0fe3b5af71a2a6c02feabb8c1fef7e00eab"
   integrity sha1-AerA/jta9xoqbAL+q7jB/vfgDqs=
+
+pre-build-webpack@^0.1.0:
+  version "0.1.0"
+  resolved "https://registry.yarnpkg.com/pre-build-webpack/-/pre-build-webpack-0.1.0.tgz#bac132ac34ef9ffd966f36edc30a1e4d4526c1a8"
+  integrity sha1-usEyrDTvn/2WbzbtwwoeTUUmwag=
 
 preact@^10.0.5:
   version "10.2.0"

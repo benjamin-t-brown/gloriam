@@ -2,11 +2,12 @@ import React from 'react';
 import ContainerDisplay from 'cmpts/ContainerDisplay';
 import BattleUI from 'cmpts/BattleUI';
 import RoomUI from 'cmpts/RoomUI';
-import Room from 'Room/room';
+import Room from 'room/Room';
 import scene from 'main/Scene';
 import { getElem } from 'db';
 
-const INITIAL_ROOM = 'readyroom';
+const INITIAL_ROOM = 'castle_entrance';
+console.log('ENV', process.env);
 
 const App = class extends React.Component {
   constructor(props) {

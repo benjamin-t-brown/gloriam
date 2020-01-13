@@ -3,3 +3,5 @@ Picture,cell-bars,cell-bars.png
 Picture,desk,desk.png
 Picture,shield,shield.png
 Picture,weapon-rack,weapon-rack.png
+Picture,banner1,banner1.png
+Picture,cart,cart.png

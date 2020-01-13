@@ -1,13 +1,13 @@
 import ScriptParser from './ScriptParser';
 import RoomParser from './RoomParser';
 import display from 'display/Display';
-
+import { fetchAsync } from 'utils';
 import tilesets from './tilesets.json';
 
 const scriptFiles = {};
 const mapFiles = {};
 
-const SOUND_EXTENSION = '.wav';
+const SOUND_EXTENSION = '.mp3';
 
 async function requireAll(r, obj) {
   r.keys().forEach(async key => (obj[key] = r(key)));
@@ -37,20 +37,31 @@ export async function loadMapElements(db, scene) {
     rooms = { ...rooms, ...localRooms };
   }
 
+  const soundLoadErrors = [];
   if (scene.voiceEnabled) {
+    const sounds = JSON.parse(await fetchAsync('sounds.json'));
+
     for (let i = 0; i < soundsToLoad.length; i++) {
-      const soundName = soundsToLoad[i];
-      try {
+      const { soundNameCh: soundName } = soundsToLoad[i];
+      const soundUrl = soundName + SOUND_EXTENSION;
+      if (sounds[soundUrl]) {
         await display.loadSound(soundName, 'snd/' + soundName + SOUND_EXTENSION);
-      } catch (e) {
-        // uncomment out when you want to check which dialogue sounds are missing.
-        // console.log('Failed to load sound', soundName);
-        // continue;
+      } else {
+        soundLoadErrors.push(soundUrl);
       }
     }
   }
 
-  console.log(rooms, triggers, scripts, soundsToLoad);
+  console.log(
+    'ROOMS:',
+    rooms,
+    '\nTRIGGERS:',
+    triggers,
+    '\nSCRIPTS:',
+    scripts,
+    '\nSOUND_LOAD_ERRORS:',
+    soundLoadErrors
+  );
 }
 
 export function get(type, key) {

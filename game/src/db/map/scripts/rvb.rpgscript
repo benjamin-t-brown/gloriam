@@ -1,66 +1,66 @@
-@rvb
-+lookAt('Grif', 'Simmons');
-Simmons: "Hey."
-+lookAt('Simmons', 'Grif');
-Grif: "Yeah?"
-Simmons: "You ever wonder why we're here?"
-Grif: "It's one of life's great mysteries, isn't it."
-Grif: "Why are we here?  I mean, are we the product of..."
-+lookDirection('Grif', 'd');
-Grif: "...some cosmic coincidence or,"
-Grif: "is there really a God... watching everything,"
-Grif: "you know, with a plan for us and stuff?"
-Grif: "I don't know man,"
-Grif: "but it keeps me up at night."
-Simmons: "..."
-Grif: "..."
-Simmons:"What?"
-Simmons: "I meant why are we out here, in this canyon?"
-+lookAt('Grif', 'Simmons');
-Grif: "Oh, uh... yeah."
-Simmons: "What was all that stuff about God?"
-+lookDirection('Grif', 'd');
-Grif: "Uh... hm? Nothing."
-Simmons: "You wanna talk about it?"
-Grif: "No"
-Simmons: "You sure?"
-+lookAt('Grif', 'Simmons');
-Grif: "Yeah."
-+lookDirection('Simmons', 'd');
-Simmons: "Seriously though, why are we out here?"
-+lookDirection('Simmons', 'r');
-Simmons: "Far as I can tell, it's just a box canyon in the middle of nowhere,"
-+lookDirection('Simmons', 'u');
-Simmons: "with no way in or out."
-Grif: "Mhm."
-+lookDirection('Simmons', 'd');
-Simmons: "And the only reason that we set up a red base here,"
-+lookDirection('Simmons', 'u');
-Simmons: "is because they have a blue base over there."
-+lookDirection('Grif', 'u');
-Simmons: "And the only reason they have a blue base over there,"
-+lookDirection('Simmons', 'd');
-Simmons: "is because we have a red base here."
-+lookAt('Grif', 'Simmons');
-Grif: "Yeah, that's because we're fighting each other."
-+lookAt('Simmons', 'Grif');
-Simmons: "No no, but I mean, even if we were to pull out today,"
-Simmons: "and they were to come take our base,"
-+lookDirection('Simmons', 'd');
-Simmons: "they would have two bases in the middle of a box canyon."
-+lookAt('Simmons', 'Grif');
-Simmons: "Whoop de fucking do!"
-Grif: "What's up with that anyway?"
-Grif: "I mean, I signed on to fight some aliens."
-+lookDirection('Grif', 'd');
-Grif: "Next thing I know Master Chief blows up the whole Covenant armada,"
-Grif: "and I'm stuck in the middle of nowhere, fighting a bunch of blue guys."
-+lookAt('Grif', 'Simmons');
-Grif: "Talk about a waste of resources."
-Grif: "I mean, we should be out there finding new and intelligent forms of life.":
-Grif: "You know."
-+lookDirection('Grif', 'd');
-Grif: "fight them."
-Simmons:	"Yeah, no shit."
-+lookAtEachOther('Grif', 'Simmons');
-Simmons: "That's why they should put us in charge.
+// @rvb
+// +lookAt('Grif', 'Simmons');
+// Simmons: "Hey."
+// +lookAt('Simmons', 'Grif');
+// Grif: "Yeah?"
+// Simmons: "You ever wonder why we're here?"
+// Grif: "It's one of life's great mysteries, isn't it."
+// Grif: "Why are we here?  I mean, are we the product of..."
+// +lookDirection('Grif', 'd');
+// Grif: "...some cosmic coincidence or,"
+// Grif: "is there really a God... watching everything,"
+// Grif: "you know, with a plan for us and stuff?"
+// Grif: "I don't know man,"
+// Grif: "but it keeps me up at night."
+// Simmons: "..."
+// Grif: "..."
+// Simmons:"What?"
+// Simmons: "I meant why are we out here, in this canyon?"
+// +lookAt('Grif', 'Simmons');
+// Grif: "Oh, uh... yeah."
+// Simmons: "What was all that stuff about God?"
+// +lookDirection('Grif', 'd');
+// Grif: "Uh... hm? Nothing."
+// Simmons: "You wanna talk about it?"
+// Grif: "No"
+// Simmons: "You sure?"
+// +lookAt('Grif', 'Simmons');
+// Grif: "Yeah."
+// +lookDirection('Simmons', 'd');
+// Simmons: "Seriously though, why are we out here?"
+// +lookDirection('Simmons', 'r');
+// Simmons: "Far as I can tell, it's just a box canyon in the middle of nowhere,"
+// +lookDirection('Simmons', 'u');
+// Simmons: "with no way in or out."
+// Grif: "Mhm."
+// +lookDirection('Simmons', 'd');
+// Simmons: "And the only reason that we set up a red base here,"
+// +lookDirection('Simmons', 'u');
+// Simmons: "is because they have a blue base over there."
+// +lookDirection('Grif', 'u');
+// Simmons: "And the only reason they have a blue base over there,"
+// +lookDirection('Simmons', 'd');
+// Simmons: "is because we have a red base here."
+// +lookAt('Grif', 'Simmons');
+// Grif: "Yeah, that's because we're fighting each other."
+// +lookAt('Simmons', 'Grif');
+// Simmons: "No no, but I mean, even if we were to pull out today,"
+// Simmons: "and they were to come take our base,"
+// +lookDirection('Simmons', 'd');
+// Simmons: "they would have two bases in the middle of a box canyon."
+// +lookAt('Simmons', 'Grif');
+// Simmons: "Whoop de fucking do!"
+// Grif: "What's up with that anyway?"
+// Grif: "I mean, I signed on to fight some aliens."
+// +lookDirection('Grif', 'd');
+// Grif: "Next thing I know Master Chief blows up the whole Covenant armada,"
+// Grif: "and I'm stuck in the middle of nowhere, fighting a bunch of blue guys."
+// +lookAt('Grif', 'Simmons');
+// Grif: "Talk about a waste of resources."
+// Grif: "I mean, we should be out there finding new and intelligent forms of life.":
+// Grif: "You know."
+// +lookDirection('Grif', 'd');
+// Grif: "fight them."
+// Simmons:	"Yeah, no shit."
+// +lookAtEachOther('Grif', 'Simmons');
+// Simmons: "That's why they should put us in charge.

@@ -1,5 +1,6 @@
 import display from './Display';
 import Animation from './Animation';
+import Cadence from 'main/Cadence';
 
 const res = {};
 
@@ -82,8 +83,8 @@ class AssetLoader {
     };
 
     const _Cadence = function(line) {
-      const [name, sprite] = line.slice(1);
-      display.addCadenceSprite(name, sprite);
+      let [_, cadenceName, spr1, spr2, spr3] = line;
+      display.addCadenceSprites(cadenceName, spr1, spr2, spr3);
     };
 
     const res = (display.resources = text.split('\n'));

@@ -49,6 +49,7 @@
     ]
   },
   "dependencies": {
+    "before-build-webpack": "^0.2.9",
     "preact": "^10.0.5",
     "require-dir": "^1.2.0"
   },

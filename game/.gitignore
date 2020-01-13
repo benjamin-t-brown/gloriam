@@ -1,4 +1,5 @@
 node_modules
 dist/main.js
 dist/main.min.js
+dist/sounds.json
 stats.json

@@ -3,7 +3,7 @@ import BattleParticle from 'battle/BattleParticle';
 import { normalizeClamp, normalizeEaseOutClamp } from 'utils';
 import display from 'display/Display';
 import { getElem } from 'db';
-import BattleStatus from 'battle/battleStatus';
+import BattleStatus from 'battle/BattleStatus';
 
 export const constants = {
   JUMP_MS: 500,

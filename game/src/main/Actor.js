@@ -111,13 +111,9 @@ class Actor {
     if (this.shouldAnimUseHeading) {
       cadenceBase += '_' + this.heading;
     }
-    const desiredSprite = display.getCadenceSprite(cadenceBase);
-    if (desiredSprite) {
-      console.log('DESIRED', desiredSprite, cadenceBase);
-      const i = desiredSprite.lastIndexOf('_') + 1;
-      let name = desiredSprite.slice(0, i);
-      let num = Number(desiredSprite.slice(i));
-      return [desiredSprite, name + (num + 1), name + (num + 2)];
+    const desiredSprites = display.getCadenceSprites(cadenceBase);
+    if (desiredSprites) {
+      return desiredSprites;
     }
 
     const defaultSprite = this.spriteBase + '_0';

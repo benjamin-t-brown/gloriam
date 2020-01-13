@@ -184,11 +184,11 @@ display.stopSound = function(soundObj) {
   soundObj.isPlaying = false;
 };
 
-display.addCadenceSprite = function(name, spriteName) {
-  display.cadenceSprites[name] = spriteName;
+display.addCadenceSprites = function(name, spriteName1, spriteName2, spriteName3) {
+  display.cadenceSprites[name] = [spriteName1, spriteName2, spriteName3];
 };
 
-display.getCadenceSprite = function(name) {
+display.getCadenceSprites = function(name) {
   return display.cadenceSprites[name];
 };
 

@@ -109,6 +109,7 @@ export class Script {
     this.currentBlockIndex = 0;
     this.currentCommandIndex = 0;
     this.sounds = 0;
+    this.soundsPerCharacter = {};
   }
 
   reset() {
@@ -156,14 +157,25 @@ export class Script {
     }
   }
 
-  print() {
-    console.log('SCRIPT', this.name, this.blocks);
+  getNextDialog(actorName) {
+    if (this.soundsPerCharacter[actorName]) {
+      this.soundsPerCharacter[actorName]++;
+    } else {
+      this.soundsPerCharacter[actorName] = 1;
+    }
+    let n = this.soundsPerCharacter[actorName];
+    if (n < 10) {
+      n = '0' + n;
+    }
+    const soundNameIndexed = this.name + '/' + this.name + '-' + this.sounds;
+    const soundNameCh = this.name + '/' + this.name + '-' + actorName + '-' + n;
+
+    this.sounds++;
+    return { soundNameIndexed, soundNameCh };
   }
 
-  getNextDialog(actorName) {
-    const soundName = this.name + '-' + this.sounds;
-    this.sounds++;
-    return soundName;
+  print() {
+    console.log('SCRIPT', this.name, this.blocks);
   }
 
   addCommandBlock() {
@@ -277,11 +289,11 @@ export class ScriptParser {
   createDialogCommand(line, script) {
     let [actorName, subtitle] = line.split(':');
     subtitle = subtitle.trim();
-    const soundName = script.getNextDialog(actorName);
-    this.soundsToLoad.push(soundName);
+    const { soundNameCh, soundNameIndexed } = script.getNextDialog(actorName);
+    this.soundsToLoad.push({ soundNameCh, soundNameIndexed });
     return {
       type: 'playDialogue',
-      args: formatArgs([actorName, subtitle, soundName]),
+      args: formatArgs([actorName, subtitle, soundNameCh]),
     };
   }
 

@@ -1,4 +1,20 @@
+const WebpackBeforeBuildPlugin = require('before-build-webpack');
+const exec = require('child_process').exec;
+const fs = require('fs');
 const path = require('path');
+
+const execAsync = cmd => {
+  return new Promise((resolve, reject) => {
+    exec(cmd, (err, result) => {
+      if (err) {
+        console.error(err);
+        reject(err);
+      } else {
+        resolve(result);
+      }
+    });
+  });
+};
 
 module.exports = {
   entry: './src/index.js',
@@ -25,6 +41,35 @@ module.exports = {
       },
     ],
   },
+  plugins: [
+    new WebpackBeforeBuildPlugin(async (stats, callback) => {
+      const result = await execAsync(`cd ${__dirname}/dist/snd && find . -type f`);
+      const exp = JSON.stringify(
+        result
+          .split('\n')
+          .sort()
+          .map(url => url.slice(2))
+          .reduce((prev, curr) => {
+            prev[curr] = true;
+            return prev;
+          }, {}),
+        null,
+        2
+      );
+      fs.writeFileSync(`${__dirname}/dist/sounds.json`, `${exp}`);
+      try {
+        await execAsync(`cp -r ${__dirname}/../tiled/props/* ${__dirname}/dist/img/`);
+      } catch (e) {
+        return;
+      }
+      try {
+        await execAsync(`cp -r ${__dirname}/../tiled/stages/* ${__dirname}/dist/img/`);
+      } catch (e) {
+        return;
+      }
+      callback();
+    }),
+  ],
   devServer: {
     port: 8082,
     contentBase: path.join(__dirname, 'dist'),
