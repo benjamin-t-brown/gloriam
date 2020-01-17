@@ -77,7 +77,7 @@ function createTemplate(name, battleOnly) {
 }
 
 {
-  const c = createTemplate('Young Guard');
+  const c = createTemplate('Gate Guard');
   c.spriteBase = 'youngguard';
 }
 

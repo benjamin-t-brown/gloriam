@@ -111,7 +111,9 @@ class Actor {
     if (this.shouldAnimUseHeading) {
       cadenceBase += '_' + this.heading;
     }
+    cadenceBase += '_cadence';
     const desiredSprites = display.getCadenceSprites(cadenceBase);
+    //console.log('GET CADENCE SPRITES', cad
     if (desiredSprites) {
       return desiredSprites;
     }
@@ -166,8 +168,10 @@ class Actor {
   sayDialogue(text, soundName) {
     this.subtitleText = text;
     if (soundName) {
+      console.log('ELEM EXISTS! CADENCE', elemExists('cadences', soundName), soundName);
       if (elemExists('cadences', soundName)) {
         this.cadence = getElem('cadences', soundName);
+        console.log('THIS CADENCE', this.cadence);
       } else {
         console.warn('Dialogue sound without cadence:', soundName);
       }

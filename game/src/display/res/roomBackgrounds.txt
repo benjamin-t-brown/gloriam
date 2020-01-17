@@ -1,0 +1,7 @@
+Picture,CastleEntrance-bg,CastleEntrance-bg.png
+Picture,cell-bg,cell-bg.png
+Picture,cell-fg,cell-fg.png
+Picture,invisible-fg,invisible-fg.png
+Picture,readyroom-bg,readyroom-bg.png
+Picture,readyroom-fg,readyroom-fg.png
+Picture,rvb-bg,rvb-bg.png

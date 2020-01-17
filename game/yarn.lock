@@ -4514,11 +4514,6 @@ posix-character-classes@^0.1.0:
   resolved "https://registry.yarnpkg.com/posix-character-classes/-/posix-character-classes-0.1.1.tgz#01eac0fe3b5af71a2a6c02feabb8c1fef7e00eab"
   integrity sha1-AerA/jta9xoqbAL+q7jB/vfgDqs=
 
-pre-build-webpack@^0.1.0:
-  version "0.1.0"
-  resolved "https://registry.yarnpkg.com/pre-build-webpack/-/pre-build-webpack-0.1.0.tgz#bac132ac34ef9ffd966f36edc30a1e4d4526c1a8"
-  integrity sha1-usEyrDTvn/2WbzbtwwoeTUUmwag=
-
 preact@^10.0.5:
   version "10.2.0"
   resolved "https://registry.yarnpkg.com/preact/-/preact-10.2.0.tgz#cd78f83cd5381b0cdf3be9ff9a3d0376802cc466"

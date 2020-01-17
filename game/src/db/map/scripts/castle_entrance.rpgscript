@@ -6,6 +6,7 @@ action,?once():CastleEntrance:GateGuardFirst
 action,CastleEntrance:GateGuardDefault
 
 @CastleEntrance-GateGuardFirst
++lookAt('Rydo', 'Gate Guard');
 Gate Guard: "Hello there citizen?  What can I do for you today?"
 Rydo: "Hello there good sir!"
 Rydo: "I am Lord Rydo."
@@ -36,7 +37,6 @@ Gate Guard: "AHA!"
 Gate Guard: "I knew you were an assassin!"
 Gate Guard: "No lands of that name exist!"
 Gate Guard: "To think you sought to outwit me with such a far-fetched story..."
-Rydo: "*ahem*"
 Rydo: "You must be mistaken..."
 Rydo: "Elkhain most certainly exists."
 Rydo: "It resides in the Florwitch Valley to the far north, on the Warlow Road that leads through the Angol Mountains."

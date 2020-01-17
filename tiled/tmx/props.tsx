@@ -13,10 +13,10 @@
  <tile id="3">
   <image width="71" height="71" source="../props/weapon-rack.png"/>
  </tile>
- <tile id="5">
+ <tile id="4">
   <image width="28" height="88" source="../props/banner1.png"/>
  </tile>
- <tile id="6">
+ <tile id="5">
   <image width="120" height="58" source="../props/cart.png"/>
  </tile>
 </tileset>

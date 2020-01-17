@@ -1,6 +1,5 @@
 import display from './Display';
 import Animation from './Animation';
-import Cadence from 'main/Cadence';
 
 const res = {};
 
@@ -83,7 +82,7 @@ class AssetLoader {
     };
 
     const _Cadence = function(line) {
-      let [_, cadenceName, spr1, spr2, spr3] = line;
+      let [, cadenceName, spr1, spr2, spr3] = line;
       display.addCadenceSprites(cadenceName, spr1, spr2, spr3);
     };
 
