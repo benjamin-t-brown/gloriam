@@ -5,6 +5,9 @@ import Input from 'elements/input';
 import display from '../content/display';
 
 export const addSpriteAtIndex = (anim, spriteName, index, defaultDuration) => {
+  if (anim.isCadence) {
+    return;
+  }
   const sprObj = anim.createSprite({
     name: spriteName,
     duration: defaultDuration || 100,
@@ -20,6 +23,10 @@ const replaceSpriteAtIndex = (anim, spriteName, index) => {
 };
 
 const removeSpriteAtIndex = (anim, index) => {
+  if (anim.isCadence) {
+    return;
+  }
+
   const spr = anim.sprites[index];
   anim.sprites.splice(index, 1);
   if (!anim.hasSprite(spr.name)) {

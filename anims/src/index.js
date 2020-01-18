@@ -5,7 +5,6 @@ import display from 'content/display';
 
 async function init() {
   await display.loadImages();
-  await display.loadProps();
   const txt = await display.loadTxt();
   await display.init(null, txt);
   Array.prototype.forEach.call(

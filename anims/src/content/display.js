@@ -474,30 +474,6 @@ display.loadTxt = async function loadTxt() {
   return data.files.reduce((prev, curr) => prev + '\n' + curr, '');
 };
 
-display.loadProps = async function loadProps() {
-  const type = 'GET';
-  const url = '/props';
-  const opts = {
-    method: type,
-    headers: {},
-  };
-  console.log('[fetch]', type, url);
-  const data = await fetch(url, opts)
-    .then(async function(response) {
-      const json = await response.json();
-      console.log('[fetch]', 'result', type, url, json);
-      return json;
-    })
-    .catch(err => {
-      throw err;
-    });
-
-  await data.files.map(async fileName => {
-    display.props.push(fileName.slice(0, -4));
-    await display.loadPicture(fileName.slice(0, -4), fileName);
-  });
-};
-
 display.loadImages = async function loadImages() {
   const type = 'GET';
   const url = '/spritesheets';

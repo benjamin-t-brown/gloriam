@@ -111,9 +111,8 @@ class Actor {
     if (this.shouldAnimUseHeading) {
       cadenceBase += '_' + this.heading;
     }
-    cadenceBase += '_cadence';
+    cadenceBase += '_cad';
     const desiredSprites = display.getCadenceSprites(cadenceBase);
-    //console.log('GET CADENCE SPRITES', cad
     if (desiredSprites) {
       return desiredSprites;
     }

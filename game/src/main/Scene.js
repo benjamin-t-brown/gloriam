@@ -3,6 +3,7 @@ import { Script, formatArgs } from 'db/map/ScriptParser';
 import display from 'display/Display';
 import { normalizeClamp } from 'utils';
 import input from 'display/Input';
+import { getWaypointPath } from 'pathfinding';
 
 let scene = null;
 
@@ -100,7 +101,26 @@ class Scene {
       setAnimation: (actorName, animationName) => {},
       setAnimationAndWait: (actorName, animationName) => {},
       setAnimationState: function() {},
-      walkToMarker: function() {},
+      walkToMarker: (actorName, markerName, concurrent) => {
+        const act = this.gameInterface.getActor(actorName);
+        if (!act) {
+          console.error('No actor exists with name', actorName);
+          return;
+        }
+        const marker = this.gameInterface.getMarker(markerName);
+        if (!marker) {
+          console.error('No marker exists with name', markerName);
+          return;
+        }
+        const room = this.gameInterface.getRoom();
+        const path = getWaypointPath(act.getWalkPosition(), marker, room.walls, room);
+        if (path.length) {
+          console.log('WALK!!');
+          const cb = commands.waitUntilPreemptible();
+          act.setWalkPath(path, cb);
+          return true;
+        }
+      },
       openMenu: () => {},
       walkWait: function() {},
       waitSeconds: (seconds, cb) => {
@@ -117,7 +137,9 @@ class Scene {
         display.clearTimeout(this.waitTimeoutId);
         this.waitTimeoutId = display.setTimeout(() => {
           this.isWaitingForTime = false;
-          cb();
+          if (cb) {
+            cb();
+          }
         }, ms);
         return true;
       },
@@ -136,7 +158,9 @@ class Scene {
         };
         const _cb = () => {
           this.isWaitingForTime = false;
-          cb();
+          if (cb) {
+            cb();
+          }
           input.popEventListeners('mousedown', mouseEvents);
           input.popEventListeners('keydown', keyboardEvents);
         };
@@ -146,6 +170,12 @@ class Scene {
         input.pushEventListeners('keydown', keyboardEvents);
         this.waitTimeoutId = display.setTimeout(_cb, ms);
         return true;
+      },
+      waitUntilPreemptible: () => {
+        this.isWaitingForTime = true;
+        return () => {
+          this.isWaitingForTime = false;
+        };
       },
     });
   }

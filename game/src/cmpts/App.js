@@ -19,8 +19,14 @@ const App = class extends React.Component {
     ];
 
     this.GameInterface = {
+      getRoom: () => {
+        return this.state.room.room;
+      },
       getActor: actorName => {
         return this.state.room.room.getActor(actorName);
+      },
+      getMarker: markerName => {
+        return this.state.room.room.markers[markerName];
       },
       setRoom: roomName => {
         const newRoom = new Room(props.gameInterface, roomName, playerCharacters);

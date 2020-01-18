@@ -75,7 +75,7 @@ export default () => {
       >
         <div
           style={{
-            width: '250px',
+            width: '350px',
             height: '100%',
             backgroundColor: colors.darkGrey,
             borderRight: '1px solid ' + colors.grey,
@@ -83,7 +83,7 @@ export default () => {
         >
           <AnimationSelect appInterface={appInterface} />
         </div>
-        <div style={{ width: 'calc(100% - 500px)', height: '100%' }}>
+        <div style={{ width: 'calc(100% - 700px)', height: '100%' }}>
           {imageName ? (
             <Spritesheet appInterface={appInterface} />
           ) : (
@@ -92,7 +92,7 @@ export default () => {
         </div>
         <div
           style={{
-            width: '250px',
+            width: '350px',
             height: '100%',
             backgroundColor: colors.darkGrey,
             borderLeft: '1px solid ' + colors.grey,

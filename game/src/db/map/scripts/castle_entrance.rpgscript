@@ -6,6 +6,7 @@ action,?once():CastleEntrance:GateGuardFirst
 action,CastleEntrance:GateGuardDefault
 
 @CastleEntrance-GateGuardFirst
++walkToMarker(Rydo, markerB);
 +lookAt('Rydo', 'Gate Guard');
 Gate Guard: "Hello there citizen?  What can I do for you today?"
 Rydo: "Hello there good sir!"
@@ -28,15 +29,19 @@ Rydo: "I seek the throne room!"
 Rydo: "I have a very important request for the King that I must give in person."
 Gate Guard: "The throne room!"
 Gate Guard: "That room is closely guarded!"
-Gate Guard: "(Might he be an assassin in disguise?)" (aside)
+Gate Guard: "(Might he be an assassin in disguise?)"
 +setAnimationState(GateGuard, blocking);
-Gate Guard: "Who did you say you were again?" (suspicious)
+Gate Guard: "Who did you say you were again?"
++lookDirection(Rydo, d);
 Rydo: "Why... you are speaking to the illustrious Lord Rydo..."
 Rydo: "...from the great lands of Elkhain!"
 Gate Guard: "AHA!"
++lookAt('Rydo', 'Gate Guard');
 Gate Guard: "I knew you were an assassin!"
 Gate Guard: "No lands of that name exist!"
 Gate Guard: "To think you sought to outwit me with such a far-fetched story..."
++waitMS(200);
+Rydo: "*ahem*"
 Rydo: "You must be mistaken..."
 Rydo: "Elkhain most certainly exists."
 Rydo: "It resides in the Florwitch Valley to the far north, on the Warlow Road that leads through the Angol Mountains."

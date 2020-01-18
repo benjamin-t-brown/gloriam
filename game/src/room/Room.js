@@ -39,7 +39,7 @@ class Room {
     this.allowInput = true;
 
     this.actors = [];
-    this.markers = [];
+    this.markers = {};
     this.walls = walls;
     this.particles = [];
     this.triggers = [];
@@ -60,16 +60,20 @@ class Room {
     });
 
     props.forEach(props => {
-      const { spriteName: spriteBase, name, x, y, width, height } = props;
-      const propTemplate = {
-        name,
-        spriteBase,
-      };
-      const act = new RoomActor(this, propTemplate, this.camera);
-      act.width = width;
-      act.height = height;
-      act.setAt(x, y);
-      this.actors.push(act);
+      const { spriteName: spriteBase, name, x, y, width, height, isMarker } = props;
+      if (isMarker) {
+        this.markers[name] = { x: x + width / 2, y: y + height / 2 };
+      } else {
+        const propTemplate = {
+          name,
+          spriteBase,
+        };
+        const act = new RoomActor(this, propTemplate, this.camera);
+        act.width = width;
+        act.height = height;
+        act.setAt(x, y);
+        this.actors.push(act);
+      }
     });
 
     triggers.forEach(trigger => {

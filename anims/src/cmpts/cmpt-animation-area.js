@@ -49,20 +49,27 @@ const AnimationPreview = ({ anim, appInterface }) => {
         >
           {anim ? anim.name : '(select animation)'}
         </div>
-        <canvas
+        <div
           style={{
-            margin: '5px',
-            border: '1px solid ' + colors.white,
-            backgroundColor: 'black',
+            display: 'flex',
+            justifyContent: 'center',
           }}
-          ref={ref}
-          width={canvasWidth}
-          height={canvasHeight}
-        ></canvas>
+        >
+          <canvas
+            style={{
+              margin: '5px',
+              border: '1px solid ' + colors.white,
+              backgroundColor: 'black',
+            }}
+            ref={ref}
+            width={canvasWidth}
+            height={canvasHeight}
+          ></canvas>
+        </div>
         <div style={{ display: 'flex', justifyContent: 'center' }}>
           <Button
             type="secondary"
-            disabled={anim ? false : true}
+            disabled={!anim || anim.loop ? true : false}
             onClick={() => {
               if (anim) {
                 anim.reset();
@@ -119,6 +126,12 @@ const AnimationArea = ({ appInterface }) => {
       <AnimationTxt anim={anim} appInterface={appInterface} />
       {anim && (
         <div style={{ margin: '5px' }}>
+          <Text type="bold" ownLine={true} centered={false} lineHeight={5}>
+            Total Duration MS: {anim.totalDurationMs}
+          </Text>
+          <Text type="bold" ownLine={true} centered={false} lineHeight={5}>
+            Number of Frames: {anim.sprites.length}
+          </Text>
           <Input
             type="checkbox"
             name="loop"
@@ -141,7 +154,7 @@ const AnimationArea = ({ appInterface }) => {
           <Input
             type="number"
             name="duration"
-            label="Anim Duration"
+            label="Default Frame Duration"
             value={defaultDuration}
             style={{
               width: '160px',
@@ -151,21 +164,28 @@ const AnimationArea = ({ appInterface }) => {
               appInterface.setDefaultAnimDuration(defaultDuration);
             }}
           />
-          <Button
-            style={{ marginTop: '15px' }}
-            type="primary"
-            onClick={() => {
-              addSpriteAtIndex(
-                anim,
-                'invisible',
-                anim.sprites.length,
-                defaultDuration
-              );
-              appInterface.setAnimation(display.getAnimation(anim.name));
+          <div
+            style={{
+              display: 'flex',
+              justifyContent: 'center',
             }}
           >
-            + Add Invisible
-          </Button>
+            <Button
+              style={{ marginTop: '15px' }}
+              type="primary"
+              onClick={() => {
+                addSpriteAtIndex(
+                  anim,
+                  'invisible',
+                  anim.sprites.length,
+                  defaultDuration
+                );
+                appInterface.setAnimation(display.getAnimation(anim.name));
+              }}
+            >
+              + Add Invisible
+            </Button>
+          </div>
         </div>
       )}
     </div>

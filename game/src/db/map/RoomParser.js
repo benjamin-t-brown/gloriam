@@ -37,7 +37,7 @@ class RoomParser {
   }
 
   isMarker(propName) {
-    return propName.slice(0, 7) === 'marker:';
+    return propName.toLowerCase().indexOf('marker') > -1;
   }
 
   gidToSpriteName(gid, mapTilesets) {
