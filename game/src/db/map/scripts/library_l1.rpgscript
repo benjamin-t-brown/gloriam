@@ -1,0 +1,151 @@
+@LibraryL1
++setStorageOnce('room', 'Library L1');
+
+#LibraryL1-CorneliusLiber
+action,?all(as(Rydo), once()):LibraryL1-CorneliusLiber-Rydo-First
+action,?all(as(Ferelith), once()):LibraryL1-CorneliusLiber-Fereith-First
+action,?as(Rydo):LibraryL1-CorneliusLiber-Rydo-Default
+action,?as(Ferelith):LibraryL1-CorneliusLiber-Ferelith-Default
+
+@LibraryL1-CorneliusLiber-Rydo-First
++walkToMarker(Rydo, markerA);
+Cornelius Liber: "Hmmm..."
++waitMS(1000);
+Cornelius Liber: "Hmmmmm...."
++waitMS(1000);
+Cornelius Liber: "HMMMMMMM....."
+Rydo: "Pardon me, sir."
++setAnimationState(Cornelius Liber, surprised);
++lookAt('Cornelius Liber', 'Rydo');
+Cornelius Liber: "Oh!"
++setAnimationState(Cornelius Liber, default);
+Cornelius Liber: "I didn't see you there, young man."
+Rydo: "(Young man?)"
+Rydo: "I..."
+Rydo: "*ahem*"
+Rydo: "I happened to notice that you seem to be looking for something."
+Cornelius Liber: "That's very perceptive of you."
+Rydo: "Thank you!"
+Rydo: "I take great measures to seek out those who struggle through the perils of life!"
+Rydo: "And as a man of noble blood, I cannot stand idly by without offering my aid!"
+Cornelius Liber: "Ah yes!"
+Cornelius Liber: "It would be a great service for you to help me."
++setAnimationState(Rydo, bowing);
+Rydo: "Just ask and I shall endeavor to provide my assistance."
+Cornelius Liber: "Wonderful!"
+Cornelius Liber: "You see, I'm looking for a certain book."
+Cornelius Liber: "I think it's called 'Humility For The Ages'."
+Cornelius Liber: "Or, actually, maybe it's called 'Humility In The Pages'."
++setAnimationState(Rydo, bored);
+Cornelius Liber: "But that doesn't matter, does it?"
+Cornelius Liber: "*laughs*"
+Cornelius Liber: "Anyway."
+Cornelius Liber: "The librarian assures me that they have it in here somewhere."
+Cornelius Liber: "(I'm beginning to think he might have lied to me.)"
++setAnimationState(Rydo, default);
+Rydo: "Not to worry, my friend!"
+Rydo: "I shall find this book of yours in no time at all."
+Rydo: "You can rest easy knowing that I'm on the hunt!"
+Cornelius Liber: "Thank you very much, young man!"
++walkToMarker(Rydo, markerB);
+Rydo: "There it is again."
+Rydo: "Does he perhaps not know that I am well beyond my young years?"
+
+@LibraryL1-CorneliusLiber-Ferelith-First
++walkToMarker(Ferelith, markerA);
+Cornelius Liber: "Hmmm..."
++waitMS(1000);
+Cornelius Liber: "Hmmmmm...."
+Ferelith: "Hey!"
+Ferelith: "Could you perhaps articulate your humming a bit more quietly?"
+Ferelith: "I did not come into this library to listen to poor immitation of xotil ducks in mating season."
++setAnimationState(Cornelius Liber, surprised);
++lookAt('Cornelius Liber', 'Ferelith');
+Cornelius Liber: "Oh!"
++setAnimationState(Cornelius Liber, default);
+Cornelius Liber: "I didn't see you there, young lady."
+Ferelith: "..."
+Cornelius Liber: "I'd not want to impose..."
+Cornelius Liber: "But would you mind helping an old man find a certain book?"
+Cornelius Liber: "It is called 'Ambition and Prosperity'."
+Cornelius Liber: "I'm sure it's in here somewhere..."
+Ferelith: "Why, pray tell, should I bother using my time for that?"
+Cornelius Liber: "*laughs*"
+Cornelius Liber: "Oh, you must be the young progidy of this school, Ferelith, I do believe."
+Cornelius Liber: "I was warned about you!"
+Cornelius Liber: "'A fiesty whippersnapper'!"
+Cornelius Liber: "*laughs*"
+Ferelith: "I am no such thing!"
+Ferelith: "Tell me who dared to utter such perjury."
+Cornelius Liber: "Oh... I can't remember."
+Cornelius Liber: "Anyway..."
+Cornelius Liber: "I was also told that you have a weakness."
++setAnimationState(Cornelius Liber, rummaging);
++setAnimationState(Cornelius Liber, muffin);
++waitMS(200);
+Ferelith: "..."
+Ferelith: "You play a dangerous game."
+Cornelius Liber: "It is all yours should you find my book."
++setAnimationState(Cornelius Liber, rummaging);
++setAnimationState(Cornelius Liber, wink);
+Ferelith: "Fine!"
++walkToMarker(Ferelith, markerB);
+Ferelith: "...Manipulative old badger."
+
+@LibraryL1-CorneliusLiber-Rydo-Default
+Cornelius Liber: "Ah yes, the young nobleman returns."
+Cornelius Liber: "Have you found my book?"
+Rydo: "Unfortunately not!"
+Rydo: "But I assure you, it is only a matter of time."
+
+@LibraryL1-CorneliusLiber-Ferelith-Default
+Cornelius Liber: "Ah yes, the young prodigy returns."
+Cornelius Liber: "Have you found my book?"
+Ferelith: "No."
+Ferelith: "Do you still have my... payment?"
++setAnimationState(Cornelius Liber, rummaging);
++setAnimationState(Cornelius Liber, muffin);
+Ferelith: "Good."
+Ferelith: "I shall find your book soon."
++setAnimationState(Cornelius Liber, rummaging);
++setAnimationState(Cornelius Liber, default);
+
+@LibraryL1-CorneliusLiber-Rydo-Book
+Cornelius Liber: "Well, well, well."
+Cornelius Liber: "You managed to find my book!"
+Cornelius Liber: "Color me impressed."
+Rydo: "You flatter me, good sir!"
+Rydo: "A Lord of Elkhain should accomplish such tasks for others."
+Rydo: "It was the right thing to do."
++setAnimationState(Cornelius Liber, rummaging);
+Cornelius Liber: "Well, I'd like to go read this in my quarters now, if you don't mind."
+Cornelius Liber: "But it was very nice of you to lend your assistance."
+Cornelius Liber: "You know, they say a good deed proffers luck to the giver."
+Cornelius Liber: "Perhaps you'll notice it in the future."
++walkToMarker(Cornelius Liber, markerC);
++remove(Cornelius Liber);
+
+@LibraryL1-CorneliusLiber-Ferelith-Book
+Cornelius Liber: "Well, well, well."
+Cornelius Liber: "You managed to find my book!"
+Cornelius Liber: "Color me impressed."
+Ferelith: "I do not know how you could not find this yourself."
+Ferelith: "But the deed is done."
++setAnimationState(Cornelius Liber, rummaging);
++setAnimationState(Cornelius Liber, default);
++waitMS(2000);
+Ferelith: "..."
+Cornelius Liber: "What is it, young lady?"
+Cornelius Liber: "Is there something on my face?"
+Ferelith: "Not at the moment..."
+Ferelith: "But perhaps there will be if the promised payment is not produced."
+Cornelius Liber: "Ah yes!"
+Cornelius Liber: "How could I forget!"
++setAnimationState(Cornelius Liber, rummaging);
++setAnimationState(Cornelius Liber, muffin);
++setAnimationState(Cornelius Liber, snatch);
+Ferelith: "A pleasure doing business with you."
+Cornelius Liber: "The pleasure is all mine, dear."
+Cornelius Liber: "Well, I'd like to go read this in my quarters now, if you don't mind."
++walkToMarker(Cornelius Liber, markerC);
++remove(Cornelius Liber);
