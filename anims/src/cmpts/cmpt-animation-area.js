@@ -7,9 +7,10 @@ import display from 'content/display';
 import { addSpriteAtIndex } from 'cmpts/cmpt-frames-area';
 
 const AnimationPreview = ({ anim, appInterface }) => {
+  const [scale, setScale] = React.useState(2);
   const ref = React.useRef(null);
-  const canvasWidth = 225;
-  const canvasHeight = 225;
+  const canvasWidth = 256;
+  const canvasHeight = 256;
   React.useEffect(() => {
     display.setLoop(() => {
       display.setCanvas(ref.current);
@@ -17,11 +18,12 @@ const AnimationPreview = ({ anim, appInterface }) => {
       if (window.appInterface.animation) {
         display.drawAnimation(anim, canvasWidth / 2, canvasHeight / 2, {
           centered: true,
+          scale,
         });
       }
       display.restoreCanvas();
     });
-  });
+  }, [anim, scale]);
 
   return (
     <div
@@ -66,8 +68,44 @@ const AnimationPreview = ({ anim, appInterface }) => {
             height={canvasHeight}
           ></canvas>
         </div>
+        <div
+          style={{
+            display: 'flex',
+            justifyContent: 'space-around',
+            padding: '5px',
+          }}
+        >
+          <Button
+            type={scale === 1 ? 'primary' : null}
+            disabled={!anim ? true : false}
+            onClick={() => {
+              setScale(1);
+            }}
+          >
+            1X
+          </Button>
+          <Button
+            type={scale === 2 ? 'primary' : null}
+            disabled={!anim ? true : false}
+            onClick={() => {
+              setScale(2);
+            }}
+          >
+            2X
+          </Button>
+          <Button
+            type={scale === 4 ? 'primary' : null}
+            disabled={!anim ? true : false}
+            onClick={() => {
+              setScale(4);
+            }}
+          >
+            4X
+          </Button>
+        </div>
         <div style={{ display: 'flex', justifyContent: 'center' }}>
           <Button
+            style={{ width: '140px', marginTop: '10px' }}
             type="secondary"
             disabled={!anim || anim.loop ? true : false}
             onClick={() => {
