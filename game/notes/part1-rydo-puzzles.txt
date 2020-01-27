@@ -1,0 +1,30 @@
+Overarching goal: Enter the Castle
+
+Item basics
+  - talk to character -> get item from interaction
+  - pick up item from ground
+  - pick up item during an interval of time
+  - pull lever -> reveal item -> pick up item
+  - go through "skill challenge" -> get item
+  - use item to unlock another item
+  - go to spot -> emote/use item -> get item
+  - change character state (ex: transform into something, put on special glasses) -> bypass wall -> get item
+  - carry item -> use carried item -> get item
+  - find item hidden behind foreground -> get item (probably easter eggs rather than intended)
+
+Guy Arranging Hay On Ladder
+  - In the stables, there's a guy at the top of a ladder, picking up hay from the loft and throwing it into a bin at the base of the ladder.  Rydo asks if he can borrow the ladder.  The man refuses, saying that his job is very important.
+    * he also mentions that he doesn't like cats
+  - If Rydo approaches the ladder and touches it, the man gets angry
+  - Rydo can acquire a stray cat near the gardner's house if he has milk
+  - Rydo can climb to the top of the hayloft via the East Tower in the right side. 
+    * he must click a sequence of stacked crates to climb up there
+  - Rydo puts the cat in the hay.
+    * The stableworker finds it, freaks out, and falls off of the ladder into the hay bale.
+    * The ladder falls and shatters.  Only half of it is in tact.
+    * The horse, startled by the fall, runs off with the attachment.
+    * Rydo can pick up half of the ladder and carry it to the East Wall where the open window is.
+
+Pondering Philosopher (hint man)
+  - In the gardens is a pondering philosopher who gives random hints as Rydo speaks with him.
+  - If you exhaust his dialog, he gives you a statue for "thinking for yourself"
