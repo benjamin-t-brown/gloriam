@@ -22,7 +22,7 @@ Gauntlet Order
 # gain Haste, *Bless
 
 5.) Tank Golem, Healing Totem
-	- Gank golem defends, channels attack all, attacks with slowing auto attack
+	- Tank golem defends, channels attack all, attacks with slowing auto attack
 	- Totems light heal all, cast reflect
 
 6.) Tank Golem, Healing Totem, Tank Golem

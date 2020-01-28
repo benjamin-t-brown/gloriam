@@ -24,6 +24,7 @@ Guy Arranging Hay On Ladder
     * The ladder falls and shatters.  Only half of it is in tact.
     * The horse, startled by the fall, runs off with the attachment.
     * Rydo can pick up half of the ladder and carry it to the East Wall where the open window is.
+  - Rydo cant put almost anything in that hay, and the stableworker will simply throw it into the hay bale for Rydo to pick up later.
 
 Pondering Philosopher (hint man)
   - In the gardens is a pondering philosopher who gives random hints as Rydo speaks with him.
