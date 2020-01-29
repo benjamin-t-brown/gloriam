@@ -28,3 +28,17 @@ Guy Arranging Hay On Ladder
 Pondering Philosopher (hint man)
   - In the gardens is a pondering philosopher who gives random hints as Rydo speaks with him.
   - If you exhaust his dialog, he gives you a statue for "thinking for yourself"
+    * This item has no real purpose than to be in your inventory
+
+Gardner Lost Ring
+  - In the Gardens, Gardner Harris is clearly looking for something.  He mutters to himself constantly and rummages around the flowers and bushes.
+    * When spoken to, he grumpily answers that he has no time to speak with you and continues his search
+    * If you listen to him for long enough, you can determine that he searches for a ring, and that he last remembered having it in his house, but he has looked all over his house and hasn't found it.
+  - If you go to his little hut, you find a mess of a place
+    * searching in here, you can find a ransom not, written in untidy hand, saying that "Bad Energy Trolls" have taken his ring, and require a payment of "a fortune of suitable worth" on the altar outside the magic school entrance.
+    * if you go to the altar at this point, you see nothing
+    * you can ask a nearby professor about Bad Energy Trolls, and he/she doesn't know what that is.
+  - Sylvas the Elfish knows what bad energy trolls are.
+    * talk to Sylvas (a second time) and he'll give you Contaminated Powder to use in any area you think there's might be Bad Energy Trolls
+  - Use the powder by the Altar and convince the troll to give you the ring
+  - Give Gardner Harris the ring.  He grumbles, but gives you a key to the shed by his house which contains a roll of "Ruct Tape" that has been specially made by the magic school to "stick anything together"
