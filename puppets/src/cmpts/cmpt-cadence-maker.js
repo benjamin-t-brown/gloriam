@@ -14,7 +14,6 @@ import {
   setEventOnSoundStop,
   selectSound,
 } from 'content/sounds';
-import { assignState, assignStatic } from 'store';
 
 class CadenceMakerCmpt extends Component {
   constructor(props) {

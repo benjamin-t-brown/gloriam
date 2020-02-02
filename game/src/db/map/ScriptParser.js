@@ -167,8 +167,8 @@ export class Script {
     if (n < 10) {
       n = '0' + n;
     }
-    const soundNameIndexed = this.name + '/' + this.name + '-' + this.sounds;
-    const soundNameCh = this.name + '/' + this.name + '-' + actorName + '-' + n;
+    const soundNameIndexed = this.name + '/' + this.sounds;
+    const soundNameCh = this.name + '/' + actorName + '-' + n;
 
     this.sounds++;
     return { soundNameIndexed, soundNameCh };

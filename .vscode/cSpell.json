@@ -32,7 +32,9 @@
         "spritesheets",
         "cutscene",
         "anim",
-        "anims"
+        "anims",
+        "elem",
+        "elems"
     ],
     // flagWords - list of words to be always considered incorrect
     // This is useful for offensive words and common spelling errors.

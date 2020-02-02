@@ -146,7 +146,9 @@ function getAllCadencesWithPrefix(prefix) {
   const cadences = getStatic('cadences');
   for (let soundName in cadences) {
     if (soundName.indexOf(prefix) > -1) {
-      ret.push(cadences[soundName]);
+      if (cadences[soundName]) {
+        ret.push(cadences[soundName]);
+      }
     }
   }
   return ret;
@@ -181,12 +183,15 @@ export async function insertAndSlideUp(soundName) {
 export async function removeAndSlideDown(soundName) {
   const soundPrefix = soundName.slice(0, -2);
   const cadences = getAllCadencesWithPrefix(soundPrefix);
+  const cadencesStatic = getStatic('cadences');
+  if (!cadencesStatic[soundName]) {
+    return;
+  }
   const ind = Number(soundName.slice(-2));
   for (let i = ind; i < cadences.length - 1; i++) {
     const cadence = cadences[i + 1];
     const soundNumber = Number(cadence.soundName.slice(-2));
     const newSoundName = soundPrefix + formatNumber(soundNumber - 1);
-    console.log(cadence.soundName, 'is now', newSoundName);
     cadence.soundName = newSoundName;
     assignStatic('cadences.' + newSoundName, cadence);
   }

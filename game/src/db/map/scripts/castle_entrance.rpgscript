@@ -19,7 +19,7 @@ Gate Guard: "Like right now!"
 +waitMS(200);
 +setAnimationState(Rydo, hands_up);
 Rydo: "Fear not, my friend!  I do not wish to attack."
-Rydo: "Relinquish your weapon, if you please."
+Rydo: "Relinquish your weapon, at once!"
 +setAnimationState(GateGuard, default);
 Gate Guard: "See?  Anything can happen in this castle."
 +setAnimationState(Rydo, default);
@@ -44,13 +44,14 @@ Gate Guard: "To think you sought to outwit me with such a far-fetched story..."
 Rydo: "*ahem*"
 Rydo: "You must be mistaken..."
 Rydo: "Elkhain most certainly exists."
-Rydo: "It resides in the Florwitch Valley to the far north, on the Warlow Road that leads through the Angol Mountains."
-Rydo: "The journey here has been long and treacherous..."
+Rydo: "It, of course, resides in the Florwitch Valley to the far north."
+Rydo: "One must take the Warlow Road through the Angol Mountains."
+Rydo: "A long and treacherous journey, truth be told..."
 Rydo: "...But a man such as I of pure Elkhain heritage could not be stopped on this important quest!"
 Gate Guard: "Your words belay your lies!"
 Gate Guard: "The Warlow Road ends at the Angol Mountains!"
 Gate Guard: "Everyone knows that!"
-Rydo: "You have me at a loss..."
+Rydo: "I'm afraid you have me at a loss..."
 Rydo: "The road does continue there."
 Rydo: "Elkhain does indeed exist."
 Rydo: "I do not know what further to say."
@@ -61,16 +62,16 @@ Gate Guard: "You need not say anything, assassin!"
 Gate Guard: "No more lies!"
 Gate Guard: "You'll not get past my post at any cost!"
 +setAnimationState(GateGuard, blocking);
-Rydo: "But I NEED to see the King!"
+Rydo: "I have *great* *need*."
 Rydo: "I must get to the throne room."
 +setAnimationState(GateGuard, blocking_shake);
 Gate Guard: "Stay back, ruffian!"
 Gate Guard: "Any closer and I'll gut you like a kabaab."
 +walkToMarker(Rydo, markerA);
 +setFacing(Rydo, down);
-Rydo: "What an utter bafoon."
-Rydo: "I cannot believe King Siff lets such men guard his gates."
-Rydo: "But if he won't let me pass, I must find another way inside..."
+Rydo: "What a bafoon of a man!"
+Rydo: "I cannot believe King Siff lets such people guard his gates."
+Rydo: "If he won't let me through, then perhaps I'll have to find another way inside."
 
 @CastleEntrance-GateGuardDefault
 +setAnimationState(GateGuard, blocking_shake);

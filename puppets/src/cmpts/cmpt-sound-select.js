@@ -10,6 +10,7 @@ import {
 } from 'content/sounds';
 import { urlToSoundName } from 'utils';
 import { removeAndSlideDown, insertAndSlideUp } from 'content/cadence';
+import { getStatic } from 'store';
 
 const mapStateToProps = state => {
   return {
@@ -104,16 +105,12 @@ const SoundSelectCmpt = props => {
 
       if (folder) {
         if (!elemMap[folder]) {
-          elemMap[folder] = true;
-          elems.push(
-            <div
-              key={soundName}
-              className={'column-item column-item-folder'}
-              onClick={handleSelectFolder(folder)}
-            >
-              <span className="no-select">Folder: {folder}</span>
-            </div>
-          );
+          elemMap[folder] = 1;
+        }
+        // hack way to determine if a sound in this folder doesn't have a cadence to prevent
+        // duplicate checking.
+        if (className.indexOf('uninitialized') > -1) {
+          elemMap[folder] = 2;
         }
         return;
       }
@@ -128,7 +125,23 @@ const SoundSelectCmpt = props => {
         />
       );
     });
+
+    for (const folder in elemMap) {
+      const isComplete = elemMap[folder] === 1;
+      elems.push(
+        <div
+          key={folder}
+          className={`column-item column-item-folder${
+            isComplete ? '-complete' : ''
+          }`}
+          onClick={handleSelectFolder(folder)}
+        >
+          <span className="no-select">Folder: {folder}</span>
+        </div>
+      );
+    }
   }
+
   return (
     <div style={{ position: 'relative' }}>
       <div className="column-title">Sounds</div>
@@ -154,7 +167,7 @@ const SoundSelectCmpt = props => {
           >
             Folder: {folderName}
           </div>
-          {props.soundName ? (
+          {props.soundName && getStatic('cadences')[props.soundName] ? (
             <div
               className="button"
               onClick={async () => {

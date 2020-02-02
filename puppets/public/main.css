@@ -130,6 +130,10 @@ input {
   color: #92f4ff;
   margin: 5px;
 }
+.column-item-folder-complete {
+  color: #3fc778;
+  margin: 5px;
+}
 .column-item-uninitialized {
   color: #e1534a;
 }

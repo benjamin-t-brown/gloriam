@@ -36,6 +36,7 @@ class Scene {
       restore: () => {
         this.gameInterface.restore();
       },
+      remove: actorName => {},
       playDialogue: (actorName, subtitle, soundName) => {
         console.log('CONTROLLER');
         console.log('PLAY DIALOG', actorName, subtitle, soundName);

@@ -12,7 +12,19 @@ Item basics
   - carry item -> use carried item -> get item
   - find item hidden behind foreground -> get item (probably easter eggs rather than intended)
 
-Guy Arranging Hay On Ladder
+Items:
+
+Ladder Half (upper)
+Ladder Half (lower)
+Mittens the Cat
+Revelans Powder
+Gardner Harris's Ring
+Consilium Statua
+Elkhain Proposal
+Viscosi Max Glue
+
+
+Guy Arranging Hay On Ladder: Two halves of ladder
   - In the stables, there's a guy at the top of a ladder, picking up hay from the loft and throwing it into a bin at the base of the ladder.  Rydo asks if he can borrow the ladder.  The man refuses, saying that his job is very important.
     * he also mentions that he doesn't like cats
   - If Rydo approaches the ladder and touches it, the man gets angry
@@ -40,6 +52,16 @@ Gardner Lost Ring
     * if you go to the altar at this point, you see nothing
     * you can ask a nearby professor about Bad Energy Trolls, and he/she doesn't know what that is.
   - Sylvas the Elfish knows what bad energy trolls are.
-    * talk to Sylvas (a second time) and he'll give you Contaminated Powder to use in any area you think there's might be Bad Energy Trolls
+    * talk to Sylvas (a second time) and he'll give you Revelans Powder to use in any area you think there's might be Bad Energy Trolls
   - Use the powder by the Altar and convince the troll to give you the ring
-  - Give Gardner Harris the ring.  He grumbles, but gives you a key to the shed by his house which contains a roll of "Ruct Tape" that has been specially made by the magic school to "stick anything together"
+  - Give Gardner Harris the ring.  He grumbles, but gives you a key to the shed by his house which contains a roll of "Viscosi Max Glue" that has been specially made by the magic school to "stick anything together"
+
+Magical School Grounds South Golem
+  - In the magical school grounds south, there's a large, stationary golem that dominates the screen. 
+  - When Rydo steps into the frame, a mage (Christian Northford) warns him not to step any closer to the golem.
+    - He stands with another mage, looking at the pit and occasionally casting spells at it
+    - Clearly they are trying to decide what to do.
+  - A spell went wrong and created this pit that sucks things into it unless they are protected by a certain spell.
+
+
+
