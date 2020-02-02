@@ -1,11 +1,11 @@
-@CastleEntrance
-+setStorageOnce('room', 'CastleEntrance');
+@castle_entrance
++setStorageOnce('room', 'castle_entrance');
 
-#GateGuard
-action,?once():CastleEntrance:GateGuardFirst
-action,CastleEntrance:GateGuardDefault
+#castle_entrance-GateGuard
+action,?once():castle_entrance-GateGuardFirst
+action,castle_entrance-GateGuardDefault
 
-@CastleEntrance-GateGuardFirst
+@castle_entrance-GateGuardFirst
 +walkToMarker(Rydo, markerB);
 +lookAt('Rydo', 'Gate Guard');
 Gate Guard: "Hello there citizen?  What can I do for you today?"
@@ -15,12 +15,22 @@ Rydo: "I'm certain you've been expecting me."
 Gate Guard: "A Guard at Siffsbury Castle must expect many things!"
 Gate Guard: "An attack can come at any moment."
 Gate Guard: "Like right now!"
-+setAnimationState(GateGuard, blocking_shake);
++setAnimationState(Gate Guard, blocking_shake);
 +waitMS(200);
 +setAnimationState(Rydo, hands_up);
++moveFixed(Rydo, 0, 2);
++waitMS(50);
++moveFixed(Rydo, 0, 4);
++waitMS(50);
++moveFixed(Rydo, 0, 5);
++waitMS(50);
++moveFixed(Rydo, 0, 4);
++waitMS(50);
++moveFixed(Rydo, 0, 2);
++waitMS(50);
 Rydo: "Fear not, my friend!  I do not wish to attack."
 Rydo: "Relinquish your weapon, at once!"
-+setAnimationState(GateGuard, default);
++setAnimationState(Gate Guard, default);
 Gate Guard: "See?  Anything can happen in this castle."
 +setAnimationState(Rydo, default);
 Rydo: "That is very sage advice, friend."
@@ -30,18 +40,24 @@ Rydo: "I have a very important request for the King that I must give in person."
 Gate Guard: "The throne room!"
 Gate Guard: "That room is closely guarded!"
 Gate Guard: "(Might he be an assassin in disguise?)"
-+setAnimationState(GateGuard, blocking);
++setAnimationState(Gate Guard, blocking);
 Gate Guard: "Who did you say you were again?"
 +lookDirection(Rydo, d);
++setAnimationState(Rydo, smug);
 Rydo: "Why... you are speaking to the illustrious Lord Rydo..."
++setAnimationState(Rydo, default);
 Rydo: "...from the great lands of Elkhain!"
++setAnimationState(Rydo, smug);
 Gate Guard: "AHA!"
-+lookAt('Rydo', 'Gate Guard');
++setAnimationState(Rydo, default);
 Gate Guard: "I knew you were an assassin!"
++lookAt('Rydo', 'Gate Guard');
 Gate Guard: "No lands of that name exist!"
 Gate Guard: "To think you sought to outwit me with such a far-fetched story..."
 +waitMS(200);
++lookDirection(Rydo, r);
 Rydo: "*ahem*"
++lookAt('Rydo', 'Gate Guard');
 Rydo: "You must be mistaken..."
 Rydo: "Elkhain most certainly exists."
 Rydo: "It, of course, resides in the Florwitch Valley to the far north."
@@ -55,26 +71,27 @@ Rydo: "I'm afraid you have me at a loss..."
 Rydo: "The road does continue there."
 Rydo: "Elkhain does indeed exist."
 Rydo: "I do not know what further to say."
-+setAnimationState(GateGuard, blocking_shake);
++setAnimationState(Gate Guard, blocking_shake);
 +waitMS(200);
 +setAnimationState(Rydo, hands_up);
 Gate Guard: "You need not say anything, assassin!"
 Gate Guard: "No more lies!"
 Gate Guard: "You'll not get past my post at any cost!"
-+setAnimationState(GateGuard, blocking);
++setAnimationState(Gate Guard, blocking);
 Rydo: "I have *great* *need*."
 Rydo: "I must get to the throne room."
-+setAnimationState(GateGuard, blocking_shake);
++setAnimationState(Gate Guard, blocking_shake);
 Gate Guard: "Stay back, ruffian!"
 Gate Guard: "Any closer and I'll gut you like a kabaab."
++setAnimationState(Rydo, default);
 +walkToMarker(Rydo, markerA);
 +setFacing(Rydo, down);
 Rydo: "What a bafoon of a man!"
 Rydo: "I cannot believe King Siff lets such people guard his gates."
 Rydo: "If he won't let me through, then perhaps I'll have to find another way inside."
 
-@CastleEntrance-GateGuardDefault
-+setAnimationState(GateGuard, blocking_shake);
+@castle_entrance-GateGuardDefault
++setAnimationState(Gate Guard, blocking_shake);
 Gate Guard: "Stay back, ruffian!"
 Gate Guard: "Any closer and I'll gut you like a kabaab."
 +walkWait(Rydo, markerA);

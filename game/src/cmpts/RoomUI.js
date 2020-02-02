@@ -3,6 +3,7 @@ import display from 'display/Display';
 import input from 'display/Input';
 import { pt, drawPath } from 'utils';
 import TriggerIndicator from 'cmpts/TriggerIndicator';
+import scene from '../main/Scene';
 
 class RoomUI extends React.Component {
   constructor(props) {
@@ -28,7 +29,7 @@ class RoomUI extends React.Component {
   }
 
   handleClick = ev => {
-    if (input.isUIInputEnabled()) {
+    if (input.isUIInputEnabled() && !scene.isExecutingBlockingScene()) {
       const act = this.props.room.getActiveActor();
       const point = this.props.room.renderToWorldCoords(pt(ev.clientX, ev.clientY));
       this.props.room.actorWalkTowards(act, point);

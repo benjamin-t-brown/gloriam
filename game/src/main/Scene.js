@@ -28,7 +28,7 @@ class Scene {
     this.scriptStack = [];
     this.onScriptCompleted = function() {};
 
-    //return true if you want to break evaluation of commands (for waiting mostly)
+    // return true to break evaluation of commands (for waiting mostly)
     const commands = (this.commands = {
       save: () => {
         this.gameInterface.save();
@@ -38,8 +38,6 @@ class Scene {
       },
       remove: actorName => {},
       playDialogue: (actorName, subtitle, soundName) => {
-        console.log('CONTROLLER');
-        console.log('PLAY DIALOG', actorName, subtitle, soundName);
         const actor = this.gameInterface.getActor(actorName);
         let ms = null;
         if (this.voiceEnabled) {
@@ -64,7 +62,7 @@ class Scene {
       callScript: () => {},
       setStorage: (key, value) => {},
       setStorageOnce: (key, value) => {
-        const newKey = this.currentScript.name + '-' + key;
+        const newKey = (this.currentScript || this.currentTrigger).name + '-' + key;
         if (!this.storageOnceKeys[newKey]) {
           this.storage[key] = value;
           this.storageOnceKeys[newKey] = true;
@@ -76,13 +74,6 @@ class Scene {
       lookAt: (actorName, targetActorName) => {
         const act = this.gameInterface.getActor(actorName);
         const act2 = this.gameInterface.getActor(targetActorName);
-        if (!act) {
-          console.error('No actor exists with name', actorName);
-          return;
-        } else if (!act2) {
-          console.error('No actor exists with name', targetActorName);
-          return;
-        }
         act.lookAt(act2.getWalkPosition());
       },
       lookAtEachOther: (actorName, actorName2) => {
@@ -91,23 +82,18 @@ class Scene {
       },
       lookDirection: (actorName, direction) => {
         const act = this.gameInterface.getActor(actorName);
-        if (!act) {
-          console.error('No actor exists with name', actorName);
-          return;
-        }
         act.setHeading(direction);
       },
       setFacing: (actorName, direction) => {},
       setFacingTowards: (actorName, otherActorName) => {},
       setAnimation: (actorName, animationName) => {},
       setAnimationAndWait: (actorName, animationName) => {},
-      setAnimationState: function() {},
+      setAnimationState: (actorName, stateName) => {
+        const act = this.gameInterface.getActor(actorName);
+        act.setAnimationState(stateName, stateName === 'default' ? true : false);
+      },
       walkToMarker: (actorName, markerName, concurrent) => {
         const act = this.gameInterface.getActor(actorName);
-        if (!act) {
-          console.error('No actor exists with name', actorName);
-          return;
-        }
         const marker = this.gameInterface.getMarker(markerName);
         if (!marker) {
           console.error('No marker exists with name', markerName);
@@ -116,11 +102,14 @@ class Scene {
         const room = this.gameInterface.getRoom();
         const path = getWaypointPath(act.getWalkPosition(), marker, room.walls, room);
         if (path.length) {
-          console.log('WALK!!');
           const cb = commands.waitUntilPreemptible();
           act.setWalkPath(path, cb);
           return true;
         }
+      },
+      moveFixed: (actorName, xOffset, yOffset) => {
+        const act = this.gameInterface.getActor(actorName);
+        act.setAt(act.x + xOffset, act.y + yOffset);
       },
       openMenu: () => {},
       walkWait: function() {},
@@ -179,6 +168,9 @@ class Scene {
         };
       },
     });
+  }
+  isExecutingBlockingScene() {
+    return this.isWaiting();
   }
 
   setGameInterface(gameInterface) {

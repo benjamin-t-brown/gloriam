@@ -78,12 +78,9 @@ class Actor {
         this.animations[animName] = display.getAnimation(animName);
       } else {
         console.warn(
-          `Actor ${this.name} does not have corresponding animation for anim=${animName}, using default.`
+          `Actor ${this.name} does not have corresponding animation for anim=${animName}, not changing state.`
         );
-        animName = this.spriteBase;
-        if (!this.animations[animName]) {
-          throw new Error(`No default sprite could be found for ${animName}.`);
-        }
+        return false;
       }
     }
     if (this.animationName !== animName) {
@@ -91,27 +88,31 @@ class Actor {
       this.animations[animName].start();
       this.animationName = animName;
     }
+    return true;
   }
 
   setAnimationState(stateName) {
     if (stateName && stateName !== 'default') {
-      this.setAnimation(this.spriteBase + '_' + stateName);
-      this.animationState = stateName;
+      if (this.setAnimation(this.spriteBase + '_' + stateName)) {
+        this.animationState = stateName;
+      }
     } else {
-      this.setAnimation(this.spriteBase);
-      this.animationState = '';
+      if (this.setAnimation(this.spriteBase)) {
+        this.animationState = '';
+      }
     }
   }
 
   getCadenceSprites() {
     let cadenceBase = this.spriteBase;
-    if (this.animationState) {
+    if (this.animationState && this.animationState !== 'default') {
       cadenceBase += '_' + this.animationState;
     }
     if (this.shouldAnimUseHeading) {
       cadenceBase += '_' + this.heading;
     }
     cadenceBase += '_cad';
+    console.log('CADENCE BASE!', cadenceBase, this.animationState);
     const desiredSprites = display.getCadenceSprites(cadenceBase);
     if (desiredSprites) {
       return desiredSprites;
@@ -167,12 +168,8 @@ class Actor {
   sayDialogue(text, soundName) {
     this.subtitleText = text;
     if (soundName) {
-      console.log('ELEM EXISTS! CADENCE', elemExists('cadences', soundName), soundName);
       if (elemExists('cadences', soundName)) {
         this.cadence = getElem('cadences', soundName);
-        console.log('THIS CADENCE', this.cadence);
-      } else {
-        console.warn('Dialogue sound without cadence:', soundName);
       }
 
       this.subtitleSound = display.getSound(soundName);

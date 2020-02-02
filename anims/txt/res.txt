@@ -72,6 +72,14 @@ Cadence,rydo_d_cad,rydo_39,rydo_40,rydo_41
 Cadence,rydo_u_cad,rydo_17,rydo_42,rydo_43
 Cadence,rydo_r_cad,rydo_15,rydo_44,rydo_45
 Cadence,rydo_l_cad,rydo_16,rydo_46,rydo_47
+Cadence,rydo_smug_cad,rydo_48,rydo_49,rydo_50
+Animation,rydo_smug,true
+AnimSprite,rydo_48,100
+Animation,rydo_hands_up,false
+AnimSprite,rydo_51,100
+AnimSprite,rydo_52,50
+AnimSprite,rydo_53,50
+Cadence,rydo_hands_up_cad,rydo_54,rydo_55,rydo_56
 Picture,simmons,simmons.png,64,64
 Picture,youngguard,youngguard.png,64,64
 Cadence,youngguard_cad,youngguard_0,youngguard_1,youngguard_2

@@ -1,13 +1,13 @@
-@LibraryL1
+@library_l1
 +setStorageOnce('room', 'Library L1');
 
-#LibraryL1-CorneliusLiber
-action,?all(as(Rydo), once()):LibraryL1-CorneliusLiber-Rydo-First
-action,?all(as(Ferelith), once()):LibraryL1-CorneliusLiber-Fereith-First
-action,?as(Rydo):LibraryL1-CorneliusLiber-Rydo-Default
-action,?as(Ferelith):LibraryL1-CorneliusLiber-Ferelith-Default
+#library_l1-CorneliusLiber
+action,?all(as(Rydo), once()):library_l1-CorneliusLiber-Rydo-First
+action,?all(as(Ferelith), once()):library_l1-CorneliusLiber-Fereith-First
+action,?as(Rydo):library_l1-CorneliusLiber-Rydo-Default
+action,?as(Ferelith):library_l1-CorneliusLiber-Ferelith-Default
 
-@LibraryL1-CorneliusLiber-Rydo-First
+@library_l1-CorneliusLiber-Rydo-First
 +walkToMarker(Rydo, markerA);
 Cornelius Liber: "Hmmm..."
 +waitMS(1000);
@@ -51,7 +51,7 @@ Cornelius Liber: "Thank you very much, young man!"
 Rydo: "There it is again."
 Rydo: "Does he perhaps not know that I am well beyond my young years?"
 
-@LibraryL1-CorneliusLiber-Ferelith-First
+@library_l1-CorneliusLiber-Ferelith-First
 +walkToMarker(Ferelith, markerA);
 Cornelius Liber: "Hmmm..."
 +waitMS(1000);
@@ -92,13 +92,13 @@ Ferelith: "Fine!"
 +walkToMarker(Ferelith, markerB);
 Ferelith: "...Manipulative old badger."
 
-@LibraryL1-CorneliusLiber-Rydo-Default
+@library_l1-CorneliusLiber-Rydo-Default
 Cornelius Liber: "Ah yes, the young nobleman returns."
 Cornelius Liber: "Have you found my book?"
 Rydo: "Unfortunately not!"
 Rydo: "But I assure you, it is only a matter of time."
 
-@LibraryL1-CorneliusLiber-Ferelith-Default
+@library_l1-CorneliusLiber-Ferelith-Default
 Cornelius Liber: "Ah yes, the young prodigy returns."
 Cornelius Liber: "Have you found my book?"
 Ferelith: "No."
@@ -110,7 +110,7 @@ Ferelith: "I shall find your book soon."
 +setAnimationState(Cornelius Liber, rummaging);
 +setAnimationState(Cornelius Liber, default);
 
-@LibraryL1-CorneliusLiber-Rydo-Book
+@library_l1-CorneliusLiber-Rydo-Book
 Cornelius Liber: "Well, well, well."
 Cornelius Liber: "You managed to find my book!"
 Cornelius Liber: "Color me impressed."
@@ -125,7 +125,7 @@ Cornelius Liber: "Perhaps you'll notice it in the future."
 +walkToMarker(Cornelius Liber, markerC);
 +remove(Cornelius Liber);
 
-@LibraryL1-CorneliusLiber-Ferelith-Book
+@library_l1-CorneliusLiber-Ferelith-Book
 Cornelius Liber: "Well, well, well."
 Cornelius Liber: "You managed to find my book!"
 Cornelius Liber: "Color me impressed."

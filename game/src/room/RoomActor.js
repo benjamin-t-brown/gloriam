@@ -11,7 +11,6 @@ class RoomActor extends Actor {
     const { name, width, height } = template;
     this.camera = camera;
 
-    this.shouldUseHeading = !!heading;
     this.shouldAnimUseHeading = !!heading;
     this.heading = HEADINGS.DOWN;
     this.name = name;
@@ -27,7 +26,7 @@ class RoomActor extends Actor {
     this.isRotating = false;
     this.onWalkComplete = () => {};
     this.onRotateComplete = () => {};
-    this.animationStateName = null;
+    this.animationState = null;
     this.subtitleTextColor = template.textColor || theme.palette.white;
 
     this.setAnimationState(); // sets default animation
@@ -52,7 +51,7 @@ class RoomActor extends Actor {
     } else {
       this.heading = HEADINGS.LEFT;
     }
-    this.setAnimationState(this.animationStateName);
+    this.setAnimationState(this.animationState);
     return angle;
   }
 
@@ -74,7 +73,7 @@ class RoomActor extends Actor {
       default:
         this.setAngle(180);
     }
-    this.setAnimationState(this.animationStateName);
+    this.setAnimationState(this.animationState);
   }
 
   turn(direction, targetAngle) {
@@ -193,20 +192,29 @@ class RoomActor extends Actor {
     return pt(this.x, this.y + this.height / 3);
   }
 
-  setAnimationState(stateName) {
-    this.animationStateName = stateName;
+  setAnimationState(stateName, useHeading) {
+    let changed = false;
+
+    if (useHeading !== undefined) {
+      this.shouldAnimUseHeading = !!useHeading;
+    }
     if (stateName && stateName !== 'default') {
-      if (this.shouldUseHeading) {
-        this.setAnimation(this.spriteBase + '_' + stateName + '_' + this.heading);
+      if (this.shouldAnimUseHeading) {
+        changed = this.setAnimation(
+          this.spriteBase + '_' + stateName + '_' + this.heading
+        );
       } else {
-        this.setAnimation(this.spriteBase + '_' + stateName);
+        changed = this.setAnimation(this.spriteBase + '_' + stateName);
       }
     } else {
-      if (this.shouldUseHeading) {
-        this.setAnimation(this.spriteBase + '_' + this.heading);
+      if (this.shouldAnimUseHeading) {
+        changed = this.setAnimation(this.spriteBase + '_' + this.heading);
       } else {
-        this.setAnimation(this.spriteBase);
+        changed = this.setAnimation(this.spriteBase);
       }
+    }
+    if (changed) {
+      this.animationState = stateName;
     }
   }
 

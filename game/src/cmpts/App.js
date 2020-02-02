@@ -23,7 +23,12 @@ const App = class extends React.Component {
         return this.state.room.room;
       },
       getActor: actorName => {
-        return this.state.room.room.getActor(actorName);
+        const act = this.state.room.room.getActor(actorName);
+        if (!act) {
+          console.error('No actor exists with name', actorName);
+          return null;
+        }
+        return act;
       },
       getMarker: markerName => {
         return this.state.room.room.markers[markerName];

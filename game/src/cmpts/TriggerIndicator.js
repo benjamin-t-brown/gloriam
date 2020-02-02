@@ -58,25 +58,26 @@ const TriggerIndicator = props => {
       return;
     }
     const triggerName = room.name + '-' + trigger.name;
-    const act = room.getActiveActor();
-    const triggerPoint = pt(
-      trigger.x + trigger.width / 2,
-      trigger.y + trigger.height + 1
-    );
-    if (act.isAtWalkPosition(triggerPoint)) {
-      act.setHeading(HEADINGS.UP);
-      scene.callTrigger(triggerName, 'action');
-      return;
-    }
-    const path = getWaypointPath(act.getWalkPosition(), triggerPoint, room.walls, room);
-    if (path.length) {
-      act.setWalkPath(path, () => {
-        act.setHeading(HEADINGS.UP);
-        scene.callTrigger(triggerName, 'action');
-      });
-    } else {
-      // TODO: say 'cant reach' text
-    }
+    scene.callTrigger(triggerName, 'action');
+    // const act = room.getActiveActor();
+    // const triggerPoint = pt(
+    //   trigger.x + trigger.width / 2,
+    //   trigger.y + trigger.height + 1
+    // );
+    // if (act.isAtWalkPosition(triggerPoint)) {
+    //   act.setHeading(HEADINGS.UP);
+    //   scene.callTrigger(triggerName, 'action');
+    //   return;
+    // }
+    // const path = getWaypointPath(act.getWalkPosition(), triggerPoint, room.walls, room);
+    // if (path.length) {
+    //   act.setWalkPath(path, () => {
+    //     act.setHeading(HEADINGS.UP);
+    //     scene.callTrigger(triggerName, 'action');
+    //   });
+    // } else {
+    //   // TODO: say 'cant reach' text
+    // }
     ev.stopPropagation();
   };
 
