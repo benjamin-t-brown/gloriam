@@ -79,6 +79,7 @@ const TriggerIndicator = props => {
     //   // TODO: say 'cant reach' text
     // }
     ev.stopPropagation();
+    ev.preventDefault();
   };
 
   return (

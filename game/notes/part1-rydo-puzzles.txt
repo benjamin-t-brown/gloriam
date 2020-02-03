@@ -22,10 +22,30 @@ Gardner Harris's Ring
 Consilium Statua
 Elkhain Proposal
 Viscosi Max Glue
+Polished Dagger (combat item)
+Tranquilla Gem
+Tepidus Milk
+Delectamentum Muffin
+Hospitalis Potion (combat item)
 
+Characters
+
+Rydo
+Gate Guard
+Poe Serva
+Pondering Philosopher
+Gardner Harris
+Sylvas the Elfish
+Christian Northford
+Servus Golem
+Adeps Barry
+Angusta Billy
+Praepositus Blem
+Artifex Skelo
+Servus Golem
 
 Guy Arranging Hay On Ladder: Two halves of ladder
-  - In the stables, there's a guy at the top of a ladder, picking up hay from the loft and throwing it into a bin at the base of the ladder.  Rydo asks if he can borrow the ladder.  The man refuses, saying that his job is very important.
+  - In the stables, there's a guy at the top of a ladder, Poe Serva picking up hay from the loft and throwing it into a bin at the base of the ladder.  Rydo asks if he can borrow the ladder.  The man refuses, saying that his job is very important.
     * he also mentions that he doesn't like cats
   - If Rydo approaches the ladder and touches it, the man gets angry
   - Rydo can acquire a stray cat near the gardner's house if he has milk
@@ -37,6 +57,7 @@ Guy Arranging Hay On Ladder: Two halves of ladder
     * The horse, startled by the fall, runs off with the attachment.
     * Rydo can pick up half of the ladder and carry it to the East Wall where the open window is.
   - Rydo cant put almost anything in that hay, and the stableworker will simply throw it into the hay bale for Rydo to pick up later.
+  - When Rydo gets to the top of the stables for the first time, there is a small explosion that comes from the school.  This is caused by Ferelith mixing potions to create a Transfiguration Pixie.
 
 Pondering Philosopher (hint man)
   - In the gardens is a pondering philosopher who gives random hints as Rydo speaks with him.
@@ -52,16 +73,32 @@ Gardner Lost Ring
     * if you go to the altar at this point, you see nothing
     * you can ask a nearby professor about Bad Energy Trolls, and he/she doesn't know what that is.
   - Sylvas the Elfish knows what bad energy trolls are.
-    * talk to Sylvas (a second time) and he'll give you Revelans Powder to use in any area you think there's might be Bad Energy Trolls
+    * talk to Sylvas (a second time) and he'll give you Tranquilla Gem
+    * Use the gem on the Servus Golem to get Revelans Powder to use in any area you think there's might be Bad Energy Trolls
   - Use the powder by the Altar and convince the troll to give you the ring
   - Give Gardner Harris the ring.  He grumbles, but gives you a key to the shed by his house which contains a roll of "Viscosi Max Glue" that has been specially made by the magic school to "stick anything together"
 
-Magical School Grounds South Golem
+Magical School Grounds South: Servus Golem
   - In the magical school grounds south, there's a large, stationary golem that dominates the screen. 
   - When Rydo steps into the frame, a mage (Christian Northford) warns him not to step any closer to the golem.
     - He stands with another mage, looking at the pit and occasionally casting spells at it
     - Clearly they are trying to decide what to do.
-  - A spell went wrong and created this pit that sucks things into it unless they are protected by a certain spell.
+  - If Rydo gets too close to the golem, it activates and squashes him. GAME OVER
+  - Rydo use the Tranquilla Gem on the golem to calm it down and have a conversation
 
+Polished Dagger
+  - Rydo can find a Polished Dagger on the ground in the Western Grounds hidden behind a tree
+  - The dagger can be equipped later in the dungeons.
 
+Hungry Guard
+  - A fat guard and a skinny guard stand at the entrance to the dungeons.
+  - The fat guard laments that he is hungry, and only has this gross, warm milk to drink
+  - He salivates over the thought of a Chef Millans muffin
+  - You can get a Delectamentum Muffin from the Supply Entrance by sneaking past Praepositus Blem and Artifex Skelo when he isn't looking
+  - Give the muffin to the guard, who promptly eats it and gives you his Tepidus Milk 
 
+Hospitalis Potion
+  - Use the Revelans Powder on the fountain in the Welcome Grounds go get a Hospitalis Potion
+
+Mittens the Cat
+  - A cat is stuck on the east wall and can only be gotten down with the Tepidus Milk
