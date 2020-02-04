@@ -1,0 +1,7 @@
+@welcome_grounds
++setStorageOnce('room', 'welcome_grounds');
+
+#welcome_grounds-toCastleEntrance
+step,welcome_grounds-toCastleEntrance
+@welcome_grounds-toCastleEntrance
++changeRoom('castle_entrance');

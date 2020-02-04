@@ -8,7 +8,7 @@ class RoomActor extends Actor {
   constructor(room, template, camera, props) {
     super(room, template.spriteBase || '');
     const { heading } = props || {};
-    const { name, width, height } = template;
+    const { name, width, height, animName } = template;
     this.camera = camera;
 
     this.shouldAnimUseHeading = !!heading;
@@ -29,7 +29,11 @@ class RoomActor extends Actor {
     this.animationState = null;
     this.subtitleTextColor = template.textColor || theme.palette.white;
 
-    this.setAnimationState(); // sets default animation
+    if (animName) {
+      this.setAnimation(animName);
+    } else {
+      this.setAnimationState(); // sets default animation from spriteBase
+    }
   }
 
   setAngle(angle) {
@@ -271,8 +275,9 @@ class RoomActor extends Actor {
   draw() {
     super.draw();
 
-    const { x, y } = this.room.worldToRenderCoords(this.getWalkPosition());
-    display.drawCircleOutline(x, y, this.walkRadius, 'lightgreen');
+    // DEBUG: draw circle at walk position
+    // const { x, y } = this.room.worldToRenderCoords(this.getWalkPosition());
+    // display.drawCircleOutline(x, y, this.walkRadius, 'lightgreen');
   }
 }
 

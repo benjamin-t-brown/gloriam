@@ -89,7 +89,7 @@ const DragDivider = ({
               anim,
               spriteName,
               spriteIndex >= 0 ? spriteIndex : anim.sprites.length,
-              appInterface.defaultDuration
+              appInterface.defaultAnimDuration
             );
             setParentIsDraggingOver(spriteIndex === -1 ? 'scroll' : null);
           } else if (dragType.slice(0, 5) === 'frame') {

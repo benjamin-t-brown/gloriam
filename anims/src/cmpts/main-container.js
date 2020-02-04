@@ -84,7 +84,7 @@ export default () => {
           <AnimationSelect appInterface={appInterface} />
         </div>
         <div style={{ width: 'calc(100% - 700px)', height: '100%' }}>
-          {imageName ? (
+          {imageName && display.pictures[imageName] ? (
             <Spritesheet appInterface={appInterface} />
           ) : (
             <ImageSelect appInterface={appInterface} />

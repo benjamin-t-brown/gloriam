@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.2" tiledversion="1.3.1" orientation="orthogonal" renderorder="left-up" compressionlevel="0" width="768" height="576" tilewidth="1" tileheight="1" infinite="0" nextlayerid="8" nextobjectid="62">
+ <editorsettings>
+  <export target="../../game/src/db/map/rooms/welcome_grounds.json" format="json"/>
+ </editorsettings>
+ <tileset firstgid="1" source="control.tsx"/>
+ <tileset firstgid="7" source="props.tsx"/>
+ <imagelayer id="1" name="bg">
+  <image source="../stages/welcome_grounds-bg.png" width="768" height="576"/>
+ </imagelayer>
+ <objectgroup id="3" name="walls">
+  <object id="40" x="137.5" y="438" width="95" height="29.5"/>
+  <object id="41" x="553" y="529" width="112.5" height="25"/>
+  <object id="42" x="413" y="273" width="275" height="129"/>
+  <object id="43" x="512.5" y="174.5" width="126.5" height="325"/>
+  <object id="44" x="462.5" y="224" width="227" height="223.5"/>
+  <object id="45" x="687.5" y="321" width="48" height="80.5"/>
+  <object id="46" x="636.5" y="445" width="53" height="53.5"/>
+ </objectgroup>
+ <objectgroup id="4" name="props">
+  <object id="38" gid="13" x="61" y="471" width="256" height="256"/>
+  <object id="47" name="markerTop" gid="3" x="317" y="73" width="16" height="16"/>
+  <object id="48" name="markerLeft" gid="3" x="38" y="136" width="16" height="16"/>
+  <object id="49" name="markerRight" gid="3" x="711" y="109" width="16" height="16"/>
+  <object id="50" name="markerBottom" gid="3" x="315" y="499" width="16" height="16"/>
+ </objectgroup>
+ <objectgroup id="5" name="triggers">
+  <object id="57" name="toCastleEntrance" x="-7" y="-14" width="783" height="67"/>
+  <object id="58" name="toGardens" x="-10" y="48" width="45" height="537"/>
+  <object id="59" name="toStables" x="727" y="52" width="51" height="526"/>
+  <object id="60" x="971" y="81"/>
+  <object id="61" name="toOutsideWallGate" x="239" y="518" width="155" height="58"/>
+ </objectgroup>
+ <objectgroup id="6" name="characters" offsetx="4.5" offsety="-1.75">
+  <object id="28" name="Rydo" gid="5" x="310.083" y="284.25" width="64" height="64"/>
+ </objectgroup>
+ <imagelayer id="7" name="fg">
+  <image source="../stages/welcome_grounds-fg.png" width="768" height="576"/>
+ </imagelayer>
+</map>

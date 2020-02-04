@@ -6,6 +6,9 @@ import Button from 'elements/button';
 import Text from 'elements/text';
 import { colors } from 'utils';
 
+const MAX_SPRITE_WIDTH = 128;
+const MAX_SPRITE_HEIGHT = 128;
+
 const SpriteSizeInputDialog = ({ open, setOpen, appInterface }) => {
   const {
     spriteWidth: origSpriteWidth,
@@ -25,6 +28,7 @@ const SpriteSizeInputDialog = ({ open, setOpen, appInterface }) => {
           spriteHeight
         );
         appInterface.forceUpdate();
+        setOpen(false);
       }}
       onCancel={() => {
         setOpen(false);
@@ -67,11 +71,18 @@ const Tile = ({
   const ref = React.useRef(null);
   spriteWidth = spriteWidth || 1;
   spriteHeight = spriteHeight || 1;
+  const width = spriteWidth > MAX_SPRITE_WIDTH ? MAX_SPRITE_WIDTH : spriteWidth;
+  const height =
+    spriteHeight > MAX_SPRITE_HEIGHT ? MAX_SPRITE_HEIGHT : spriteHeight;
+  const scale = spriteWidth > MAX_SPRITE_WIDTH ? 0.5 : 1;
   React.useEffect(() => {
     display.setCanvas(ref.current);
-    display.drawSprite(spriteName, 0, 0);
+    display.drawSprite(spriteName, width / 2, height / 2, {
+      centered: true,
+      scale,
+    });
     display.restoreCanvas();
-  }, [spriteName, spriteWidth, spriteHeight]);
+  }, [spriteName, spriteWidth, spriteHeight, width, height, scale]);
   const isBlank = display.getSprite(spriteName).is_blank;
 
   return (
@@ -101,8 +112,8 @@ const Tile = ({
           border: '1px solid ' + (isSelected ? colors.green : colors.white),
         }}
         ref={ref}
-        width={spriteWidth}
-        height={spriteHeight}
+        width={width}
+        height={height}
       ></canvas>
     </div>
   );

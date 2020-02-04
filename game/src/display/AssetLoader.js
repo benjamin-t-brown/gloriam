@@ -40,9 +40,9 @@ class AssetLoader {
       const num_x = sprite.clip_w / w;
       let ctr = 0;
       for (let i = lastSpriteInd; i < n; i++) {
-        const sprite_name = sprite_pfx + '_' + ctr;
+        const spriteName = sprite_pfx + '_' + ctr;
         display.createSprite(
-          sprite_name,
+          spriteName,
           currentPicture,
           (i % num_x) * w,
           Math.floor(i / num_x) * h,

@@ -52,7 +52,7 @@ const TriggerIndicator = props => {
       room.removeRenderable(trigger.id);
     };
   }, [trigger, room, room.baseScale]);
-  const [visible, setVisible] = React.useState(false);
+  const [visible, setVisible] = React.useState(true);
   const handleClick = ev => {
     if (!input.isUIInputEnabled()) {
       return;
@@ -86,10 +86,14 @@ const TriggerIndicator = props => {
     <>
       <div
         ref={div}
-        onMouseOver={() => setVisible(true)}
-        onMouseOut={() => setVisible(false)}
-        onClick={handleClick}
+        //onMouseOver={() => setVisible(true)}
+        //onMouseOut={() => setVisible(false)}
+        //onClick={handleClick}
         className="trigger-container"
+        style={{
+          border: '1px solid white',
+          visibility: visible ? 'visible' : 'hidden',
+        }}
       ></div>
       <div
         ref={text}

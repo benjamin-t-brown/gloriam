@@ -3,7 +3,7 @@ import RoomActor from 'room/RoomActor';
 import { getElem } from 'db';
 import display from 'display/Display';
 import { isPointWithinRect, pt, hexToRGBA } from 'utils';
-import { getWaypointPath, isInWall } from 'pathfinding';
+import { getWaypointPath, getCollisionWalls } from 'pathfinding';
 import scene from 'main/Scene';
 import theme from 'main/theme';
 
@@ -68,6 +68,13 @@ class Room {
           name,
           spriteBase,
         };
+        const dbProp = getElem('props', spriteBase, true);
+        // if there's a prop in the db, then apply those special properties here.  Most
+        // props probably don't have any special props, just animated ones, or ones that
+        // move.
+        if (dbProp) {
+          propTemplate.animName = dbProp.animName;
+        }
         const act = new RoomActor(this, propTemplate, this.camera);
         act.width = width;
         act.height = height;
@@ -290,6 +297,20 @@ class Room {
       }
     }
 
+    const activeAct = this.getActiveActor();
+    const collidedTriggers = getCollisionWalls(
+      activeAct.getWalkPosition(),
+      this.triggers
+    );
+    for (let i = 0; i < collidedTriggers.length; i++) {
+      const trigger = collidedTriggers[i];
+      if (!scene.isExecutingBlockingScene()) {
+        console.log('CALL TRIGGER', trigger.name);
+        scene.callTrigger(this.name + '-' + trigger.name, 'step');
+      }
+    }
+
+    // DEBUG: draw wall rectangles
     // for (let i = 0; i < this.walls.length; i++) {
     //   const wall = this.walls[i];
     //   const { x, y } = this.worldToRenderCoords(wall);

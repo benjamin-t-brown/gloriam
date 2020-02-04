@@ -6,11 +6,15 @@ const THUMB_HEIGHT = 64;
 
 const ImageButton = ({ appInterface, imageName }) => {
   const ref = React.useRef(null);
+  const { spriteWidth } = display.pictures[imageName];
   React.useEffect(() => {
     display.setCanvas(ref.current);
-    display.drawSprite(imageName, 0, 0);
+    display.drawSprite(imageName, 0, 0, {
+      scale: spriteWidth > 64 ? 0.25 : 1,
+    });
     display.restoreCanvas();
   });
+
   return (
     <div
       className="button"

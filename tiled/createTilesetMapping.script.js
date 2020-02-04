@@ -69,6 +69,9 @@ async function main() {
   const files = await getTilesets();
   for (let i = 0; i < files.length; i++) {
     const filename = files[i];
+    if (filename.indexOf('terrains') > -1) {
+      continue;
+    }
     const result = await parseXmlFile(filename);
     const tileset = result.tileset.tile.map(({ $, image }) => {
       const url = image[0].$.source.split(/[/|\\]/);

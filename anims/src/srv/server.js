@@ -18,6 +18,7 @@ app.use(express.static(`${__dirname}/../../props`));
 
 const execAsync = cmd => {
   return new Promise((resolve, reject) => {
+    console.log('[Anims SRV]', cmd);
     exec(cmd, (err, result) => {
       if (err) {
         console.error(err);
@@ -94,7 +95,10 @@ app.post('/txt', (req, res) => {
         resp.success = true;
       }
       await fs.promises.writeFile(EXPORT_DIR_RES + '/res.txt', req.body.txt);
-      await execAsync(`cp -r ${SPRITESHEETS_DIR}/*.png ${EXPORT_DIR_PNG}/`);
+      const result = await execAsync(
+        `cp -r ${SPRITESHEETS_DIR}/*.png ${EXPORT_DIR_PNG}/`
+      );
+      console.log('RESULT', result);
       res.send(JSON.stringify(resp));
     });
   } else {

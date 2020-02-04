@@ -37,6 +37,9 @@ class Scene {
         this.gameInterface.restore();
       },
       remove: actorName => {},
+      changeRoom: roomName => {
+        this.gameInterface.setRoom(roomName);
+      },
       playDialogue: (actorName, subtitle, soundName) => {
         const actor = this.gameInterface.getActor(actorName);
         let ms = null;
@@ -294,7 +297,7 @@ class Scene {
         const scriptCall = trigger.scriptCalls[i];
         this.currentTrigger = trigger;
         const c = this.evalCondition(scriptCall.condition);
-        console.log('CONDITION', scriptCall.condition, c);
+        console.log('CONDITION', scriptCall.condition, scriptCall.type, c);
         if (scriptCall.type === type && c) {
           await this.callScript(scriptCall.scriptName);
           this.storage[trigger.name] = true;

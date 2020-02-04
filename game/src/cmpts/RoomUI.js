@@ -108,6 +108,11 @@ class RoomUI extends React.Component {
     //this.forceUpdate();
   }
 
+  componentDidUpdate() {
+    console.log('UPDATE');
+    this.calculateAndSetScale();
+  }
+
   componentWillUnmount() {
     window.addEventListener('resize', this.handleResize);
     input.popEventListeners('keydown', this.events);

@@ -57,16 +57,16 @@ module.exports = {
         2
       );
       fs.writeFileSync(`${__dirname}/dist/sounds.json`, `${exp}`);
-      try {
-        await execAsync(`cp -r ${__dirname}/../tiled/props/* ${__dirname}/dist/img/`);
-      } catch (e) {
-        return;
-      }
-      try {
-        await execAsync(`cp -r ${__dirname}/../tiled/stages/* ${__dirname}/dist/img/`);
-      } catch (e) {
-        return;
-      }
+      // try {
+      //   await execAsync(`cp -r ${__dirname}/../tiled/props/* ${__dirname}/dist/img/`);
+      // } catch (e) {
+      //   return;
+      // }
+      // try {
+      //   await execAsync(`cp -r ${__dirname}/../tiled/stages/* ${__dirname}/dist/img/`);
+      // } catch (e) {
+      //   return;
+      // }
       callback();
     }),
   ],

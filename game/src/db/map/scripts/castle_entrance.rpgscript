@@ -95,3 +95,8 @@ Rydo: "If he won't let me through, then perhaps I'll have to find another way in
 Gate Guard: "Stay back, ruffian!"
 Gate Guard: "Any closer and I'll gut you like a kabaab."
 +walkWait(Rydo, markerA);
+
+#castle_entrance-toWelcomeGrounds
+step,castle_entrance-toWelcomeGrounds
+@castle_entrance-toWelcomeGrounds
++changeRoom('welcome_grounds');
