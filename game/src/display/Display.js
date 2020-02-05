@@ -632,6 +632,7 @@ display.init = async function(canvasId) {
   if (canvasId) {
     display.canvasId = canvasId;
   }
+  console.log('[DISPLAY] beginning load...');
 
   display.loading = true;
   display.setCanvas(

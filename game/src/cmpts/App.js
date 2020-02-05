@@ -6,7 +6,7 @@ import Room from 'room/Room';
 import scene from 'main/Scene';
 import { getElem } from 'db';
 
-const INITIAL_ROOM = 'castle_entrance';
+const INITIAL_ROOM = 'library_l1';
 
 const App = class extends React.Component {
   constructor(props) {

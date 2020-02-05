@@ -109,7 +109,6 @@ class RoomUI extends React.Component {
   }
 
   componentDidUpdate() {
-    console.log('UPDATE');
     this.calculateAndSetScale();
   }
 

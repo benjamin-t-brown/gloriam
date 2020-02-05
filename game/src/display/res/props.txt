@@ -1,8 +1,10 @@
-Picture,banner1,banner1.png
+Picture,banner1-prop,banner1-prop.png
 Picture,bench,bench.png
 Picture,cart,cart.png
 Picture,cell-bars,cell-bars.png
 Picture,cell-door,cell-door.png
+Picture,chairL,chairL.png
+Picture,chairR,chairR.png
 Picture,desk,desk.png
 Picture,ferelith-prop,ferelith-prop.png
 Picture,guard-prop,guard-prop.png
@@ -11,8 +13,10 @@ Picture,indicator1,indicator1.png
 Picture,indicator2,indicator2.png
 Picture,ladder,ladder.png
 Picture,ladderR,ladderR.png
+Picture,person,person.png
 Picture,rydo-prop,rydo-prop.png
 Picture,shield,shield.png
-Picture,tree1,tree1.png
-Picture,tree2,tree2.png
+Picture,table,table.png
+Picture,tree1-prop,tree1-prop.png
+Picture,tree2-prop,tree2-prop.png
 Picture,weapon-rack,weapon-rack.png

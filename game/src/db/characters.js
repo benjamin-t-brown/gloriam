@@ -83,7 +83,7 @@ function createTemplate(name, battleOnly) {
 
 {
   const c = createTemplate('Cornelius Liber');
-  c.spriteBase = 'youngguard';
+  c.spriteBase = 'cornelius';
 }
 
 {

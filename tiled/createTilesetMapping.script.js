@@ -3,6 +3,20 @@
 // distinct props in the database.  The result is 'tilesets.json'
 const parseString = require('xml2js').parseString;
 const fs = require('fs');
+const { exec } = require('child_process');
+
+const execAsync = async command => {
+  return new Promise(resolve => {
+    console.log(command);
+    exec(command, (err, stdout, stderr) => {
+      if (err) {
+        console.error(err, stdout, stderr);
+        return;
+      }
+      resolve();
+    });
+  });
+};
 
 async function parseXmlFile(filename) {
   return new Promise((resolve, reject) => {
@@ -99,5 +113,8 @@ async function main() {
   const stagesDir = '../game/src/display/res/roomBackgrounds.txt';
   console.log('OUTPUT', stagesDir, '\n' + stagesRes);
   fs.writeFileSync(stagesDir, stagesRes);
+
+  await execAsync('cp -r props/*.png ../game/dist/img/');
+  await execAsync('cp -r stages/*.png ../game/dist/img/');
 }
 main();
