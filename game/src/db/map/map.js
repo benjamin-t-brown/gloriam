@@ -39,7 +39,7 @@ export async function loadMapElements(db, scene) {
 
   const soundLoadErrors = [];
   if (scene.voiceEnabled) {
-    const sounds = JSON.parse(await fetchAsync('sounds.json'));
+    const sounds = JSON.parse(await fetchAsync(`${global.SOUND_PATH || ''}sounds.json`));
 
     for (let i = 0; i < soundsToLoad.length; i++) {
       const { soundNameCh: soundName } = soundsToLoad[i];
