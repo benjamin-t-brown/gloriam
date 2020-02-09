@@ -27,6 +27,9 @@ Cadence,cornelius_d_cad,CorneliusLiber_0,CorneliusLiber_4,CorneliusLiber_5
 Cadence,cornelius_l_cad,CorneliusLiber_1,CorneliusLiber_6,CorneliusLiber_7
 Cadence,cornelius_r_cad,CorneliusLiber_2,CorneliusLiber_8,CorneliusLiber_9
 Cadence,cornelius_u_cad,CorneliusLiber_10,CorneliusLiber_11,CorneliusLiber_12
+Animation,cornelius,true
+AnimSprite,CorneliusLiber_0,100
+Cadence,cornelius_cad,CorneliusLiber_0,CorneliusLiber_4,CorneliusLiber_5
 Picture,Sprite-0003,Sprite-0003.png,48,48
 Picture,Sprite-0005,Sprite-0005.png,128,128
 Animation,Sprite-0005_idle,true

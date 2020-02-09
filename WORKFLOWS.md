@@ -8,7 +8,7 @@ A Character is an entity in the game which can walk around and speak. A Characte
   - Can save the Aseprite project here as well.
 - Most "people" Characters are 64px by 64px
 - The first frame on the spritesheet is the default sprite. This is shown when no animation is active.
-- This spritesheet must contain these bare minimum animations
+- For most characters, this spritesheet must contain these bare minimum animations
   - Standing for all headings: up, right, left, down
   - Walking for all headings: up, right, left, down
   - Cadences for all headings: up, right, left down

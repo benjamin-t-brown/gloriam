@@ -7,15 +7,25 @@ import theme from 'main/theme';
 class RoomActor extends Actor {
   constructor(room, template, camera, props) {
     super(room, template.spriteBase || '');
-    const { heading } = props || {};
-    const { name, width, height, animName } = template;
+    const { heading, character } = props || {};
+    const {
+      name,
+      width,
+      height,
+      animName,
+      displayName,
+      hitBox,
+      talkTrigger,
+      defaultHeading,
+    } = template;
     this.camera = camera;
 
-    this.shouldAnimUseHeading = !!heading;
-    this.heading = HEADINGS.DOWN;
     this.name = name;
+    this.displayName = displayName;
     this.width = width || room.baseSize;
     this.height = height || room.baseSize;
+    this.hitBox = hitBox || { width: this.width, height: this.height };
+    this.isCharacter = !!character;
     this.walkPath = null;
     this.walkSpeedX = 100; // pixels per second
     this.walkSpeedY = 55;
@@ -28,11 +38,13 @@ class RoomActor extends Actor {
     this.onRotateComplete = () => {};
     this.animationState = null;
     this.subtitleTextColor = template.textColor || theme.palette.white;
-
+    this.talkTrigger = talkTrigger || null;
+    this.shouldAnimUseHeading = !!heading;
     if (animName) {
       this.setAnimation(animName);
     } else {
       this.setAnimationState(); // sets default animation from spriteBase
+      this.setHeading(defaultHeading || HEADINGS.DOWN);
     }
   }
 
@@ -128,12 +140,6 @@ class RoomActor extends Actor {
     return isAtTarget;
   }
 
-  setPositionToTurnTowards(position, onRotateComplete) {
-    this.nextRotationPoint = position;
-    this.isRotating = true;
-    this.onRotateComplete = onRotateComplete || function() {};
-  }
-
   setWalkPath(walkPath, onWalkComplete) {
     this.stopWalking(false);
     this.setHeadingFromAngle(this.angle);
@@ -222,6 +228,14 @@ class RoomActor extends Actor {
     }
   }
 
+  // not instant
+  setPositionToTurnTowards(position, onRotateComplete) {
+    this.nextRotationPoint = position;
+    this.isRotating = true;
+    this.onRotateComplete = onRotateComplete || function() {};
+  }
+
+  // instant
   lookAt(position) {
     const angle = getAngleTowards(this.getWalkPosition(), position);
     this.setAngle(angle);

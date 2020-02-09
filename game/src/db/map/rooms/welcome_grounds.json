@@ -114,7 +114,7 @@
          "name":"props",
          "objects":[
                 {
-                 "gid":13,
+                 "gid":14,
                  "height":256,
                  "id":38,
                  "name":"",
@@ -292,7 +292,7 @@
          "source":"..\/..\/..\/..\/..\/tiled\/tmx\/control.tsx"
         }, 
         {
-         "firstgid":7,
+         "firstgid":8,
          "source":"..\/..\/..\/..\/..\/tiled\/tmx\/props.tsx"
         }],
  "tilewidth":1,

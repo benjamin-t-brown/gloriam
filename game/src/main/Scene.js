@@ -1,9 +1,10 @@
 import { getElem } from 'db';
 import { Script, formatArgs } from 'db/map/ScriptParser';
 import display from 'display/Display';
-import { normalizeClamp } from 'utils';
+import { normalizeClamp, pt } from 'utils';
 import input from 'display/Input';
 import { getWaypointPath } from 'pathfinding';
+import { HEADINGS } from 'main/Actor';
 
 let scene = null;
 
@@ -20,6 +21,7 @@ class Scene {
     this.blockers = [];
 
     this.voiceEnabled = true;
+    this.isWaitingForAnimation = false;
     this.isWaitingForTime = false;
     this.waitTimeoutId = 0;
     this.isWaitingForInput = false;
@@ -74,18 +76,65 @@ class Scene {
       walkTowards: (x, y, time) => {},
       addActor: (actorName, x, y) => {},
       addActorAtMarker: (actorName, markerName) => {},
-      lookAt: (actorName, targetActorName) => {
+      lookAt: (actorName, targetActorName, cb) => {
         const act = this.gameInterface.getActor(actorName);
         const act2 = this.gameInterface.getActor(targetActorName);
-        act.lookAt(act2.getWalkPosition());
+        this.isWaitingForAnimation = true;
+        act.setPositionToTurnTowards(act2.getWalkPosition(), () => {
+          if (cb) {
+            cb();
+          } else {
+            this.isWaitingForAnimation = false;
+          }
+        });
+        return true;
+      },
+      lookAtPoint: (actorName, point, cb) => {
+        const act = this.gameInterface.getActor(actorName);
+        this.isWaitingForAnimation = true;
+        act.setPositionToTurnTowards(point, () => {
+          if (cb) {
+            cb();
+          } else {
+            this.isWaitingForAnimation = false;
+          }
+        });
+        return true;
       },
       lookAtEachOther: (actorName, actorName2) => {
-        commands.lookAt(actorName, actorName2);
-        commands.lookAt(actorName2, actorName);
+        let ctr = 0;
+        this.isWaitingForAnimation = true;
+        const cb = () => {
+          ctr++;
+          if (ctr === 2) {
+            this.isWaitingForAnimation = false;
+          }
+        };
+        commands.lookAt(actorName, actorName2, cb);
+        commands.lookAt(actorName2, actorName, cb);
+        return true;
       },
       lookDirection: (actorName, direction) => {
         const act = this.gameInterface.getActor(actorName);
-        act.setHeading(direction);
+        let point = null;
+        switch (direction) {
+          case HEADINGS.UP:
+            point = pt(act.x, act.y - 100);
+            break;
+          case HEADINGS.DOWN:
+            point = pt(act.x, act.y + 100);
+            break;
+          case HEADINGS.LEFT:
+            point = pt(act.x - 100, act.y);
+            break;
+          case HEADINGS.RIGHT:
+            point = pt(act.x + 100, act.y);
+            break;
+          default:
+            console.warn(`[SCENE] Specified direction is not valid: '${direction}'`);
+        }
+
+        return commands.lookAtPoint(actorName, point);
       },
       setFacing: (actorName, direction) => {},
       setFacingTowards: (actorName, otherActorName) => {},
@@ -273,7 +322,7 @@ class Scene {
         }
         return true;
       } else if (type === 'as') {
-        const act = this.room.getActiveActor();
+        const act = this.gameInterface.getRoom().getActiveActor();
         return act.name === args[0];
       } else if (type === 'once') {
         if (args[0]) {
@@ -342,7 +391,7 @@ class Scene {
   }
 
   isWaiting() {
-    return this.isWaitingForInput || this.isWaitingForTime;
+    return this.isWaitingForInput || this.isWaitingForTime || this.isWaitingForAnimation;
   }
 
   hasCommand(commandName) {

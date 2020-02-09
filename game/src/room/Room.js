@@ -2,7 +2,7 @@ import { HEADINGS } from 'main/Actor';
 import RoomActor from 'room/RoomActor';
 import { getElem } from 'db';
 import display from 'display/Display';
-import { isPointWithinRect, pt, hexToRGBA } from 'utils';
+import { isPointWithinRect, hexToRGBA } from 'utils';
 import { getWaypointPath, getCollisionWalls } from 'pathfinding';
 import scene from 'main/Scene';
 import theme from 'main/theme';
@@ -53,9 +53,9 @@ class Room {
       const characterTemplate = getElem('characters', name);
       const act = new RoomActor(this, characterTemplate, this.camera, {
         heading: true,
+        character: true,
       });
       act.setAt(x, y);
-      act.setHeading(HEADINGS.DOWN);
       this.actors.push(act);
     });
 
@@ -129,20 +129,22 @@ class Room {
     }, null);
   }
 
-  getActorAt(x, y) {
+  getCharacterAt(x, y) {
     let ret = null;
 
     for (let i = 0; i < this.actors.length; i++) {
       const act = this.actors[i];
-      const { x: renderX, y: renderY } = act.getRenderLocation();
-      const { width, height } = act.getSize();
-      const xTopLeft = renderX - width / 2;
-      const yTopLeft = renderY - width / 2;
+      if (!act.isCharacter) {
+        continue;
+      }
+      const { x: actX, y: actY } = act;
+      const { width, height } = act.hitBox;
+      const xTopLeft = actX - width / 2;
+      const yTopLeft = actY - width / 2;
       if (isPointWithinRect({ x, y }, { x: xTopLeft, y: yTopLeft, width, height })) {
         if (!ret) {
           ret = act;
-        } else if (ret.getBottomYRenderLocation() < yTopLeft + height) {
-          ret = act;
+          break;
         }
       }
     }

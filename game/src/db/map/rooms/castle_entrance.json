@@ -81,7 +81,7 @@
          "name":"props",
          "objects":[
                 {
-                 "gid":7,
+                 "gid":8,
                  "height":36,
                  "id":48,
                  "name":"",
@@ -93,7 +93,7 @@
                  "y":278
                 }, 
                 {
-                 "gid":12,
+                 "gid":13,
                  "height":58,
                  "id":51,
                  "name":"",
@@ -105,7 +105,7 @@
                  "y":361
                 }, 
                 {
-                 "gid":11,
+                 "gid":12,
                  "height":176,
                  "id":52,
                  "name":"",
@@ -117,7 +117,7 @@
                  "y":207
                 }, 
                 {
-                 "gid":11,
+                 "gid":12,
                  "height":176,
                  "id":53,
                  "name":"",
@@ -287,7 +287,7 @@
          "source":"..\/..\/..\/..\/..\/tiled\/tmx\/control.tsx"
         }, 
         {
-         "firstgid":7,
+         "firstgid":8,
          "source":"..\/..\/..\/..\/..\/tiled\/tmx\/props.tsx"
         }],
  "tilewidth":1,

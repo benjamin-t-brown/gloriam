@@ -19,9 +19,11 @@ class RoomUI extends React.Component {
         //   display.pause();
         // }
       },
-      r: ev => {
-        ev.preventDefault();
-        window.scene.callScript('rvb');
+    };
+
+    this.mouseEvents = {
+      1: ev => {
+        this.handleClick(ev);
       },
     };
 
@@ -29,19 +31,16 @@ class RoomUI extends React.Component {
   }
 
   handleClick = ev => {
+    const point = this.props.room.renderToWorldCoords(pt(ev.clientX, ev.clientY));
     if (input.isUIInputEnabled() && !scene.isExecutingBlockingScene()) {
-      const act = this.props.room.getActiveActor();
-      const point = this.props.room.renderToWorldCoords(pt(ev.clientX, ev.clientY));
-      this.props.room.actorWalkTowards(act, point);
+      const clickedAct = this.props.room.getCharacterAt(point.x, point.y);
+      if (clickedAct && clickedAct.talkTrigger) {
+        scene.callTrigger(clickedAct.talkTrigger, 'action');
+      } else {
+        const act = this.props.room.getActiveActor();
+        this.props.room.actorWalkTowards(act, point);
+      }
     }
-    // const newState = {
-    //   walk: {
-    //     end: point,
-    //     start: act.getWalkPosition(),
-    //     path: path && [...path],
-    //   },
-    // };
-    // this.setState(newState);
   };
 
   calculateAndSetScale() {
@@ -65,6 +64,7 @@ class RoomUI extends React.Component {
     this.handleResize = () => this.calculateAndSetScale();
     window.addEventListener('resize', this.handleResize);
     input.pushEventListeners('keydown', this.events);
+    input.pushEventListeners('mousedown', this.mouseEvents);
 
     const drawDebugMouse = () => {
       const mouse = this.mouse;
@@ -115,6 +115,7 @@ class RoomUI extends React.Component {
   componentWillUnmount() {
     window.addEventListener('resize', this.handleResize);
     input.popEventListeners('keydown', this.events);
+    input.popEventListeners('mousedown', this.mouseEvents);
     display.setLoop(function() {});
   }
 
@@ -131,7 +132,6 @@ class RoomUI extends React.Component {
   render() {
     return (
       <div
-        onClick={this.handleClick}
         onMouseMove={ev => {
           this.mouse = {
             x: Math.round(ev.clientX),
