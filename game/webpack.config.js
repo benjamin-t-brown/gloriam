@@ -43,7 +43,7 @@ module.exports = {
   },
   plugins: [
     new WebpackBeforeBuildPlugin(async (stats, callback) => {
-      const result = await execAsync(`cd ${__dirname}/dist/snd && find . -type f`);
+      const result = await execAsync(`cd ${__dirname}/dist/voice && find . -type f`);
       const exp = JSON.stringify(
         result
           .split('\n')
@@ -56,7 +56,7 @@ module.exports = {
         null,
         2
       );
-      fs.writeFileSync(`${__dirname}/dist/sounds.json`, `${exp}`);
+      fs.writeFileSync(`${__dirname}/dist/voice.json`, `${exp}`);
       // try {
       //   await execAsync(`cp -r ${__dirname}/../tiled/props/* ${__dirname}/dist/img/`);
       // } catch (e) {
