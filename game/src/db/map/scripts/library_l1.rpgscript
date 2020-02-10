@@ -21,17 +21,15 @@ CorneliusLiber: "Oh!"
 CorneliusLiber: "I didn't see you there, young man."
 +lookDirection(Rydo, d);
 Rydo: "(Young man?)"
-+lookAt(Rydo, CorneliusLiber);
-Rydo: "I..."
-+lookDirection(Rydo, l);
-Rydo: "*ahem*"
+Rydo: "Uhh..."
 +lookAt(Rydo, CorneliusLiber);
 Rydo: "I happened to notice that you seem to be looking for something."
 CorneliusLiber: "That's very perceptive of you."
-Rydo: "Why, thank you!"
+Rydo: "Ha!"
 Rydo: "I take great measures to seek out those who struggle through the perils of life!"
 +setAnimationState(Rydo, smug);
-Rydo: "And as a man of considerable noble blood, I cannot stand idly by without offering my aid!"
+Rydo: "And as a man of considerable noble blood..."
+Rydo: "I cannot stand idly by without offering my aid!"
 +setAnimationState(Rydo, default);
 CorneliusLiber: "Ah yes!"
 CorneliusLiber: "It would be a great service for you to help me."
@@ -59,8 +57,7 @@ Rydo: "You can rest easy knowing that I'm on the hunt!"
 +setAnimationState(Rydo, default);
 CorneliusLiber: "Thank you very much, young man!"
 +walkToMarker(Rydo, markerB);
-Rydo: "There it is again."
-Rydo: "Does he perhaps not know that I am well beyond my young years?"
+Rydo: "This shouldn't be that difficult."
 
 @library_l1-CorneliusLiber-Ferelith-First
 +walkToMarker(Ferelith, markerA);
