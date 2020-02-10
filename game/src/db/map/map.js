@@ -19,8 +19,6 @@ let rooms = {};
 let triggers = {};
 let scripts = {};
 
-const CHUNK_SIZE = 15;
-
 export async function loadMapElements(db, scene) {
   let soundsToLoad = [];
   for (let scriptFileName in scriptFiles) {
@@ -42,22 +40,17 @@ export async function loadMapElements(db, scene) {
   const soundLoadErrors = [];
   if (scene.voiceEnabled) {
     const sounds = JSON.parse(await fetchAsync(`${global.SOUND_PATH || ''}sounds.json`));
-    let promises = [];
-
+    window.load.markLoading(soundsToLoad.length);
     for (let i = 0; i < soundsToLoad.length; i++) {
       const { soundNameCh: soundName } = soundsToLoad[i];
       const soundUrl = soundName + SOUND_EXTENSION;
       if (sounds[soundUrl]) {
-        promises.push(display.loadSound(soundName, 'snd/' + soundName + SOUND_EXTENSION));
+        await display.loadSound(soundName, 'voice/' + soundName + SOUND_EXTENSION);
       } else {
         soundLoadErrors.push(soundUrl);
       }
-      if (promises.length > CHUNK_SIZE) {
-        await Promise.all(promises);
-        promises = [];
-      }
+      window.load.markLoaded();
     }
-    await Promise.all(promises);
   }
 
   console.log(

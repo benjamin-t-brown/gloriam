@@ -14,11 +14,12 @@ const loadSave = async () => {
 };
 
 async function main() {
-  load.setLoadingText('Acquiring images...');
+  load.setLoadingText('Acquiring images & foley...');
   await display.init();
-  load.setLoadingText('Acquiring voices...');
+  load.reset();
+  load.setLoadingText('Acquiring voices...', '#827094');
   await loadMapElements({ elemExists }, scene);
-  load.setLoadingText('Acquiring cadences...');
+  load.setLoadingText('Acquiring cadences...', '#71AA34');
   await loadCadences({ addElem });
   load.setLoadingText('Acquiring saves...');
   await loadSave();

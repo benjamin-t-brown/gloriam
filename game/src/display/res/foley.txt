@@ -1,0 +1,2 @@
+Sound,sword_sheath,foley/sword_sheath.mp3
+Sound,sword_unsheath,foley/sword_unsheath.mp3

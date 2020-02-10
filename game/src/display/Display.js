@@ -106,11 +106,9 @@ display.loadPicture = async function(name, url) {
       resolve(display.pictures[name]);
       return;
     }
-    window.load.markLoading();
     display.pictures[name] = [];
     const img = new global.Image();
     img.onload = () => {
-      window.load.markLoaded();
       display.sprites[name] = new Sprite(name, 0, 0, img.width, img.height);
       display.createAnimationFromPicture(name);
       const cbs = display.pictures[name];
@@ -125,7 +123,6 @@ display.loadPicture = async function(name, url) {
 display.loadSound = async function(name, url) {
   url = `${window.SOUND_PATH || ''}${url}`;
   return new Promise((resolve, reject) => {
-    window.load.markLoading();
     const sound = new Audio(url + '.wav');
     sound.autoplay = false;
     sound.oncanplay = () => {
@@ -142,7 +139,6 @@ display.loadSound = async function(name, url) {
         audio: sound,
         soundDuration,
       };
-      window.load.markLoaded();
       resolve(sound);
     };
     sound.addEventListener('error', e => {

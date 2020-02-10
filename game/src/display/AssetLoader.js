@@ -19,7 +19,13 @@ class AssetLoader {
   }
 
   async processAssetFile(filename, text) {
-    const sprite_cbs = [];
+    const spriteCbs = [];
+    const loadCbs = [];
+
+    const _Sound = async function(line) {
+      const [, soundName, soundUrl] = line;
+      return display.loadSound(soundName, soundUrl);
+    };
 
     const _Picture = async function(line) {
       const [_, pictureName, url, spriteWidth, spriteHeight] = line;
@@ -130,13 +136,13 @@ class AssetLoader {
       if (type === 'Picture') {
         currentPicture = line[1];
         lastSpriteInd = 0;
-        await _Picture(line);
+        loadCbs.push(() => _Picture(line));
       } else if (type === 'SpriteList') {
         const n = parseInt(line[2]);
-        sprite_cbs.push(_SpriteList.bind(display, line, currentPicture, lastSpriteInd));
+        spriteCbs.push(_SpriteList.bind(display, line, currentPicture, lastSpriteInd));
         lastSpriteInd += n;
       } else if (type === 'Sprite') {
-        sprite_cbs.push(_Sprite.bind(display, line, currentPicture));
+        spriteCbs.push(_Sprite.bind(display, line, currentPicture));
       } else if (type === 'Animation') {
         currentAnim = {
           name: '',
@@ -147,6 +153,8 @@ class AssetLoader {
         continue;
       } else if (type === 'Cadence') {
         _Cadence(line);
+      } else if (type === 'Sound') {
+        loadCbs.push(() => _Sound(line));
       }
     }
 
@@ -154,7 +162,13 @@ class AssetLoader {
       _FinalizeCurrentAnimation();
     }
 
-    sprite_cbs.forEach(f => {
+    window.load.markLoading(loadCbs.length);
+    for (let i = 0; i < loadCbs.length; i++) {
+      await loadCbs[i]();
+      window.load.markLoaded();
+    }
+
+    spriteCbs.forEach(f => {
       f();
     });
   }

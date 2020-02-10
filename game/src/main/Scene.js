@@ -63,14 +63,16 @@ class Scene {
           input.setUIInputDisabled(false);
         });
       },
+      playSound: soundName => {
+        const soundObject = display.getSound(soundName);
+        display.playSound(soundObject);
+      },
       defaultDialogue: actorName => {},
       callScript: () => {},
       setStorage: (key, value) => {},
       setStorageOnce: (key, value) => {
-        const newKey = (this.currentScript || this.currentTrigger).name + '-' + key;
-        if (!this.storageOnceKeys[newKey]) {
+        if (this.storage[key] === undefined) {
           this.storage[key] = value;
-          this.storageOnceKeys[newKey] = true;
         }
       },
       walkTowards: (x, y, time) => {},
@@ -325,14 +327,14 @@ class Scene {
         const act = this.gameInterface.getRoom().getActiveActor();
         return act.name === args[0];
       } else if (type === 'once') {
-        if (args[0]) {
+        const arg = args[0] || (this.currentScript || this.currentTrigger).name + '-once';
+        if (this.storageOnceKeys[arg]) {
+          console.log('NOT SET STORAGE', arg);
           return false;
-        } else {
-          this.commands.setStorageOnce(
-            this.currentTrigger.name + '-once-' + originalArgs[0]
-          );
-          return true;
         }
+        console.log('SET STORAGE', arg);
+        this.storageOnceKeys[arg] = true;
+        return true;
       }
       return false;
     }

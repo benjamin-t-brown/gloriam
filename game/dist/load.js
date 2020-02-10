@@ -2,6 +2,7 @@ const load = {
   loading: 0,
   loaded: 0,
   text: '',
+  barColor: '#E1534A',
   styles: {
     root: {
       display: 'flex',
@@ -18,7 +19,6 @@ const load = {
     loadingBar: {
       height: '5rem',
       width: '0px',
-      'background-color': '#E1534A',
     },
     loadingText: {
       color: 'white',
@@ -47,21 +47,30 @@ const load = {
     const text = document.getElementById('loadingText');
     text.innerHTML = `${load.loaded}/${load.loading}`;
     bar.style.visibility = 'visible';
+    bar.style['background-color'] = load.barColor;
     text.style.visibility = load.loading ? 'visible' : 'hidden';
 
     const text2 = document.getElementById('loadingText2');
     text2.innerHTML = load.text;
   },
-  markLoading: function() {
-    load.loading++;
+  markLoading: function(n) {
+    load.loading = n ? load.loading + n : load.loading + 1;
     load.setStyles();
   },
   markLoaded: function() {
     load.loaded++;
     load.setStyles();
   },
-  setLoadingText: function(text) {
+  reset: function() {
+    load.loading = 0;
+    load.loaded = 0;
+    load.setStyles();
+  },
+  setLoadingText: function(text, color) {
     load.text = text;
+    if (color) {
+      load.barColor = color;
+    }
     load.setStyles();
   },
   init: function() {

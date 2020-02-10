@@ -3,7 +3,7 @@ const fs = require('fs');
 const bodyParser = require('body-parser');
 
 const PORT = 8889;
-const SOUNDS_DIR = `${__dirname}/../../../game/dist/snd`;
+const SOUNDS_DIR = `${__dirname}/../../../game/dist/voice`;
 const SPRITESHEETS_DIR = `${__dirname}/../../spritesheets`;
 const CADENCES_DIR = `${__dirname}/../../../game/src/db/cadences`;
 const CADENCE_FILE_EXTENSION = '.cadence.json';
