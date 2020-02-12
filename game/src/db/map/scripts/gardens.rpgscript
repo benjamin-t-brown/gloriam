@@ -1,0 +1,92 @@
+@gardens
++setStorage('room', 'Gardens');
+
+#gardens-GardnerHarris
+action,?once():gardens-GardnerHarrisRydoFirst
+action,gardens-GardnerHarrisRydoFirst
+
+@gardens-GardnerHarrisFirst
+Rydo: "Hello sir!  Could I have a word with you?"
+GardnerHarris: "And who might you be?"
+GardnerHarris: "Some new, good-for-nothing magic academy initiate I'd wager."
+Rydo: "Actually, that's not--"
+GardnerHarris: "All you delinquents do is cause me problems..."
+GardnerHarris: "Traipsing all over my flowers..."
+GardnerHarris: "Letting loose those horrible little monsters..."
+Rydo: "Sir, if I could just--"
+GardnerHarris: "And you don't take any sort of responsibility!"
+GardnerHarris: "I've just about had it up to *here* with the lot of you."
+Rydo: "Please, sir--"
+GardnerHarris: "Get out of my sight, you *cretin*."
+Rydo: "Cretin!"
+GardnerHarris: "Go and tell your little friends to keep away from my humble abode."
+Rydo: "Sir--!"
+GardnerHarris: "And stay off the flowers!"
+GardnerHarris: "They're the only souls with integrity in this whole castle."
+Rydo: "Fine."
++walkToMarker(Rydo, markerA);
+Rydo: "Such rudeness would never have been tolerated in Elkhain."
+
+@gardens-GardnerHarrisDefault
+Rydo: "I have no desire to speak with such a rude man."
+
+#gardens-GardnerHarrisFlowers1
+step,gardens-GardnerHarrisFlowers
+#gardens-GardnerHarrisFlowers2
+step,gardens-GardnerHarrisFlowers
+#gardens-GardnerHarrisFlowers3
+step,gardens-GardnerHarrisFlowers
+@gardens-GardnerHarrisFlowers
+GardnerHarris: "Hey!"
+GardnerHarris: "Stay off the flowers!"
+
+@gardens-GardnerHarrisIdle1
+GardnerHarris: "*inaudible grumbling*"
+
+@gardens-GardnerHarrisIdle2
+GardnerHarris: "...that was a precious family heirloom."
+
+@gardens-GardnerHarrisIdle3
+GardnerHarris: "The nerve... *grumble* ...monsters..."
+
+@gardens-GardnerHarrisIdle4
+GardnerHarris: "How am I gonna... *grumble*"
+
+@gardens-GardnerHarrisIdle5
+GardnerHarris: "*inaudible grumbling*"
+
+@gardens-GardnerHarrisIdle6
+GardnerHarris: "*grumble* trolls *grumble*"
+
+@gardens-GardnerHarrisIdle7
+GardnerHarris: "I oughta... *grumble*"
+
+@gardens-GardnerHarrisIdle8
+GardnerHarris: "Grandmother *grumble* so angry."
+
+@gardens-GardnerHarrisFoundRing
+Rydo: "Sir--"
+GardnerHarris: "I thought I told you to stay away!"
+Rydo: "Sir!"
+GardnerHarris: "Do you not have ears?"
+Rydo: "SIR!!!"
+Rydo: "Even though you have been nothing but RUDE..."
+Rydo: "IMPERTINENT."
+GardnerHarris: "Hmph!"
+Rydo: "And quite honestly..."
+Rydo: "VILE."
+GardnerHarris: "--!"
+Rydo: "I have obtained your ring, that you, ostensibly, valued so greatly."
++setAnimationState(Rydo, presentItem);
++waitMS(1000);
++setAnimationState(GardnerHarris, snatch);
++waitMS(500);
++setAnimationState(GardnerHarris, default);
+GardnerHarris: "How...?"
+Rydo: "It wasn't easy."
+Rydo: "But despite your considerable shortcomings..."
+Rydo: "I have assisted you."
+Rydo: "Because it was the right thing to do."
+GardnerHarris: "Yeah, yeah."
+GardnerHarris: "This never should have been stolen in the first place."
+

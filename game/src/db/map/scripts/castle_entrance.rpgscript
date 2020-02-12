@@ -116,7 +116,23 @@ Gate Guard: "Any closer and I'll gut you like a kabaab."
 +setAnimationState(Gate Guard, sword_away);
 +waitMS(500);
 
+#castle_entrance-Cart
+action,this
+@this
++lookAt(Rydo, cart)
+Rydo: "It's an empty cart."
+Rydo: "Somebody has just left it here."
+
+#castle_entrance-Banner
+action,this
+@this
++lookAt(Rydo, banner1-prop)
+Rydo: "Those banners are not very impressive."
+Rydo: "In Elkhain, they would have spanned the length of the wall."
+Rydo: "And that shade of red is so drab."
+Rydo: "I struggle to imagine why King Siff displays it so proudly."
+
 #castle_entrance-toWelcomeGrounds
-step,castle_entrance-toWelcomeGrounds
-@castle_entrance-toWelcomeGrounds
-+changeRoom('welcome_grounds');
+step,this
+@this
++changeRoom('welcome_grounds', 'markerTop');

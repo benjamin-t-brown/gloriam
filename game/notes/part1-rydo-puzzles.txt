@@ -69,12 +69,12 @@ Gardner Lost Ring
     * When spoken to, he grumpily answers that he has no time to speak with you and continues his search
     * If you listen to him for long enough, you can determine that he searches for a ring, and that he last remembered having it in his house, but he has looked all over his house and hasn't found it.
   - If you go to his little hut, you find a mess of a place
-    * searching in here, you can find a ransom not, written in untidy hand, saying that "Bad Energy Trolls" have taken his ring, and require a payment of "a fortune of suitable worth" on the altar outside the magic school entrance.
+    * searching in here, you can find a ransom note, written in untidy hand, saying that "Malum Vestibulum Trolls" have taken his ring, and require a payment of "a fortune of suitable worth" on the altar outside the magic school entrance.
     * if you go to the altar at this point, you see nothing
-    * you can ask a nearby professor about Bad Energy Trolls, and he/she doesn't know what that is.
-  - Sylvas the Elfish knows what bad energy trolls are.
+    * you can ask a nearby professor about Malum Vestibulum Trolls, and he/she doesn't know what that is.
+  - Sylvas the Elfish knows what Malum Vestibulum trolls are.
     * talk to Sylvas (a second time) and he'll give you Tranquilla Gem
-    * Use the gem on the Servus Golem to get Revelans Powder to use in any area you think there's might be Bad Energy Trolls
+    * Use the gem on the Servus Golem to get Revelans Powder to use in any area you think there's might be Malum Vestibulum Trolls
   - Use the powder by the Altar and convince the troll to give you the ring
   - Give Gardner Harris the ring.  He grumbles, but gives you a key to the shed by his house which contains a roll of "Viscosi Max Glue" that has been specially made by the magic school to "stick anything together"
 

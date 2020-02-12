@@ -310,6 +310,7 @@ export class ScriptParser {
     let currentBlock = null;
     let currentScript = null;
     let currentTrigger = null;
+    let currentTriggerName = null;
     const lines = src.split('\n');
 
     lines.forEach((line, lineNum) => {
@@ -329,7 +330,10 @@ export class ScriptParser {
         isCodeBlock = false;
         currentBlock = null;
       } else if (firstCh === '@' && !isCodeBlock) {
-        const scriptName = line.substr(1, line.length - 1);
+        let scriptName = line.substr(1, line.length - 1);
+        if (scriptName === 'this') {
+          scriptName = currentTriggerName;
+        }
         if (scriptName.length === 0) {
           this.throwParsingError('Invalid script name', lineNum, line);
         }
@@ -355,6 +359,7 @@ export class ScriptParser {
       } else if (firstCh === '#') {
         isTrigger = true;
         isChoice = false;
+        currentTriggerName = line.substr(1);
         currentTrigger = new Trigger(line.substr(1), this.name, lineNum);
         addTrigger(line.substr(1), currentTrigger);
       } else if (firstCh === '+' || isCodeBlock) {
@@ -428,11 +433,11 @@ export class ScriptParser {
           triggerContents,
           lineNum
         );
-        currentTrigger.addScriptCall(
-          triggerType,
-          conditional,
-          triggerContents.substr(endIndex)
-        );
+        let scriptName = triggerContents.substr(endIndex);
+        if (scriptName === 'this') {
+          scriptName = currentTriggerName;
+        }
+        currentTrigger.addScriptCall(triggerType, conditional, scriptName);
       } else if (firstCh === '>') {
         currentBlock.commands.push({
           type: 'callScript',
