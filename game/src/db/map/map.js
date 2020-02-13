@@ -1,4 +1,4 @@
-import ScriptParser from './ScriptParser';
+import { ScriptParser } from './ScriptParser';
 import RoomParser from './RoomParser';
 import display from 'display/Display';
 import { fetchAsync } from 'utils';

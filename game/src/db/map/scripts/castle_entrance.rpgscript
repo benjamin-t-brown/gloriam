@@ -122,6 +122,7 @@ action,this
 +lookAt(Rydo, cart)
 Rydo: "It's an empty cart."
 Rydo: "Somebody has just left it here."
+Rydo: "I hope they get a parking ticket."
 
 #castle_entrance-Banner
 action,this

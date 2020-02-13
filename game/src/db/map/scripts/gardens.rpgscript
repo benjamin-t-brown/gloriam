@@ -25,10 +25,12 @@ GardnerHarris: "And stay off the flowers!"
 GardnerHarris: "They're the only souls with integrity in this whole castle."
 Rydo: "Fine."
 +walkToMarker(Rydo, markerA);
++lookDirection(Rydo, d);
 Rydo: "Such rudeness would never have been tolerated in Elkhain."
 
 @gardens-GardnerHarrisDefault
-Rydo: "I have no desire to speak with such a rude man."
++lookAt(Rydo, GardnerHarris)
+Rydo: "I have absolutely no desire to speak with such a rude man."
 
 #gardens-GardnerHarrisFlowers1
 step,gardens-GardnerHarrisFlowers

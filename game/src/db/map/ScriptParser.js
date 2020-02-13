@@ -1,4 +1,4 @@
-export function splitNotInParens(str, spl) {
+function splitNotInParens(str, spl) {
   const ret = [];
   let agg = '';
   let quote = '';
@@ -33,7 +33,7 @@ export function splitNotInParens(str, spl) {
   return ret;
 }
 
-export function indexOfNotInParens(str, spl) {
+function indexOfNotInParens(str, spl) {
   let quote = '';
   let ignore = false;
   for (let i = 0; i < str.length; i++) {
@@ -60,7 +60,7 @@ export function indexOfNotInParens(str, spl) {
   return -1;
 }
 
-export function removeQuotes(args) {
+function removeQuotes(args) {
   return args.map(arg => {
     if (arg[0] === '"' || arg[0] === "'") {
       return arg.slice(1, -1);
@@ -70,7 +70,7 @@ export function removeQuotes(args) {
   });
 }
 
-export function formatArgs(args) {
+function formatArgs(args) {
   return removeQuotes(args).map(arg => {
     if (!isNaN(parseFloat(arg))) {
       return parseFloat(arg);
@@ -80,7 +80,7 @@ export function formatArgs(args) {
   });
 }
 
-export class Trigger {
+class Trigger {
   constructor(name, filename, lineNum) {
     this.name = name;
     this.filename = filename;
@@ -97,7 +97,7 @@ export class Trigger {
   }
 }
 
-export class Script {
+class Script {
   constructor(name, filename, lineNum) {
     this.name = name;
     this.filename = filename;
@@ -118,6 +118,9 @@ export class Script {
   }
 
   isValid(scene) {
+    if (!scene) {
+      return true;
+    }
     for (let i = 0; i < this.blocks.length; i++) {
       const block = this.blocks[i];
 
@@ -174,10 +177,6 @@ export class Script {
     return { soundNameIndexed, soundNameCh };
   }
 
-  print() {
-    console.log('SCRIPT', this.name, this.blocks);
-  }
-
   addCommandBlock() {
     const block = {
       conditional: true,
@@ -188,7 +187,7 @@ export class Script {
   }
 }
 
-export class ScriptParser {
+class ScriptParser {
   constructor(name) {
     this.name = name;
     this.soundsToLoad = [];
@@ -460,4 +459,8 @@ export class ScriptParser {
   }
 }
 
-export default ScriptParser;
+module.exports = {
+  ScriptParser,
+  Script,
+  formatArgs,
+};
