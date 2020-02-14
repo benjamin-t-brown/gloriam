@@ -231,6 +231,50 @@
                  "width":18.5,
                  "x":-5,
                  "y":256.5
+                }, 
+                {
+                 "height":52,
+                 "id":68,
+                 "name":"Cart",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":72.5454545454545,
+                 "x":29.6363636363636,
+                 "y":306.909090909091
+                }, 
+                {
+                 "height":26,
+                 "id":69,
+                 "name":"Cart",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":42.1818181818182,
+                 "x":101.636363636364,
+                 "y":326.545454545455
+                }, 
+                {
+                 "height":149.666666666667,
+                 "id":72,
+                 "name":"Banner",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":59.6666666666667,
+                 "x":294.333333333333,
+                 "y":47.3333333333333
+                }, 
+                {
+                 "height":149.667,
+                 "id":73,
+                 "name":"Banner",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":59.6667,
+                 "x":41.4999833333333,
+                 "y":48.8331666666666
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -276,7 +320,7 @@
          "y":0
         }],
  "nextlayerid":7,
- "nextobjectid":68,
+ "nextobjectid":74,
  "orientation":"orthogonal",
  "renderorder":"left-up",
  "tiledversion":"1.3.1",

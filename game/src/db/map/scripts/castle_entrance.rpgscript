@@ -137,3 +137,8 @@ Rydo: "I struggle to imagine why King Siff displays it so proudly."
 step,this
 @this
 +changeRoom('welcome_grounds', 'markerTop');
+
+#castle_entrance-toEastWall
+step,this
+@this
++changeRoom('library_l1', 'markerLeft');

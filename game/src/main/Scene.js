@@ -146,6 +146,15 @@ class Scene {
         const act = this.gameInterface.getActor(actorName);
         act.setAnimationState(stateName, stateName === 'default' ? true : false);
       },
+      setAnimationStateAndWait: (actorName, stateName) => {
+        const act = this.gameInterface.getActor(actorName);
+        const animation = act.setAnimationState(
+          stateName,
+          stateName === 'default' ? true : false
+        );
+        commands.waitMS(animation.getDurationMs());
+        return true;
+      },
       walkToMarker: (actorName, markerName, concurrent) => {
         const act = this.gameInterface.getActor(actorName);
         const marker = this.gameInterface.getMarker(markerName);

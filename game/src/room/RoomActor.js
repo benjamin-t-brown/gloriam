@@ -20,7 +20,7 @@ class RoomActor extends Actor {
     } = template;
     this.camera = camera;
 
-    this.name = name;
+    this.name = name || template.spriteBase;
     this.displayName = displayName;
     this.width = width || room.baseSize;
     this.height = height || room.baseSize;
@@ -226,6 +226,7 @@ class RoomActor extends Actor {
     if (changed) {
       this.animationState = stateName;
     }
+    return this.getCurrentAnimation();
   }
 
   // not instant
