@@ -8,5 +8,8 @@ Picture,outside_wall_gate-bg,outside_wall_gate-bg.png
 Picture,readyroom-bg,readyroom-bg.png
 Picture,readyroom-fg,readyroom-fg.png
 Picture,rvb-bg,rvb-bg.png
+Picture,servant_entrance,servant_entrance.png
 Picture,welcome_grounds-bg,welcome_grounds-bg.png
 Picture,welcome_grounds-fg,welcome_grounds-fg.png
+Picture,west_wall-bg,west_wall-bg.png
+Picture,west_wall-fg,west_wall-fg.png

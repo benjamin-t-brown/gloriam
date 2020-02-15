@@ -1,6 +1,22 @@
 @castle_entrance
 +setStorageOnce('room', 'castle_entrance');
 
+#castle_entrance-toWelcomeGrounds
+step,this
+@this
++changeRoom('welcome_grounds', 'markerTop');
+
+#castle_entrance-toServantEntrance
+step,this
+@this
++changeRoom('servant_entrance', 'markerRight');
+
+// this is wrong: fix this
+#castle_entrance-toEastWall
+step,this
+@this
++changeRoom('library_l1', 'markerLeft');
+
 #castle_entrance-GateGuard
 action,?once():castle_entrance-GateGuardFirst
 action,castle_entrance-GateGuardDefault
@@ -132,13 +148,3 @@ Rydo: "Those banners are not very impressive."
 Rydo: "In Elkhain, they would have spanned the length of the wall."
 Rydo: "And that shade of red is so drab."
 Rydo: "I struggle to imagine why King Siff displays it so proudly."
-
-#castle_entrance-toWelcomeGrounds
-step,this
-@this
-+changeRoom('welcome_grounds', 'markerTop');
-
-#castle_entrance-toEastWall
-step,this
-@this
-+changeRoom('library_l1', 'markerLeft');

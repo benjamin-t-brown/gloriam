@@ -152,7 +152,7 @@ class RoomParser {
         width = clip_w;
         height = clip_h;
       }
-      roomTemplate.props.push({
+      const propTemplate = {
         name: name || '',
         spriteName: spriteName,
         isMarker: this.isMarker(name),
@@ -160,7 +160,8 @@ class RoomParser {
         y,
         width,
         height,
-      });
+      };
+      roomTemplate.props.push(propTemplate);
     });
 
     wallsLayer.objects.forEach(obj => {

@@ -31,7 +31,7 @@ class AssetLoader {
       const [_, pictureName, url, spriteWidth, spriteHeight] = line;
       const img = await display.loadPicture(pictureName, 'img/' + url);
       if (spriteWidth && spriteHeight) {
-        const n = (img.width / spriteWidth) * (img.height / spriteHeight);
+        const n = Math.round((img.width / spriteWidth) * (img.height / spriteHeight));
         _SpriteList([_, pictureName, n, spriteWidth, spriteHeight], pictureName, 0);
       }
       return img;

@@ -55,8 +55,10 @@ class RoomUI extends React.Component {
         scale = 0.25;
       }
     } else {
-      scale = Math.floor(scale);
+      // comment back in to scale to whole numbers
+      //scale = Math.floor(scale);
     }
+
     this.props.room.setBaseScale(scale);
   }
 

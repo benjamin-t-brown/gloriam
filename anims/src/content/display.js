@@ -111,8 +111,8 @@ display.calculateSpritesheet = (imageName, spriteWidth, spriteHeight) => {
   }
   spriteWidth = spriteWidth || 1;
   spriteHeight = spriteHeight || 1;
-  let nX = (image ? image.width : 1) / spriteWidth;
-  let nY = (image ? image.height : 1) / spriteHeight;
+  let nX = Math.round((image ? image.width : 1) / spriteWidth);
+  let nY = Math.round((image ? image.height : 1) / spriteHeight);
   nX = nX || 0;
   nY = nY || 0;
   for (let i = 0; i < nY; i++) {

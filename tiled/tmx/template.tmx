@@ -1,22 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <map version="1.2" tiledversion="1.3.1" orientation="orthogonal" renderorder="left-up" compressionlevel="0" width="256" height="128" tilewidth="1" tileheight="1" infinite="0" nextlayerid="7" nextobjectid="37">
  <editorsettings>
-  <export format="json"/>
+  <export target="." format="json"/>
  </editorsettings>
  <tileset firstgid="1" source="control.tsx"/>
- <tileset firstgid="7" source="props.tsx"/>
+ <tileset firstgid="8" source="props.tsx"/>
  <imagelayer id="1" name="bg">
   <image source="../stages/readyroom-bg.png" width="256" height="128"/>
  </imagelayer>
+ <objectgroup id="4" name="props"/>
+ <objectgroup id="6" name="characters" offsetx="4.5" offsety="-1.75">
+  <object id="28" name="Rydo" gid="5" x="66.75" y="121.25" width="64" height="64"/>
+ </objectgroup>
  <imagelayer id="2" name="fg">
   <image source="../stages/readyroom-fg.png" width="256" height="128"/>
  </imagelayer>
+ <objectgroup id="5" name="triggers"/>
  <objectgroup id="3" name="walls"/>
- <objectgroup id="4" name="props"/>
- <objectgroup id="5" name="triggers">
-  <object id="36" name="To Hallways" x="-0.25" y="31.5" width="15.7799" height="96.75"/>
- </objectgroup>
- <objectgroup id="6" name="characters" locked="1" offsetx="4.5" offsety="-1.75">
-  <object id="28" name="Rydo" gid="5" x="66.75" y="121.25" width="64" height="64"/>
- </objectgroup>
 </map>

@@ -123,7 +123,7 @@ display.loadPicture = async function(name, url) {
 display.loadSound = async function(name, url) {
   url = `${window.SOUND_PATH || ''}${url}`;
   return new Promise((resolve, reject) => {
-    const sound = new Audio(url + '.wav');
+    const sound = new Audio(url);
     sound.autoplay = false;
     sound.oncanplay = () => {
       sound.oncanplay = null;

@@ -74,6 +74,8 @@ class Room {
         // move.
         if (dbProp) {
           propTemplate.animName = dbProp.animName;
+          propTemplate.zOrdering = dbProp.zOrdering;
+          propTemplate.isBackground = dbProp.isBackground;
         }
         const act = new RoomActor(this, propTemplate, this.camera);
         act.width = width;
@@ -225,6 +227,13 @@ class Room {
   }
 
   sortActors(a, b) {
+    if (a.isBackground && b.isBackground) {
+      return a.zOrdering < b.zOrdering ? -1 : 1;
+    } else if (a.isBackground) {
+      return -1;
+    } else if (b.isBackground) {
+      return 1;
+    }
     const aBottom = a.getBottomYRenderLocation();
     const bBottom = b.getBottomYRenderLocation();
     if (aBottom < bBottom) {

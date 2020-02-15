@@ -27,4 +27,17 @@ function createTemplate(name) {
   s.animName = 'tree2-anim';
 }
 
+{
+  const s = createTemplate('pond');
+  s.animName = 'pond-animation';
+  s.isBackground = true;
+  s.zOrdering = -2;
+}
+
+{
+  const s = createTemplate('bridge-prop');
+  s.isBackground = true;
+  s.zOrdering = -1;
+}
+
 export default props;

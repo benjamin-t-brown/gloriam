@@ -10,9 +10,9 @@
  </imagelayer>
  <objectgroup id="3" name="walls">
   <object id="40" x="-2.70777" y="250.427" width="389.639" height="9.14174"/>
-  <object id="41" x="17.2922" y="330.967" width="78.1631" height="28.2058"/>
-  <object id="43" x="92.501" y="339.83" width="65.9252" height="12.7262"/>
-  <object id="49" x="254.545" y="256.909" width="64.3636" height="14.1818"/>
+  <object id="41" x="30.6255" y="330.967" width="64.8298" height="28.2058"/>
+  <object id="43" x="92.501" y="339.83" width="50.9252" height="12.7262"/>
+  <object id="49" x="269.212" y="256.909" width="34.0303" height="14.1818"/>
  </objectgroup>
  <objectgroup id="4" name="props">
   <object id="48" gid="8" x="268.5" y="278" width="36" height="36"/>
@@ -28,7 +28,7 @@
  <objectgroup id="5" name="triggers">
   <object id="61" name="toWelcomeGrounds" x="-7" y="370" width="395.5" height="16"/>
   <object id="62" name="toEastWall" x="367" y="259" width="16" height="112"/>
-  <object id="63" name="toDungeonEntranceOutside" x="-5" y="256.5" width="18.5" height="113"/>
+  <object id="63" name="toServantEntrance" x="-5" y="256.5" width="18.5" height="113"/>
   <object id="68" name="Cart" x="29.6364" y="306.909" width="72.5455" height="52"/>
   <object id="69" name="Cart" x="101.636" y="326.545" width="42.1818" height="26"/>
   <object id="72" name="Banner" x="294.333" y="47.3333" width="59.6667" height="149.667"/>

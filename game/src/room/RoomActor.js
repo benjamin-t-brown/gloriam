@@ -17,6 +17,8 @@ class RoomActor extends Actor {
       hitBox,
       talkTrigger,
       defaultHeading,
+      isBackground,
+      zOrdering,
     } = template;
     this.camera = camera;
 
@@ -26,6 +28,8 @@ class RoomActor extends Actor {
     this.height = height || room.baseSize;
     this.hitBox = hitBox || { width: this.width, height: this.height };
     this.isCharacter = !!character;
+    this.isBackground = !!isBackground;
+    this.zOrdering = zOrdering || 0;
     this.walkPath = null;
     this.walkSpeedX = 100; // pixels per second
     this.walkSpeedY = 55;

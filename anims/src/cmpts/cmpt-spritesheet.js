@@ -75,15 +75,23 @@ const Tile = ({
   const height =
     spriteHeight > MAX_SPRITE_HEIGHT ? MAX_SPRITE_HEIGHT : spriteHeight;
   const scale = spriteWidth > MAX_SPRITE_WIDTH ? 0.5 : 1;
+  const sprite = display.getSprite(spriteName);
   React.useEffect(() => {
-    display.setCanvas(ref.current);
-    display.drawSprite(spriteName, width / 2, height / 2, {
-      centered: true,
-      scale,
-    });
-    display.restoreCanvas();
-  }, [spriteName, spriteWidth, spriteHeight, width, height, scale]);
-  const isBlank = display.getSprite(spriteName).is_blank;
+    if (sprite) {
+      display.setCanvas(ref.current);
+      display.drawSprite(spriteName, width / 2, height / 2, {
+        centered: true,
+        scale,
+      });
+      display.restoreCanvas();
+    }
+  }, [spriteName, spriteWidth, spriteHeight, width, height, scale, sprite]);
+
+  if (!sprite) {
+    return <div />;
+  }
+
+  const isBlank = sprite.is_blank;
 
   return (
     <div

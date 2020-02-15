@@ -79,6 +79,12 @@ AnimSprite,indicators_5,100
 AnimSprite,indicators_4,100
 Picture,invisible,invisible.png,0,0
 Picture,master-chief,master-chief.png,64,64
+Picture,pond-anim,pond-anim.png,248,159
+Animation,pond-animation,true
+AnimSprite,pond-anim_3,750
+AnimSprite,pond-anim_2,750
+AnimSprite,pond-anim_1,750
+AnimSprite,pond-anim_0,750
 Picture,projectiles,projectiles.png,64,64
 Picture,rydo,rydo.png,64,64
 Cadence,rydo_d_cad,rydo_39,rydo_40,rydo_41

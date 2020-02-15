@@ -36,9 +36,14 @@ export default () => {
     animations: [],
     animation,
     setAnimation: n => {
-      setAnimation(n);
       if (n) {
-        n.start();
+        setAnimation(null);
+        setTimeout(() => {
+          setAnimation(n);
+          n.start();
+        });
+      } else {
+        setAnimation(n);
       }
       localStorage.setItem('animName', (n && n.name) || '');
     },
