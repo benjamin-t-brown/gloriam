@@ -1,0 +1,59 @@
+@east_wall
++setStorage('room', 'east_wall');
+
+@east_wall-window
++setAnimationState(KingsMaid, entering_window);
+KingsMaid: "Is someone out there?"
+Rydo: "Yes!"
+Rydo: "Down here!"
+KingsMaid: "Oh..."
+KingsMaid: "Hey..."
++setAnimationState(KingsMaid, wave);
+Rydo: "Hello there, maiden!"
++setAnimationState(KingsMaid, default);
+Rydo: "Would you kindly do me a favor?"
+Rydo: "I require somebody to let me inside the castle."
+KingsMaid: "Umm... I don't recognize you."
+KingsMaid: "Are you new?"
+Rydo: "Indeed!"
++lookDirection(Rydo, d);
++setAnimationState(Rydo, smug);
+Rydo: "I am Lord Rydo of Elkhain, at your service."
++lookDirection(Rydo, u);
+KingsMaid: "A lord, huh?"
+KignsMaid: "That's pretty interesting."
+Rydo: "I'm trying to get to the throne room."
+Rydo: "Is there any chance you could come down here and open the gate for me?"
+KingsMaid: "Oh I don't know..."
+KingsMaid: "Isn't there supposed to be a guard down there to let you in?"
+Rydo: "Well... yes... there is."
+Rydo: "But he seems to think - very wrongfully I might add - that I am some sort of assassin."
+KingsMaid: "Oh..."
+KingsMaid: "Are you on a quest?"
+Rydo: "...I suppose you could say that."
+KingsMaid: "Nice!"
+Rydo: "..."
+KingsMaid: "Well you don't look like an assassin..."
+Rydo: "I can assure you, I am not."
+Rydo: "Isn't there anything you can do for me?"
+KingsMaid: "Maybe?"
+KingsMaid: "If you can't get through the gate then..."
+KingsMaid: "I could lower down a rope or something from here to get you through this window..."
+KingsMaid: "But I don't think the King would like that very much."
+KingsMaid: "These are kind of his apartments."
+KingsMaid: "I don't think he'd like it if he found you up here by yourself."
+Rydo: "Can't you just come down and talk to the gate guard?"
+Rydo: "Surely you can make him see reason."
+KingsMaid: "Oh..."
+KingsMaid: "I'm not sure about that."
+KingsMaid: "I'm supposed to be cleaning, you know."
+KingsMaid: "The King likes his apartments to be feather-dusted every day."
+Rydo: "It would only take a short amount of time..."
+KingsMaid: "Yeah, sounds like too much of a hassle."
+Rydo: "..."
++setAnimationState(KingsMaid, waving);
+KingsMaid: "Well... it was nice talking to you."
+KingsMaid: "Good luck on your quest though!"
++setAnimationState(KingsMaid, leaving_window);
+Rydo: "Wait!"
+Rydo: "...Is everyone here insane?"

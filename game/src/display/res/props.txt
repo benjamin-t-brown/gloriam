@@ -10,6 +10,12 @@ Picture,chairL,chairL.png
 Picture,chairR,chairR.png
 Picture,desk,desk.png
 Picture,ferelith-prop,ferelith-prop.png
+Picture,flower1-prop,flower1-prop.png
+Picture,flower2-prop,flower2-prop.png
+Picture,flower3-prop,flower3-prop.png
+Picture,flower4-prop,flower4-prop.png
+Picture,garden-fence-post-prop,garden-fence-post-prop.png
+Picture,garden-fence-prop,garden-fence-prop.png
 Picture,guard-prop,guard-prop.png
 Picture,indicator-small,indicator-small.png
 Picture,indicator1,indicator1.png

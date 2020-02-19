@@ -1,35 +1,43 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.3.1" orientation="orthogonal" renderorder="left-up" compressionlevel="0" width="576" height="576" tilewidth="1" tileheight="1" infinite="0" nextlayerid="7" nextobjectid="129">
+<map version="1.2" tiledversion="1.3.1" orientation="orthogonal" renderorder="left-up" compressionlevel="0" width="576" height="576" tilewidth="1" tileheight="1" infinite="0" nextlayerid="7" nextobjectid="137">
  <editorsettings>
   <export target="../../game/src/db/map/rooms/west_wall.json" format="json"/>
  </editorsettings>
  <tileset firstgid="1" source="control.tsx"/>
  <tileset firstgid="8" source="props.tsx"/>
- <tileset firstgid="20" source="special.tsx"/>
+ <tileset firstgid="25" source="special.tsx"/>
  <imagelayer id="1" name="bg">
   <image source="../stages/west_wall-bg.png" width="576" height="576"/>
  </imagelayer>
  <objectgroup id="4" name="props">
-  <object id="111" gid="20" x="131.727" y="405.545" width="86" height="104"/>
-  <object id="112" name="markerRight" gid="3" x="528.5" y="408.167" width="16" height="16"/>
-  <object id="113" name="markerBottom" gid="3" x="322.667" y="554" width="16" height="16"/>
-  <object id="114" name="markerLeft2" gid="3" x="26.6667" y="508" width="16" height="16"/>
-  <object id="115" name="markerLeft1" gid="3" x="32.6667" y="109.333" width="16" height="16"/>
+  <object id="111" gid="25" x="131.727" y="405.545" width="86" height="104"/>
+  <object id="112" name="markerRight" gid="3" x="525" y="410.167" width="16" height="16"/>
+  <object id="113" name="markerBottom" gid="3" x="293.167" y="554" width="16" height="16"/>
+  <object id="114" name="markerLeft2" gid="3" x="24.1667" y="485.5" width="16" height="16"/>
+  <object id="115" name="markerLeft1" gid="3" x="30.6667" y="171.333" width="16" height="16"/>
   <object id="116" name="markerTop" gid="3" x="97.3333" y="54.6667" width="16" height="16"/>
-  <object id="120" gid="15" x="-4.6667" y="538.666" width="256" height="256"/>
-  <object id="125" name="markerRight2" gid="3" x="524" y="503.5" width="16" height="16"/>
-  <object id="126" gid="19" x="138" y="114"/>
-  <object id="127" gid="19" x="150.5" y="100"/>
-  <object id="128" gid="19" x="162.5" y="115.5"/>
+  <object id="120" gid="15" x="-4.1667" y="544.666" width="256" height="256"/>
+  <object id="125" name="markerRight2" gid="3" x="501" y="544.5" width="16" height="16"/>
+  <object id="126" gid="19" x="138" y="114" width="53" height="31"/>
+  <object id="127" gid="19" x="150.5" y="100" width="53" height="31"/>
+  <object id="128" gid="19" x="162.5" y="115.5" width="53" height="31"/>
+  <object id="130" gid="19" x="363.5" y="572.5" width="53" height="31"/>
+  <object id="131" gid="19" x="498" y="462.5" width="53" height="31"/>
+  <object id="132" gid="19" x="519.5" y="475.5" width="53" height="31"/>
+  <object id="133" gid="19" x="173.5" y="492.5" width="53" height="31"/>
+  <object id="134" gid="19" x="190" y="498" width="53" height="31"/>
+  <object id="135" gid="19" x="184.5" y="482.5" width="53" height="31"/>
+  <object id="136" gid="19" x="17.5" y="565" width="53" height="31"/>
  </objectgroup>
  <objectgroup id="5" name="triggers">
-  <object id="37" name="toServantEntrance" x="551" y="297.5" width="27.5" height="115.5"/>
-  <object id="38" name="toGardens" x="-11" y="558.5" width="559" height="26.5"/>
+  <object id="37" name="toServantEntrance" x="551" y="297.5" width="27.5" height="171.5"/>
+  <object id="38" name="toGardens" x="-11" y="558.5" width="390" height="26.5"/>
   <object id="39" name="toGardnerHouse" x="-13" y="443" width="32" height="126.5"/>
   <object id="40" name="toSupplyEntrance" x="-3.5" y="0.5" width="580" height="28"/>
   <object id="42" name="toSupplyShed" x="-2" y="26" width="29" height="159.833"/>
   <object id="117" name="toSupplyEntrance" x="536.667" y="20" width="40" height="116"/>
-  <object id="124" name="toWelcomeGrounds" x="550" y="412.5" width="29" height="168.5"/>
+  <object id="124" name="toWelcomeGrounds" x="379" y="552" width="192.5" height="30.5"/>
+  <object id="129" name="toWelcomeGrounds" x="555" y="457.25" width="29" height="106.5"/>
  </objectgroup>
  <objectgroup id="6" name="characters" offsetx="4.5" offsety="-1.75">
   <object id="28" name="Rydo" gid="5" x="221.25" y="542.25" width="64" height="64"/>
@@ -44,8 +52,6 @@
   <object id="46" x="61.75" y="413.125" width="56.5" height="21.5"/>
   <object id="49" x="25.75" y="422.688" width="56.5" height="21.5"/>
   <object id="50" x="-3.75" y="429.938" width="56.5" height="21.5"/>
-  <object id="51" x="-42.25" y="441.063" width="56.5" height="21.5"/>
-  <object id="52" x="-71.75" y="448.313" width="56.5" height="21.5"/>
   <object id="57" x="454.25" y="307.688" width="56.5" height="21.5"/>
   <object id="58" x="424.75" y="314.938" width="56.5" height="21.5"/>
   <object id="59" x="386.25" y="326.063" width="56.5" height="21.5"/>
@@ -75,6 +81,6 @@
   <object id="93" x="226.792" y="225.625" width="56.5" height="21.5"/>
   <object id="106" x="-9.71591" y="273.542" width="77.5909" height="21.5"/>
   <object id="108" x="346.333" y="138.333" width="247.667" height="85"/>
-  <object id="122" x="91.3333" y="518.97" width="68.0606" height="15.697"/>
+  <object id="122" x="93.8333" y="523.47" width="68.0606" height="15.697"/>
  </objectgroup>
 </map>

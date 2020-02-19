@@ -1,5 +1,5 @@
 @castle_entrance
-+setStorageOnce('room', 'castle_entrance');
++setStorage('room', 'castle_entrance');
 
 #castle_entrance-toWelcomeGrounds
 step,this

@@ -1,6 +1,16 @@
 @gardens
 +setStorage('room', 'Gardens');
 
+#west_wall-toWestWall
+step,this
+@this
++changeRoom(west_wall, markerBottom, u);
+
+#west_wall-toWelcomeGrounds
+step,this
+@this
++changeRoom(welcome_grounds, markerLeft2, r);
+
 #gardens-GardnerHarris
 action,?once():gardens-GardnerHarrisRydoFirst
 action,?is(storage.ring):gardens-GardnerHarrisRydoDefaultRing

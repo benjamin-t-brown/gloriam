@@ -30,11 +30,11 @@ Hospitalis Potion (combat item)
 
 Characters
 
-Rydo
-Gate Guard
+Rydo - Benjamin?
+Gate Guard - Thomas
 Poe Serva
 Pondering Philosopher
-Gardner Harris
+Gardner Harris - Alex
 Sylvas the Elfish
 Christian Northford
 Servus Golem
@@ -43,6 +43,7 @@ Billy Angusta
 Blem Praepositus
 Skelo Artifex
 Servus Golem
+King's Maid - Jessica
 
 Guy Arranging Hay On Ladder: Two halves of ladder
   - In the stables, there's a guy at the top of a ladder, Poe Serva picking up hay from the loft and throwing it into a bin at the base of the ladder.  Rydo asks if he can borrow the ladder.  The man refuses, saying that his job is very important.

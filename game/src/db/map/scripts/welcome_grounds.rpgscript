@@ -15,3 +15,8 @@ step,this
 step,this
 @this
 +changeRoom(west_wall, markerRight2, l);
+
+#welcome_grounds-toGardens
+step,this
+@this
++changeRoom(gardens, markerRight, l);

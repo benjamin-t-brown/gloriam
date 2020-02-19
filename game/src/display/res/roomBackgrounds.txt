@@ -1,6 +1,8 @@
 Picture,CastleEntrance-bg,CastleEntrance-bg.png
 Picture,cell-bg,cell-bg.png
 Picture,cell-fg,cell-fg.png
+Picture,gardens-bg,gardens-bg.png
+Picture,gardens-fg,gardens-fg.png
 Picture,invisible-fg,invisible-fg.png
 Picture,library-l1-bg,library-l1-bg.png
 Picture,library-l1-fg,library-l1-fg.png

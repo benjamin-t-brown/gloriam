@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.3.1" orientation="orthogonal" renderorder="left-up" compressionlevel="0" width="768" height="576" tilewidth="1" tileheight="1" infinite="0" nextlayerid="8" nextobjectid="107">
+<map version="1.2" tiledversion="1.3.1" orientation="orthogonal" renderorder="left-up" compressionlevel="0" width="768" height="576" tilewidth="1" tileheight="1" infinite="0" nextlayerid="8" nextobjectid="116">
  <editorsettings>
   <export target="../../game/src/db/map/rooms/welcome_grounds.json" format="json"/>
  </editorsettings>
@@ -35,13 +35,15 @@
   <object id="86" gid="19" x="74" y="505" width="53" height="31"/>
   <object id="87" gid="19" x="45" y="509" width="53" height="31"/>
   <object id="106" name="markerRIght2" gid="3" x="702.5" y="379.5" width="16" height="16"/>
+  <object id="114" name="markerLeft2" gid="3" x="53" y="395" width="16" height="16"/>
  </objectgroup>
  <objectgroup id="5" name="triggers">
   <object id="57" name="toCastleEntrance" x="181.905" y="-14" width="593" height="36.3333"/>
-  <object id="58" name="toWestWall" x="-10" y="21.5935" width="54.3111" height="563.407"/>
+  <object id="58" name="toWestWall" x="-10" y="21.5935" width="54.3111" height="262.406"/>
   <object id="59" name="toStables" x="727" y="20" width="51" height="558"/>
   <object id="61" name="toOutsideWallGate" x="239" y="518" width="155" height="58"/>
   <object id="63" name="toServantEntrance" x="-4.25" y="-18.25" width="187.75" height="41.4745"/>
+  <object id="115" name="toGardens" x="-5" y="280" width="50" height="263"/>
  </objectgroup>
  <objectgroup id="6" name="characters" offsetx="4.5" offsety="-1.75">
   <object id="28" name="Rydo" gid="5" x="310.083" y="284.25" width="64" height="64"/>
