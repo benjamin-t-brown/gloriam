@@ -63,6 +63,25 @@ class Scene {
           input.setUIInputDisabled(false);
         });
       },
+      playDialogueInterruptable: (actorName, subtitle, soundName) => {
+        const actor = this.gameInterface.getActor(actorName);
+        let ms = null;
+        if (this.voiceEnabled) {
+          const soundObject = display.getSound(soundName);
+          if (soundObject) {
+            ms = soundObject.soundDuration * 1000;
+          } else {
+            ms = normalizeClamp(subtitle.length, 5, 40, 750, 3000);
+          }
+          actor.sayDialogue(subtitle, soundName);
+        } else {
+          ms = normalizeClamp(subtitle.length, 5, 40, 750, 3000);
+          actor.sayDialogue(subtitle);
+        }
+        setTimeout(() => {
+          actor.stopDialogue();
+        }, ms);
+      },
       playSound: soundName => {
         const soundObject = display.getSound(soundName);
         display.playSound(soundObject);

@@ -95,6 +95,15 @@ function createTemplate(name, battleOnly) {
 }
 
 {
+  const c = createTemplate('GardnerHarris');
+  c.spriteBase = 'GardnerHarris';
+  c.displayName = 'Gardner Harris';
+  c.textColor = theme.palette.green;
+  c.talkTrigger = 'gardens-GardnerHarris';
+  c.defaultHeading = HEADINGS.UP;
+}
+
+{
   const c = createTemplate('Grif');
   c.spriteBase = 'grif';
 }

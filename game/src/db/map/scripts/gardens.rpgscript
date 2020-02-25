@@ -1,39 +1,54 @@
 @gardens
 +setStorage('room', 'Gardens');
 
-#west_wall-toWestWall
+#gardens-toWestWall
 step,this
 @this
 +changeRoom(west_wall, markerBottom, u);
 
-#west_wall-toWelcomeGrounds
+#gardens-toWelcomeGrounds
 step,this
 @this
 +changeRoom(welcome_grounds, markerLeft2, r);
 
 #gardens-GardnerHarris
-action,?once():gardens-GardnerHarrisRydoFirst
-action,?is(storage.ring):gardens-GardnerHarrisRydoDefaultRing
-action,gardens-GardnerHarrisRydoDefault
+action,?once():gardens-GardnerHarrisFirst
+action,?is(storage.ring):gardens-GardnerHarrisDefaultRing
+action,gardens-GardnerHarrisDefault
 
 @gardens-GardnerHarrisFirst
++walkToMarker(Rydo, markerB);
++lookAtEachOther(Rydo, GardnerHarris);
 Rydo: "Hello sir!  Could I have a word with you?"
 GardnerHarris: "And who might you be?"
 GardnerHarris: "Some new, good-for-nothing magic academy initiate I'd wager."
-Rydo: "Actually, that's not--"
+_Rydo: "Actually, that's not--"
++waitMS(400);
 GardnerHarris: "All you delinquents do is cause me problems..."
++lookDirection(GardnerHarris, r);
 GardnerHarris: "Traipsing all over my flowers..."
++lookAtEachOther(Rydo, GardnerHarris);
 GardnerHarris: "Letting loose those horrible little monsters..."
-Rydo: "Sir, if I could just--"
+_Rydo: "Sir, if I could just--"
++waitMS(400);
 GardnerHarris: "And you don't take any sort of responsibility!"
++lookDirection(GardnerHarris, d);
 GardnerHarris: "I've just about had it up to *here* with the lot of you."
-Rydo: "Please, sir--"
+_Rydo: "Please, sir--"
++waitMS(400);
++lookAtEachOther(Rydo, GardnerHarris);
 GardnerHarris: "Get out of my sight, you *cretin*."
 Rydo: "Cretin!"
++lookDirection(Rydo, d);
 GardnerHarris: "Go and tell your little friends that Gardner Harris says to keep away from his humble abode."
-Rydo: "Sir--!"
++lookAtEachOther(Rydo, GardnerHarris);
+_Rydo: "Sir--!"
++waitMS(200);
++lookDirection(GardnerHarris, d);
 GardnerHarris: "That oughta strike some fear into their hearts."
++lookAtEachOther(Rydo, GardnerHarris);
 GardnerHarris: "And stay off the flowers!"
++lookDirection(GardnerHarris, d);
 GardnerHarris: "They're the only souls with integrity in this whole castle."
 Rydo: "Fine."
 +walkToMarker(Rydo, markerA);
@@ -83,6 +98,7 @@ GardnerHarris: "I oughta... *grumble*"
 GardnerHarris: "Grandmother *grumble* so angry."
 
 @gardens-GardnerHarrisFoundRing
++lookAtEachOther(Rydo, GardnerHarris)
 Rydo: "Sir--"
 GardnerHarris: "I thought I told you to stay away!"
 Rydo: "Sir!"

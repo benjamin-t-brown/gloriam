@@ -287,11 +287,16 @@ class ScriptParser {
 
   createDialogCommand(line, script) {
     let [actorName, subtitle] = line.split(':');
+    let type = 'playDialogue';
+    if (actorName[0] === '_') {
+      actorName = actorName.slice(1);
+      type = 'playDialogueInterruptable';
+    }
     subtitle = subtitle.trim();
     const { soundNameCh, soundNameIndexed } = script.getNextDialog(actorName);
     this.soundsToLoad.push({ soundNameCh, soundNameIndexed });
     return {
-      type: 'playDialogue',
+      type,
       args: formatArgs([actorName, subtitle, soundNameCh]),
     };
   }
