@@ -9,7 +9,7 @@
   <image source="../stages/readyroom-bg.png" width="256" height="128"/>
  </imagelayer>
  <objectgroup id="4" name="props"/>
- <objectgroup id="6" name="characters" offsetx="4.5" offsety="-1.75">
+ <objectgroup id="6" name="characters">
   <object id="28" name="Rydo" gid="5" x="66.75" y="121.25" width="64" height="64"/>
  </objectgroup>
  <imagelayer id="2" name="fg">

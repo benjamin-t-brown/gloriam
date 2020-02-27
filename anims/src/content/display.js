@@ -484,7 +484,13 @@ display.loadImages = async function loadImages() {
   console.log('[fetch]', type, url);
   const data = await fetch(url, opts)
     .then(async function(response) {
-      const json = await response.json();
+      let json;
+      try {
+        json = await response.json();
+      } catch (e) {
+        console.error('failed to parse json?', e);
+        throw e;
+      }
       console.log('[fetch]', 'result', type, url, json);
       return json;
     })

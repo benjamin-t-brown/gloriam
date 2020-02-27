@@ -1,6 +1,8 @@
 Picture,CastleEntrance-bg,CastleEntrance-bg.png
+Picture,castle_entrance_grounds,castle_entrance_grounds.png
 Picture,cell-bg,cell-bg.png
 Picture,cell-fg,cell-fg.png
+Picture,east_window,east_window.png
 Picture,gardens-bg,gardens-bg.png
 Picture,gardens-fg,gardens-fg.png
 Picture,invisible-fg,invisible-fg.png

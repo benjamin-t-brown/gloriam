@@ -348,6 +348,18 @@
                  "width":16,
                  "x":53,
                  "y":395
+                }, 
+                {
+                 "gid":3,
+                 "height":16,
+                 "id":117,
+                 "name":"markerTop3",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":16,
+                 "x":553,
+                 "y":49
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -372,7 +384,7 @@
                  "y":-14
                 }, 
                 {
-                 "height":262.4065,
+                 "height":262.406,
                  "id":58,
                  "name":"toWestWall",
                  "rotation":0,
@@ -655,7 +667,7 @@
          "y":0
         }],
  "nextlayerid":8,
- "nextobjectid":116,
+ "nextobjectid":118,
  "orientation":"orthogonal",
  "renderorder":"left-up",
  "tiledversion":"1.3.1",

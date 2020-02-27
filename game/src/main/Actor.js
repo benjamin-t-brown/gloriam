@@ -110,6 +110,8 @@ class Actor {
     }
     if (this.shouldAnimUseHeading) {
       cadenceBase += '_' + this.heading;
+    } else {
+      cadenceBase = this.animationName;
     }
     cadenceBase += '_cad';
     console.log('CADENCE BASE!', cadenceBase, this.animationState);

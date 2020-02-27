@@ -117,6 +117,7 @@ class SoundPlayerCmpt extends Component {
           } else {
             this.handlePauseClick();
           }
+          ev.preventDefault();
         } else if (ev.key === 'Enter') {
           this.handleStopClick();
         }

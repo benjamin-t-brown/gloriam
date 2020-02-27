@@ -52,6 +52,7 @@ class CadenceMakerCmpt extends Component {
       if (this.props.makerMode !== 'making') {
         if (ev.keyCode === 32) {
           this.beginConstructingCadence();
+          ev.preventDefault();
         } else if (ev.keyCode === 13) {
           this.saveCadence();
         }

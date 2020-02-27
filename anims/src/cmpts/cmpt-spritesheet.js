@@ -184,7 +184,7 @@ const SaveButton = ({ appInterface }) => {
     <Button
       type="secondary"
       style={{
-        width: '100px',
+        width: '116px',
         float: 'right',
         margin: '4px',
       }}
@@ -229,22 +229,24 @@ const Spritesheet = props => {
         height: window.innerHeight - 200,
       }}
     >
-      <Button
-        style={{ float: 'left', margin: '4px' }}
-        onClick={() => appInterface.setImageName('')}
-      >
-        ← Back
-      </Button>
-      <SaveButton appInterface={appInterface} />
-      <div
-        className="no-select"
-        style={{
-          textAlign: 'center',
-          fontSize: '24px',
-          padding: '10px',
-        }}
-      >
-        Spritesheet: {props.appInterface.imageName}
+      <div style={{ backgroundColor: colors.darkGrey }}>
+        <Button
+          style={{ float: 'left', margin: '4px 48px 4px 4px' }}
+          onClick={() => appInterface.setImageName('')}
+        >
+          ← Back
+        </Button>
+        <SaveButton appInterface={appInterface} />
+        <div
+          className="no-select"
+          style={{
+            textAlign: 'center',
+            fontSize: '24px',
+            padding: '10px',
+          }}
+        >
+          {props.appInterface.imageName}
+        </div>
       </div>
       <div
         style={{
@@ -253,6 +255,7 @@ const Spritesheet = props => {
       >
         <div
           style={{
+            backgroundColor: colors.lightBlack,
             padding: '5px',
             display: 'flex',
             justifyContent: 'space-between',
@@ -275,7 +278,7 @@ const Spritesheet = props => {
             Set Sprite Size
           </Button>
         </div>
-        <div style={{ overflowY: 'auto', height: 'calc(100% - 133px)' }}>
+        <div style={{ overflowY: 'auto', height: 'calc(100% - 127px)' }}>
           <div
             style={{
               display: 'flex',

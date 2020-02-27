@@ -20,5 +20,6 @@ async function main() {
   render(<MainContainer />, div);
 }
 main().catch(e => {
+  console.error(e);
   throw e;
 });

@@ -87,7 +87,10 @@ class Scene {
         display.playSound(soundObject);
       },
       defaultDialogue: actorName => {},
-      callScript: () => {},
+      callScript: scriptName => {
+        scene.callScript(scriptName);
+        return true;
+      },
       setStorage: (key, value) => {},
       setStorageOnce: (key, value) => {
         if (this.storage[key] === undefined) {
@@ -159,8 +162,17 @@ class Scene {
       },
       setFacing: (actorName, direction) => {},
       setFacingTowards: (actorName, otherActorName) => {},
-      setAnimation: (actorName, animationName) => {},
-      setAnimationAndWait: (actorName, animationName) => {},
+      setAnimation: (actorName, animationName) => {
+        const act = this.gameInterface.getActor(actorName);
+        act.setAnimation(animationName);
+      },
+      setAnimationAndWait: (actorName, animationName) => {
+        const act = this.gameInterface.getActor(actorName);
+        const animation = display.getAnimation(animationName);
+        act.setAnimation(animationName);
+        commands.waitMS(animation.getDurationMs());
+        return true;
+      },
       setAnimationState: (actorName, stateName) => {
         const act = this.gameInterface.getActor(actorName);
         act.setAnimationState(stateName, stateName === 'default' ? true : false);

@@ -102,6 +102,13 @@ function createTemplate(name, battleOnly) {
   c.talkTrigger = 'gardens-GardnerHarris';
   c.defaultHeading = HEADINGS.UP;
 }
+{
+  const c = createTemplate('KingsMaid');
+  c.spriteBase = 'KingsMaid';
+  c.talkTrigger = 'east_window-throwRock';
+  c.animName = 'KingsMaid_default';
+  c.useHeading = false;
+}
 
 {
   const c = createTemplate('Grif');

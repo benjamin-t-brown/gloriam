@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.2" tiledversion="1.3.1" orientation="orthogonal" renderorder="left-up" compressionlevel="0" width="384" height="384" tilewidth="1" tileheight="1" infinite="0" nextlayerid="7" nextobjectid="46">
+ <editorsettings>
+  <export target="../../game/src/db/map/rooms/castle_entrance_grounds.json" format="json"/>
+ </editorsettings>
+ <tileset firstgid="1" source="control.tsx"/>
+ <tileset firstgid="8" source="props.tsx"/>
+ <imagelayer id="1" name="bg">
+  <image source="../stages/castle_entrance_grounds.png" width="384" height="384"/>
+ </imagelayer>
+ <objectgroup id="4" name="props">
+  <object id="37" name="markerLeft" gid="3" x="34" y="328" width="16" height="16"/>
+  <object id="39" name="markerBottom" gid="3" x="183" y="353" width="16" height="16"/>
+  <object id="40" name="markerRight" gid="3" x="330" y="339" width="16" height="16"/>
+ </objectgroup>
+ <objectgroup id="6" name="characters">
+  <object id="28" name="Rydo" gid="5" x="153" y="349" width="64" height="64"/>
+ </objectgroup>
+ <objectgroup id="5" name="triggers">
+  <object id="41" name="toCastleEntrance" x="-6" y="247" width="32" height="138"/>
+  <object id="42" name="toWelcomeGrounds" x="-12" y="362" width="401" height="27"/>
+  <object id="43" name="toEastWindow" x="357" y="275" width="28" height="110"/>
+ </objectgroup>
+ <objectgroup id="3" name="walls">
+  <object id="44" x="-3" y="235" width="321" height="21"/>
+  <object id="45" x="317" y="252" width="69" height="29"/>
+ </objectgroup>
+</map>

@@ -336,8 +336,7 @@ const AnimationSelect = ({ appInterface }) => {
       ) : null}
       <div
         style={{
-          margin: '5px',
-          height: 'calc(100% - 104px)',
+          height: 'calc(100% - 99px)',
           overflowY: 'auto',
           overflowX: 'hidden',
         }}

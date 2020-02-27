@@ -19,6 +19,7 @@ class RoomActor extends Actor {
       defaultHeading,
       isBackground,
       zOrdering,
+      useHeading,
     } = template;
     this.camera = camera;
 
@@ -43,7 +44,7 @@ class RoomActor extends Actor {
     this.animationState = null;
     this.subtitleTextColor = template.textColor || theme.palette.white;
     this.talkTrigger = talkTrigger || null;
-    this.shouldAnimUseHeading = !!heading;
+    this.shouldAnimUseHeading = useHeading === undefined ? !!heading : useHeading;
     if (animName) {
       this.setAnimation(animName);
     } else {

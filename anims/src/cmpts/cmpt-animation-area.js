@@ -130,7 +130,7 @@ const AnimationTxt = ({ anim, appInterface }) => {
       <textarea
         style={{
           width: '100%',
-          height: '200px',
+          height: '100px',
           backgroundColor: colors.black,
           color: colors.white,
           border: '1px solid ' + colors.grey,
@@ -147,6 +147,7 @@ const AnimationArea = ({ appInterface }) => {
   const [defaultDuration, setDefaultDuration] = React.useState(100);
   const imageName = appInterface.imageName;
   const anim = appInterface.animation;
+  const { totalSprites } = display.pictures[appInterface.imageName] || {};
   return (
     <div>
       <div
@@ -205,12 +206,59 @@ const AnimationArea = ({ appInterface }) => {
           <div
             style={{
               display: 'flex',
-              justifyContent: 'center',
+              marginTop: '7px',
+              justifyContent: 'space-around',
             }}
           >
             <Button
-              style={{ marginTop: '15px' }}
               type="primary"
+              margin={2}
+              onClick={() => {
+                for (let i = 0; i < totalSprites; i++) {
+                  const a = display.getAnimation(anim.name);
+                  const spriteName = appInterface.imageName + '_' + i;
+                  const sprite = display.getSprite(spriteName);
+                  if (sprite.is_blank) {
+                    continue;
+                  }
+                  addSpriteAtIndex(
+                    a,
+                    spriteName,
+                    a.sprites.length,
+                    defaultDuration
+                  );
+                }
+                appInterface.setAnimation(display.getAnimation(anim.name));
+              }}
+            >
+              + Add All
+            </Button>
+            <Button
+              type="secondary"
+              margin={2}
+              onClick={() => {
+                for (let i = totalSprites - 1; i >= 0; i--) {
+                  const a = display.getAnimation(anim.name);
+                  const spriteName = appInterface.imageName + '_' + i;
+                  const sprite = display.getSprite(spriteName);
+                  if (sprite.is_blank) {
+                    continue;
+                  }
+                  addSpriteAtIndex(
+                    a,
+                    spriteName,
+                    a.sprites.length,
+                    defaultDuration
+                  );
+                }
+                appInterface.setAnimation(display.getAnimation(anim.name));
+              }}
+            >
+              + Add All Reverse
+            </Button>
+            <Button
+              type="cadence"
+              margin={2}
               onClick={() => {
                 addSpriteAtIndex(
                   anim,

@@ -37,7 +37,9 @@ export default () => {
     animation,
     setAnimation: n => {
       if (n) {
-        setAnimation(null);
+        if (appInterface.animation && n.name !== appInterface.animation.name) {
+          setAnimation(null);
+        }
         setTimeout(() => {
           setAnimation(n);
           n.start();
@@ -101,6 +103,7 @@ export default () => {
             height: '100%',
             backgroundColor: colors.darkGrey,
             borderLeft: '1px solid ' + colors.grey,
+            overflowY: 'auto',
           }}
         >
           <AnimationArea appInterface={appInterface} />

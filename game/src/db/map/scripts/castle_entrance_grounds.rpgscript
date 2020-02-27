@@ -1,0 +1,17 @@
+@castle_entrance_grounds
++setStorage('room', 'castle_entrance_grounds');
+
+#castle_entrance_grounds-toCastleEntranceGrounds
+step,this
+@this
++changeRoom(castle_entrance, markerRight, l);
+
+#castle_entrance_grounds-toWelcomeGrounds
+step,this
+@this
++changeRoom(welcome_grounds, markerTop3, d);
+
+#castle_entrance_grounds-toEastWindow
+step,this
+@this
++changeRoom(east_window, markerLeft, r);

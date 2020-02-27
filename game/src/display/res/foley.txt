@@ -1,2 +1,4 @@
 Sound,sword_sheath,foley/sword_sheath.mp3
 Sound,sword_unsheath,foley/sword_unsheath.mp3
+Sound,light_impact,foley/light_impact.mp3
+Sound,small_woosh,foley/small_woosh.mp3

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.3.1" orientation="orthogonal" renderorder="left-up" compressionlevel="0" width="768" height="576" tilewidth="1" tileheight="1" infinite="0" nextlayerid="8" nextobjectid="116">
+<map version="1.2" tiledversion="1.3.1" orientation="orthogonal" renderorder="left-up" compressionlevel="0" width="768" height="576" tilewidth="1" tileheight="1" infinite="0" nextlayerid="8" nextobjectid="118">
  <editorsettings>
   <export target="../../game/src/db/map/rooms/welcome_grounds.json" format="json"/>
  </editorsettings>
@@ -36,6 +36,7 @@
   <object id="87" gid="19" x="45" y="509" width="53" height="31"/>
   <object id="106" name="markerRIght2" gid="3" x="702.5" y="379.5" width="16" height="16"/>
   <object id="114" name="markerLeft2" gid="3" x="53" y="395" width="16" height="16"/>
+  <object id="117" name="markerTop3" gid="3" x="553" y="49" width="16" height="16"/>
  </objectgroup>
  <objectgroup id="5" name="triggers">
   <object id="57" name="toCastleEntrance" x="181.905" y="-14" width="593" height="36.3333"/>

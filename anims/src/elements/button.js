@@ -1,6 +1,14 @@
 import React from 'react';
 
-const Button = ({ style, onClick, children, type, disabled, className }) => {
+const Button = ({
+  style,
+  onClick,
+  children,
+  margin,
+  type,
+  disabled,
+  className,
+}) => {
   return (
     <div
       className={
@@ -9,7 +17,7 @@ const Button = ({ style, onClick, children, type, disabled, className }) => {
         (className ? ' ' + className : '') +
         (disabled ? ' button-disabled' : '')
       }
-      style={{ display: 'inline-block', ...style }}
+      style={{ display: 'inline-block', margin, ...style }}
       onMouseDown={ev => {
         ev.stopPropagation();
         ev.preventDefault();
