@@ -10,7 +10,14 @@ let scene = null;
 
 class Scene {
   constructor() {
-    this.storage = {};
+    this.storage = {
+      Rydo: {
+        items: {},
+      },
+      Ferelith: {
+        items: {},
+      },
+    };
     this.storageOnceKeys = {};
 
     this.room = null;
@@ -204,6 +211,28 @@ class Scene {
       moveFixed: (actorName, xOffset, yOffset) => {
         const act = this.gameInterface.getActor(actorName);
         act.setAt(act.x + xOffset, act.y + yOffset);
+      },
+      acquireItem: (actorName, itemName) => {
+        const actStorage = this.storage[actorName];
+        if (!actStorage) {
+          console.error(
+            'Cannot acquireItem, no actor storage exists with actorName:',
+            actorName
+          );
+          return;
+        }
+        actStorage[itemName] = actStorage[itemName] ? actStorage[itemName] + 1 : 1;
+      },
+      removeItem: (actorName, itemName) => {
+        const actStorage = this.storage[actorName];
+        if (!actStorage) {
+          console.error(
+            'Cannot removeItem, no actor storage exists with actorName:',
+            actorName
+          );
+          return;
+        }
+        actStorage[itemName] = actStorage[itemName] ? actStorage[itemName] - 1 : 0;
       },
       openMenu: () => {},
       walkWait: function() {},

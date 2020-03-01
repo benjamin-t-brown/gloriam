@@ -4,6 +4,16 @@ body {
   font-family: monospace;
 }
 
+.button {
+  filter: brightness(1.0);
+}
+.button:hover {
+  filter: brightness(1.2);
+}
+.button:active {
+  filter: brightness(0.8);
+}
+
 .horizontal-container {
   display: flex;
   justify-content: space-around;
@@ -37,6 +47,16 @@ body {
     border-color: transparent;
   }
 }
+
+.no-select {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
 
 /*
 @keyframes indicator-player-kf {

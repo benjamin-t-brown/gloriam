@@ -196,7 +196,11 @@ const AnimationItem = ({
   React.useEffect(() => {
     if (spriteName) {
       display.setCanvas(ref.current);
-      display.drawSprite(spriteName, 32, 32, { centered: true });
+      display.drawSprite(spriteName, 32, 32, {
+        centered: true,
+        width: 64,
+        height: 64,
+      });
       display.restoreCanvas();
     }
   }, [spriteName]);
@@ -339,6 +343,7 @@ const AnimationSelect = ({ appInterface }) => {
           height: 'calc(100% - 99px)',
           overflowY: 'auto',
           overflowX: 'hidden',
+          margin: !imageName ? '5px' : null,
         }}
       >
         {!imageName ? (

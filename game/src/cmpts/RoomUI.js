@@ -3,6 +3,7 @@ import display from 'display/Display';
 import input from 'display/Input';
 import { pt, drawPath } from 'utils';
 import TriggerIndicator from 'cmpts/TriggerIndicator';
+import MenuBackpack from 'cmpts/MenuBackpack';
 import scene from '../main/Scene';
 
 class RoomUI extends React.Component {
@@ -135,6 +136,7 @@ class RoomUI extends React.Component {
   render() {
     return (
       <div
+        id="cmpt-game"
         onMouseMove={ev => {
           this.mouse = {
             x: Math.round(ev.clientX),
@@ -151,6 +153,7 @@ class RoomUI extends React.Component {
         {this.props.room.triggers.map(trigger => {
           return <TriggerIndicator trigger={trigger} room={this.props.room} />;
         })}
+        <MenuBackpack items={[]} />
       </div>
     );
   }

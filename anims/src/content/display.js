@@ -345,8 +345,8 @@ display.drawSprite = function(sprite, x, y, params) {
     if (opacity !== undefined) {
       ctx.globalAlpha = params.opacity;
     }
-    let w = width ? width * s.clip_w : s.clip_w;
-    let h = height ? height * s.clip_h : s.clip_h;
+    let w = width ? width : s.clip_w;
+    let h = height ? height : s.clip_h;
     if (scale !== undefined) {
       w = s.clip_w * scale;
       h = s.clip_h * scale;

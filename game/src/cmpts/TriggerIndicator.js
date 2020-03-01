@@ -57,13 +57,13 @@ const TriggerIndicator = props => {
       return;
     }
     const triggerName = room.name + '-' + trigger.name;
-    console.log('CALL TRIGGER2', triggerName);
     scene.callTrigger(triggerName, 'action');
   };
 
   return (
     <>
       <div
+        id={'cmpt-game-' + trigger.id}
         ref={div}
         onMouseOver={() => setVisible(true)}
         onMouseOut={() => setVisible(false)}

@@ -75,7 +75,9 @@ const ImageSelect = props => {
               return imageName !== 'invisible';
             }
           })
-          .sort()
+          .sort((a, b) => {
+            return a.toUpperCase() < b.toUpperCase() ? -1 : 1;
+          })
           .map(imageName => (
             <ImageButton key={imageName} {...props} imageName={imageName} />
           ))}

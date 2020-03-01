@@ -40,6 +40,10 @@ const input = {
   },
 
   getEventCb(eventType, ev) {
+    if (input.inputUIDisabled) {
+      return;
+    }
+
     if (eventType === 'keydown' || eventType === 'keyup') {
       if (input.events[eventType] && input.events[eventType][ev.key]) {
         return input.events[eventType][ev.key][0] || null;
@@ -66,9 +70,12 @@ window.addEventListener('keyup', ev => {
   }
 });
 window.addEventListener('mousedown', ev => {
-  const cb = input.getEventCb('mousedown', ev);
-  if (cb) {
-    cb(ev);
+  // skip triggering these events when clicking ui elements (so buttons and such don't count for clicks)
+  if (ev.target && ev.target.id && ev.target.id.includes('cmpt-game')) {
+    const cb = input.getEventCb('mousedown', ev);
+    if (cb) {
+      cb(ev);
+    }
   }
 });
 window.addEventListener('mousemove', ev => {
