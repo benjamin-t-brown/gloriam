@@ -1,0 +1,105 @@
+Overarching goal: Enter the Castle
+
+Item basics
+  - talk to character -> get item from interaction
+  - pick up item from ground
+  - pick up item during an interval of time
+  - pull lever -> reveal item -> pick up item
+  - go through "skill challenge" -> get item
+  - use item to unlock another item
+  - go to spot -> emote/use item -> get item
+  - change character state (ex: transform into something, put on special glasses) -> bypass wall -> get item
+  - carry item -> use carried item -> get item
+  - find item hidden behind foreground -> get item (probably easter eggs rather than intended)
+
+Items:
+
+Ladder Half (upper)
+Ladder Half (lower)
+Mittens the Cat
+Revelans Powder
+Gardner Harris's Ring
+Consilium Statua
+Elkhain Proposal
+Viscosi Max Glue
+Polished Dagger (combat item)
+Tranquilla Gem
+Tepidus Milk
+Delectamentum Muffin
+Hospitalis Potion (combat item)
+
+Characters
+
+Rydo - Benjamin?
+Gate Guard - Thomas
+Poe Serva
+Pondering Philosopher
+Gardner Harris - Alex
+Sylvas the Elfish
+Christian Northford
+Servus Golem
+Barry Adeps
+Billy Angusta
+Blem Praepositus
+Skelo Artifex
+Servus Golem
+King's Maid - Jessica
+
+Guy Arranging Hay On Ladder: Two halves of ladder
+  - In the stables, there's a guy at the top of a ladder, Poe Serva picking up hay from the loft and throwing it into a bin at the base of the ladder.  Rydo asks if he can borrow the ladder.  The man refuses, saying that his job is very important.
+    * he also mentions that he doesn't like cats
+  - If Rydo approaches the ladder and touches it, the man gets angry
+  - Rydo can acquire a stray cat near the gardner's house if he has milk
+  - Rydo can climb to the top of the hayloft via the East Tower in the right side. 
+    * he must click a sequence of stacked crates to climb up there
+  - Rydo puts the cat in the hay.
+    * The stableworker finds it, freaks out, and falls off of the ladder into the hay bale.
+    * The ladder falls and shatters.  Only half of it is in tact.
+    * The horse, startled by the fall, runs off with the attachment.
+    * Rydo can pick up half of the ladder and carry it to the East Wall where the open window is.
+  - Rydo cant put almost anything in that hay, and the stableworker will simply throw it into the hay bale for Rydo to pick up later.
+  - When Rydo gets to the top of the stables for the first time, there is a small explosion that comes from the school.  This is caused by Ferelith mixing potions to create a Transfiguration Pixie.
+
+Pondering Philosopher (hint man)
+  - In the gardens is a pondering philosopher who gives random hints as Rydo speaks with him.
+  - If you exhaust his dialog, he gives you a statue for "thinking for yourself"
+    * This item has no real purpose than to be in your inventory
+
+Gardner Lost Ring
+  - In the Gardens, Gardner Harris is clearly looking for something.  He mutters to himself constantly and rummages around the flowers and bushes.
+    * When spoken to, he grumpily answers that he has no time to speak with you and continues his search
+    * If you listen to him for long enough, you can determine that he searches for a ring, and that he last remembered having it in his house, but he has looked all over his house and hasn't found it.
+  - If you go to his little hut, you find a mess of a place
+    * searching in here, you can find a ransom note, written in untidy hand, saying that "Malum Vestibulum Trolls" have taken his ring, and require a payment of "a fortune of suitable worth" on the altar outside the magic school entrance.
+    * if you go to the altar at this point, you see nothing
+    * you can ask a nearby professor about Malum Vestibulum Trolls, and he/she doesn't know what that is.
+  - Sylvas the Elfish knows what Malum Vestibulum trolls are.
+    * talk to Sylvas (a second time) and he'll give you Tranquilla Gem
+    * Use the gem on the Servus Golem to get Revelans Powder to use in any area you think there's might be Malum Vestibulum Trolls
+  - Use the powder by the Altar and convince the troll to give you the ring
+  - Give Gardner Harris the ring.  He grumbles, but gives you a key to the shed by his house which contains a roll of "Viscosi Max Glue" that has been specially made by the magic school to "stick anything together"
+
+Magical School Grounds South: Servus Golem
+  - In the magical school grounds south, there's a large, stationary golem that dominates the screen. 
+  - When Rydo steps into the frame, a mage (Christian Northford) warns him not to step any closer to the golem.
+    - He stands with another mage, looking at the pit and occasionally casting spells at it
+    - Clearly they are trying to decide what to do.
+  - If Rydo gets too close to the golem, it activates and squashes him. GAME OVER
+  - Rydo use the Tranquilla Gem on the golem to calm it down and have a conversation
+
+Polished Dagger
+  - Rydo can find a Polished Dagger on the ground in the Western Grounds hidden behind a tree
+  - The dagger can be equipped later in the dungeons.
+
+Hungry Guard
+  - A fat guard and a skinny guard stand at the entrance to the dungeons.
+  - The fat guard laments that he is hungry, and only has this gross, warm milk to drink
+  - He salivates over the thought of a Chef Millans muffin
+  - You can get a Delectamentum Muffin from the Supply Entrance by sneaking past Praepositus Blem and Artifex Skelo when he isn't looking
+  - Give the muffin to the guard, who promptly eats it and gives you his Tepidus Milk 
+
+Hospitalis Potion
+  - Use the Revelans Powder on the fountain in the Welcome Grounds go get a Hospitalis Potion
+
+Mittens the Cat
+  - A cat is stuck on the east wall and can only be gotten down with the Tepidus Milk

@@ -3,10 +3,10 @@ const fs = require('fs');
 const bodyParser = require('body-parser');
 
 const PORT = 8889;
-const SOUNDS_DIR = `${__dirname}/../../../game/dist/snd`;
+const SOUNDS_DIR = `${__dirname}/../../../game/dist/voice`;
 const SPRITESHEETS_DIR = `${__dirname}/../../spritesheets`;
-//const CADENCES_DIR = `${__dirname}/../../cadences`;
 const CADENCES_DIR = `${__dirname}/../../../game/src/db/cadences`;
+const CADENCE_FILE_EXTENSION = '.cadence.json';
 
 const app = express();
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -89,6 +89,20 @@ app.get('/cadences', (req, res) => {
     err: null,
   };
 
+  const addCadence = (data, fName) => {
+    const cadence = JSON.parse(data.toString());
+    if (fName.indexOf(CADENCE_FILE_EXTENSION) > -1) {
+      fName = fName.slice(0, -CADENCE_FILE_EXTENSION.length);
+    }
+    // fix for when cadences had their names embedded in them
+    if (typeof cadence[4] === 'string') {
+      cadence.splice(4, 1, fName);
+    } else {
+      cadence.splice(4, 0, fName);
+    }
+    resp.cadences.push(cadence);
+  };
+
   fs.readdir(CADENCES_DIR, async (err, files) => {
     if (err) {
       resp.err = err;
@@ -100,7 +114,7 @@ app.get('/cadences', (req, res) => {
         if (stat.isFile()) {
           if (fName.slice(-5) === '.json') {
             const data = fs.readFileSync(`${CADENCES_DIR}/${fName}`);
-            resp.cadences.push(JSON.parse(data.toString()));
+            addCadence(data, fName);
           }
         } else {
           folders.push(fName);
@@ -117,7 +131,7 @@ app.get('/cadences', (req, res) => {
             const data = fs.readFileSync(
               `${CADENCES_DIR}/${folders[i]}/${file}`
             );
-            resp.cadences.push(JSON.parse(data.toString()));
+            addCadence(data, `${folders[i]}/${file}`);
           }
         });
       }
@@ -151,9 +165,16 @@ app.post('/cadence', (req, res) => {
       }
     }
 
+    const cadence = req.body.cadence;
+
+    // remove the name from the cadence in order to save space
+    if (typeof cadence[4] === 'string') {
+      cadence.splice(4, 1);
+    }
+
     fs.writeFile(
-      `${CADENCES_DIR}/${req.body.name}.cadence.json`,
-      JSON.stringify(req.body.cadence, null, 2),
+      `${CADENCES_DIR}/${req.body.name}${CADENCE_FILE_EXTENSION}`,
+      JSON.stringify(cadence, null, 2),
       err => {
         if (err) {
           resp.err = err;

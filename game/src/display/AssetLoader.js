@@ -1,6 +1,5 @@
 import display from './Display';
 import Animation from './Animation';
-import Cadence from 'main/Cadence';
 
 const res = {};
 
@@ -20,13 +19,19 @@ class AssetLoader {
   }
 
   async processAssetFile(filename, text) {
-    const sprite_cbs = [];
+    const spriteCbs = [];
+    const loadCbs = [];
+
+    const _Sound = async function(line) {
+      const [, soundName, soundUrl] = line;
+      return display.loadSound(soundName, soundUrl);
+    };
 
     const _Picture = async function(line) {
       const [_, pictureName, url, spriteWidth, spriteHeight] = line;
       const img = await display.loadPicture(pictureName, 'img/' + url);
       if (spriteWidth && spriteHeight) {
-        const n = (img.width / spriteWidth) * (img.height / spriteHeight);
+        const n = Math.round((img.width / spriteWidth) * (img.height / spriteHeight));
         _SpriteList([_, pictureName, n, spriteWidth, spriteHeight], pictureName, 0);
       }
       return img;
@@ -41,9 +46,9 @@ class AssetLoader {
       const num_x = sprite.clip_w / w;
       let ctr = 0;
       for (let i = lastSpriteInd; i < n; i++) {
-        const sprite_name = sprite_pfx + '_' + ctr;
+        const spriteName = sprite_pfx + '_' + ctr;
         display.createSprite(
-          sprite_name,
+          spriteName,
           currentPicture,
           (i % num_x) * w,
           Math.floor(i / num_x) * h,
@@ -83,7 +88,7 @@ class AssetLoader {
     };
 
     const _Cadence = function(line) {
-      let [_, cadenceName, spr1, spr2, spr3] = line;
+      let [, cadenceName, spr1, spr2, spr3] = line;
       display.addCadenceSprites(cadenceName, spr1, spr2, spr3);
     };
 
@@ -131,13 +136,13 @@ class AssetLoader {
       if (type === 'Picture') {
         currentPicture = line[1];
         lastSpriteInd = 0;
-        await _Picture(line);
+        loadCbs.push(() => _Picture(line));
       } else if (type === 'SpriteList') {
         const n = parseInt(line[2]);
-        sprite_cbs.push(_SpriteList.bind(display, line, currentPicture, lastSpriteInd));
+        spriteCbs.push(_SpriteList.bind(display, line, currentPicture, lastSpriteInd));
         lastSpriteInd += n;
       } else if (type === 'Sprite') {
-        sprite_cbs.push(_Sprite.bind(display, line, currentPicture));
+        spriteCbs.push(_Sprite.bind(display, line, currentPicture));
       } else if (type === 'Animation') {
         currentAnim = {
           name: '',
@@ -148,6 +153,8 @@ class AssetLoader {
         continue;
       } else if (type === 'Cadence') {
         _Cadence(line);
+      } else if (type === 'Sound') {
+        loadCbs.push(() => _Sound(line));
       }
     }
 
@@ -155,7 +162,13 @@ class AssetLoader {
       _FinalizeCurrentAnimation();
     }
 
-    sprite_cbs.forEach(f => {
+    window.load.markLoading(loadCbs.length);
+    for (let i = 0; i < loadCbs.length; i++) {
+      await loadCbs[i]();
+      window.load.markLoaded();
+    }
+
+    spriteCbs.forEach(f => {
       f();
     });
   }

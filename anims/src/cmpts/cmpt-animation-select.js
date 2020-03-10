@@ -28,20 +28,18 @@ const RenameDialog = ({ open, setOpen, appInterface }) => {
 
   const onConfirm = async () => {
     setOpen(false);
+    appInterface.setAnimation(null);
+    const anim = display.getAnimation(animName);
     const imageName = display.getImageFromAnimName(animName);
     if (imageName) {
       const pic = display.pictures[imageName];
       const i = pic.animations.indexOf(animName);
       pic.animations.splice(i, 1, newAnimName);
     }
-    display.animations[newAnimName] = display.animations[animName];
     delete display.animations[animName];
-
-    if (appInterface.animation && appInterface.animation.name === animName) {
-      appInterface.setAnimation(newAnimName);
-    } else {
-      appInterface.forceUpdate();
-    }
+    anim.name = newAnimName;
+    display.updateAnimation(anim, null, anim.loop, anim.sprites);
+    appInterface.setAnimation(display.getAnimation(newAnimName));
   };
 
   return (
@@ -57,7 +55,7 @@ const RenameDialog = ({ open, setOpen, appInterface }) => {
           <div style={{ margin: '5px' }}>
             <Input
               focus={true}
-              width="140"
+              width="300"
               name="animationNameRename"
               label="Animation Name"
               errorText={errorText}
@@ -198,7 +196,11 @@ const AnimationItem = ({
   React.useEffect(() => {
     if (spriteName) {
       display.setCanvas(ref.current);
-      display.drawSprite(spriteName, 32, 32, { centered: true });
+      display.drawSprite(spriteName, 32, 32, {
+        centered: true,
+        width: 64,
+        height: 64,
+      });
       display.restoreCanvas();
     }
   }, [spriteName]);
@@ -211,7 +213,6 @@ const AnimationItem = ({
           : appInterface.setAnimation(anim)
       }
       style={{
-        width: '208px',
         height: 64,
         display: 'flex',
         justifyContent: 'space-between',
@@ -229,13 +230,20 @@ const AnimationItem = ({
     >
       <div
         style={{
-          width: '160px',
+          width: '90%',
           overflow: 'hidden',
           whiteSpace: 'pre-wrap',
           textOverflow: 'ellipsis',
+          textAlign: 'left',
         }}
       >
-        <Text type="body" noSelect={true}>
+        <Text
+          type="body"
+          noSelect={true}
+          ownLine={true}
+          lineHeight={5}
+          style={{ padding: '5px' }}
+        >
           {anim.name}
         </Text>
         <div
@@ -270,14 +278,16 @@ const AnimationItem = ({
             fontSize: '10px',
             padding: '2px',
             width: '80px',
-            position: 'relative',
-            left: -5,
+            float: 'left',
           }}
           type={anim.isCadence ? 'secondary' : 'cadence'}
           onClick={() => {
-            anim.isCadence = !anim.isCadence;
-            display.updateAnimation(anim, null, anim.loop, anim.sprites);
-            appInterface.setAnimation(display.getAnimation(anim.name));
+            if (anim.sprites.length !== 3) {
+            } else {
+              anim.isCadence = !anim.isCadence;
+              display.updateAnimation(anim, null, anim.loop, anim.sprites);
+              appInterface.setAnimation(display.getAnimation(anim.name));
+            }
           }}
         >
           {anim.isCadence ? 'To Anim' : 'To Cadence'}
@@ -330,10 +340,10 @@ const AnimationSelect = ({ appInterface }) => {
       ) : null}
       <div
         style={{
-          margin: '5px',
-          height: 'calc(100% - 104px)',
+          height: 'calc(100% - 99px)',
           overflowY: 'auto',
           overflowX: 'hidden',
+          margin: !imageName ? '5px' : null,
         }}
       >
         {!imageName ? (

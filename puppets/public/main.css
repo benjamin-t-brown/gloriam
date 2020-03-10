@@ -94,6 +94,7 @@ input {
   overflow-y: auto;
   overflow-x: hidden;
   border: 2px solid #f8f8f8;
+  height: calc(100% - 73px);
 }
 .column-right {
   width: 200px;
@@ -127,6 +128,11 @@ input {
 }
 .column-item-folder {
   color: #92f4ff;
+  margin: 5px;
+}
+.column-item-folder-complete {
+  color: #3fc778;
+  margin: 5px;
 }
 .column-item-uninitialized {
   color: #e1534a;

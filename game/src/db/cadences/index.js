@@ -1,7 +1,4 @@
 import Cadence from 'main/Cadence';
-// const requireDir = require('require-dir');
-
-// requireDir('./', { recurse: true, extensions: ['.js', '.json'] });
 
 const cadenceFiles = {};
 
@@ -16,6 +13,12 @@ export async function loadCadences(db) {
   for (let fileName in cadenceFiles) {
     const cadence = cadenceFiles[fileName];
     const cadenceName = fileName.slice(2, -ext.length);
+    // fix for when cadences had their names embedded in them
+    if (typeof cadence[4] === 'string') {
+      cadence.splice(4, 1, cadenceName);
+    } else {
+      cadence.splice(4, 0, cadenceName);
+    }
     db.addElem('cadences', cadenceName, new Cadence(cadence));
   }
 }

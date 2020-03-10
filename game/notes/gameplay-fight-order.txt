@@ -1,0 +1,57 @@
+Gauntlet Order
+
+1.) golem, golem
+	- Easy fight, enemies only have one attack and are slow
+
+# gain Heal Vitality Skill, level up
+
+2.) golem, big golem, golem
+	- big golem fires Big Shot at you forcing you to heal or you die, but it can't fire big shot for a long time afterwards
+
+# gain Defend Skill, level up
+
+3.) 2 big golems:
+	- both fire big shot, forcing you to defend 1 and heal the other
+
+# gain Interrupt Damage, Restore Shield, Channel Damage All*, Cleanse*, Damage Over Time*, level up
+
+4.) Acid Sprayer, EMP Demon, Acid Sprayer
+	- Acid sprayer attacks with standard magic missile, then channels acid on all party members when shield is down
+	- emp demon has 50% chance to attack with shield damage spell, or punch
+
+# gain Haste, *Bless
+
+5.) Tank Golem, Healing Totem
+	- Tank golem defends, channels attack all, attacks with slowing auto attack
+	- Totems light heal all, cast reflect
+
+6.) Tank Golem, Healing Totem, Tank Golem
+
+# gain Ferelith: Channel Damage All, Channel Shield Break All, Restore Shield Self, Counter Magic
+
+7.) Boss: Necromancer, Bone Dog*, Bone Totem*
+	- Raise bone dog, raise bone totem
+	- Explode Summon (explodes one of its summons to remove shields on all enemies)
+	- Basic Attack, chance to cause vigil poison
+	- Interrupt Through Shield
+	- Drain (channel to remove 75% of everyone's health)
+
+# gain 2 levels, Interrupt Through Shield, Heal Over Time*, FOR UP*, POW UP* Big Shield*
+
+8.) Big Channeler, Tank Golem, Big Channeler
+	- Big channelers just cast fireball all, and have a big chunk of shield
+	- Tank golem prioritizes slows
+
+# gain Strip Enchantment
+
+9.) Big Channeler, Duelist, Healing Totem
+	- Duelist either attacks or counters 50%,
+	- has counter damage or counter shield
+	- duelst attack damage total is 25% sheild, 75% health
+
+# gain Counter: Knockdown, Knockdown*
+
+10.) Impling, Impling, Behemoth Mini
+	- Implings interrupt channels through shield
+	- Behemoth Mini casts Reduce Damage All on allies, and has BIG CRIT Attack
+

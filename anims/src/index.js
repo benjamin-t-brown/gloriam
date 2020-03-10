@@ -5,7 +5,6 @@ import display from 'content/display';
 
 async function init() {
   await display.loadImages();
-  await display.loadProps();
   const txt = await display.loadTxt();
   await display.init(null, txt);
   Array.prototype.forEach.call(
@@ -21,5 +20,6 @@ async function main() {
   render(<MainContainer />, div);
 }
 main().catch(e => {
+  console.error(e);
   throw e;
 });

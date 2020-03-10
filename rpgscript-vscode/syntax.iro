@@ -29,11 +29,11 @@ file_extensions []     = rpgscript;
 
 __MY_CONSTANT \= (\b[a-z][a-z0-9]*)
 __LOGICKEYWORD \= (\?)
-__LOGIC \= (\b(isnot|gt|lt|is|all|one|as|once|eq))
+__LOGIC \= (\b(isnot|gt|lt|is|all|one|as|once|eq|this))
 __TRIGGERNAME \= (^#(.)+$)
 __SCENENAME \= (^@(.)+$)
 __INLINE \= (^\+(.)+$)
-__DIALOG \= ((^(\w)+:)|(^(\s)+(\w)+:))
+__DIALOG \= ((^[\w \w]*:)|(^(\s)+(\w)+:))
 __TRIGGERTYPE \= (^(action|step),)
 
 ################################################################
@@ -134,7 +134,11 @@ contexts [] {
 ##############################################
 
 main : context {
-  
+   : pattern {
+      regex          \= (@this)
+      styles []       = .control;
+   }
+
    : pattern {
       regex          \= $${__SCENENAME}
       styles []       = .scene;
@@ -303,7 +307,7 @@ in_parens : context {
       }
    }
    :  pattern {
-      regex          \= ([a-zA-Z])
+      regex          \= ([a-zA-Z\-_]([0-9])*)
       styles []       = .parameter;
    }
    :  pattern {

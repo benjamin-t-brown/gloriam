@@ -9,5 +9,7 @@ export default {
     green: '#3F7E00',
     lightRed: '#E1534A',
     red: '#A93B3B',
+    purple: '#8E478C',
+    lightPurple: '#EA71BD',
   },
 };

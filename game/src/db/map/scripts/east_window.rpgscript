@@ -1,0 +1,95 @@
+@east_window
++setStorage('room', 'east_window');
+
+#east_window-toCastleEntranceGrounds
+step,this
+@this
++changeRoom(castle_entrance, markerRight, l);
+
+// #east_window-toEastWall
+// step,this
+// @this
+// +changeRoom(east_wall, markerRight, l);
+
+#east_window-throwRock
+action,this
+
+@east_window-throwRock
+// +setAnimation(Rydo, rydo_prep_rock);
++walkToMarker(Rydo, markerA);
++lookDirection(Rydo, d);
+Rydo: "I have always been accounted a fair shot."
+Rydo: "Perhaps that skill will carry over to my throw."
++setAnimation(Rydo, rydo_throw_rock);
++waitMS(300);
++playSound(small_woosh);
++waitMS(700);
++playSound(light_impact);
++waitMS(1500);
++callScript(east_window-KingsMaid);
+
+@east_window-KingsMaid
++setAnimation(KingsMaid, KingsMaid_default);
++lookAt('Rydo', 'KingsMaid');
+KingsMaid: "Is someone out there?"
+Rydo: "Yes!"
+Rydo: "Down here!"
++setAnimationAndWait(KingsMaid, KingsMaid_opening);
++setAnimation(KingsMaid, KingsMaid_open);
+KingsMaid: "Oh..."
+KingsMaid: "Hey..."
+Rydo: "Hello, fair maiden!"
+Rydo: "Would you kindly do me a favor?"
+Rydo: "I require somebody to let me inside the castle."
+KingsMaid: "Umm... I don't recognize you."
++waitMS(500);
+KingsMaid: "Are you new?"
++waitMS(500);
+Rydo: "Indeed!"
++lookDirection(Rydo, d);
++setAnimationState(Rydo, smug);
+Rydo: "I am Lord Rydo of Elkhain, at your service."
++setAnimationState(Rydo, default);
++lookDirection(Rydo, u);
+KingsMaid: "A lord, huh?"
++waitMS(100);
+Rydo: "I'm trying to get to the throne room."
+Rydo: "Is there any chance you could come down here and open the gate for me?"
+KingsMaid: "Oh I don't know..."
+KingsMaid: "Isn't there supposed to be a guard down there to let you in?"
+Rydo: "Well... yes... there is."
+Rydo: "But he seems to think - very wrongfully I might add - that I am some sort of assassin."
+KingsMaid: "Oh..."
+KingsMaid: "Are you on a quest?"
+Rydo: "...I suppose you could say that."
+KingsMaid: "Nice!"
+Rydo: "..."
++waitMS(2000);
+KingsMaid: "Well you don't look like an assassin..."
+Rydo: "I can assure you, I am not."
+Rydo: "Is there not anything you can do for me?"
+KingsMaid: "Maybe?"
+KingsMaid: "If you can't get through the gate then..."
+KingsMaid: "I could lower down a rope or something to get you through the window..."
+KingsMaid: "But I don't think the King would like that very much."
+KingsMaid: "These are kind of his apartments."
+KingsMaid: "I don't think he'd like it if he found you up here by yourself."
+Rydo: "Can't you just simply come down and talk to the gate guard?"
+Rydo: "Surely you can make him see reason."
+KingsMaid: "Oh..."
+KingsMaid: "I'm not sure about that."
+KingsMaid: "I'm supposed to be cleaning, you know."
+KingsMaid: "The King likes his apartments to be feather-dusted every day."
+Rydo: "It would only take a short amount of time..."
+KingsMaid: "Yeah... Sounds like too much of a hassle."
+Rydo: "..."
++waitMS(2000);
+KingsMaid: "Well... it was nice talking to you."
+KingsMaid: "Good luck on your quest though!"
++setAnimation(KingsMaid, KingsMaid_closing);
++waitMS(500);
+Rydo: "Wait!"
++waitMS(1000);
++setAnimation(KingsMaid, KingsMaid_default);
++lookDirection(Rydo, d);
+Rydo: "...Is everyone here insane?"

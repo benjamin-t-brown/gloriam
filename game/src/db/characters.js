@@ -1,4 +1,5 @@
 import theme from 'main/theme';
+import { HEADINGS } from 'main/Actor';
 
 const characters = {};
 
@@ -6,7 +7,9 @@ function createTemplate(name, battleOnly) {
   const c = {
     name,
     spriteBase: 'person',
+    talkTrigger: '',
     skills: ['Punch', 'Shield Cracker', 'Defend', 'Counter'],
+    hitBox: { width: 25, height: 52 },
     baseHp: 10,
     baseShieldHp: 0,
     battleOnly: battleOnly === undefined ? false : true,
@@ -77,8 +80,35 @@ function createTemplate(name, battleOnly) {
 }
 
 {
-  const c = createTemplate('Young Guard');
+  const c = createTemplate('Gate Guard');
   c.spriteBase = 'youngguard';
+  c.talkTrigger = 'castle_entrance-GateGuard';
+}
+
+{
+  const c = createTemplate('CorneliusLiber');
+  c.spriteBase = 'cornelius';
+  c.displayName = 'Cornelius Liber';
+  c.textColor = theme.palette.lightPurple;
+  c.talkTrigger = 'library_l1-CorneliusLiber';
+  c.defaultHeading = HEADINGS.UP;
+}
+
+{
+  const c = createTemplate('GardnerHarris');
+  c.spriteBase = 'GardnerHarris';
+  c.displayName = 'Gardner Harris';
+  c.textColor = theme.palette.green;
+  c.talkTrigger = 'gardens-GardnerHarris';
+  c.defaultHeading = HEADINGS.UP;
+}
+{
+  const c = createTemplate('KingsMaid');
+  c.spriteBase = 'KingsMaid';
+  c.talkTrigger = 'east_window-throwRock';
+  c.animName = 'KingsMaid_default';
+  c.useHeading = false;
+  c.hitBox = { width: 66, height: 92 };
 }
 
 {

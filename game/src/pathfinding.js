@@ -19,6 +19,22 @@ export function isInWall({ x, y }, walls) {
   return false;
 }
 
+export function getCollisionWalls({ x, y }, walls) {
+  const v = 0.0;
+  const ret = [];
+  for (let i = 0; i < walls.length; i++) {
+    const wall = walls[i];
+    const wx = wall.x - v;
+    const wy = wall.y - v;
+    const wx2 = wall.x + wall.width + v;
+    const wy2 = wall.y + wall.height + v;
+    if (x >= wx && x <= wx2 && y >= wy && y <= wy2) {
+      ret.push(wall);
+    }
+  }
+  return ret;
+}
+
 export function getIntersectionPoint(p0, p1, p2, p3) {
   const s1_x = p1.x - p0.x;
   const s1_y = p1.y - p0.y;

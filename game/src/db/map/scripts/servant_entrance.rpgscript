@@ -1,0 +1,17 @@
+@servant_entrance
++setStorage('room', 'Servant Entrance');
+
+#servant_entrance-toWelcomeGrounds
+step,this
+@this
++changeRoom(welcome_grounds, markerTop2, d);
+
+#servant_entrance-toCastleEntrance
+step,this
+@this
++changeRoom(castle_entrance, markerLeft, r);
+
+#servant_entrance-toWestWall
+step,this
+@this
++changeRoom(west_wall, markerRight, d);

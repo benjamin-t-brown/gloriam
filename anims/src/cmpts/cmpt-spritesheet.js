@@ -6,6 +6,9 @@ import Button from 'elements/button';
 import Text from 'elements/text';
 import { colors } from 'utils';
 
+const MAX_SPRITE_WIDTH = 128;
+const MAX_SPRITE_HEIGHT = 128;
+
 const SpriteSizeInputDialog = ({ open, setOpen, appInterface }) => {
   const {
     spriteWidth: origSpriteWidth,
@@ -25,6 +28,7 @@ const SpriteSizeInputDialog = ({ open, setOpen, appInterface }) => {
           spriteHeight
         );
         appInterface.forceUpdate();
+        setOpen(false);
       }}
       onCancel={() => {
         setOpen(false);
@@ -67,12 +71,27 @@ const Tile = ({
   const ref = React.useRef(null);
   spriteWidth = spriteWidth || 1;
   spriteHeight = spriteHeight || 1;
+  const width = spriteWidth > MAX_SPRITE_WIDTH ? MAX_SPRITE_WIDTH : spriteWidth;
+  const height =
+    spriteHeight > MAX_SPRITE_HEIGHT ? MAX_SPRITE_HEIGHT : spriteHeight;
+  const scale = spriteWidth > MAX_SPRITE_WIDTH ? 0.5 : 1;
+  const sprite = display.getSprite(spriteName);
   React.useEffect(() => {
-    display.setCanvas(ref.current);
-    display.drawSprite(spriteName, 0, 0);
-    display.restoreCanvas();
-  }, [spriteName, spriteWidth, spriteHeight]);
-  const isBlank = display.getSprite(spriteName).is_blank;
+    if (sprite) {
+      display.setCanvas(ref.current);
+      display.drawSprite(spriteName, width / 2, height / 2, {
+        centered: true,
+        scale,
+      });
+      display.restoreCanvas();
+    }
+  }, [spriteName, spriteWidth, spriteHeight, width, height, scale, sprite]);
+
+  if (!sprite) {
+    return <div />;
+  }
+
+  const isBlank = sprite.is_blank;
 
   return (
     <div
@@ -101,8 +120,8 @@ const Tile = ({
           border: '1px solid ' + (isSelected ? colors.green : colors.white),
         }}
         ref={ref}
-        width={spriteWidth}
-        height={spriteHeight}
+        width={width}
+        height={height}
       ></canvas>
     </div>
   );
@@ -165,7 +184,7 @@ const SaveButton = ({ appInterface }) => {
     <Button
       type="secondary"
       style={{
-        width: '100px',
+        width: '116px',
         float: 'right',
         margin: '4px',
       }}
@@ -210,22 +229,24 @@ const Spritesheet = props => {
         height: window.innerHeight - 200,
       }}
     >
-      <Button
-        style={{ float: 'left', margin: '4px' }}
-        onClick={() => appInterface.setImageName('')}
-      >
-        ← Back
-      </Button>
-      <SaveButton appInterface={appInterface} />
-      <div
-        className="no-select"
-        style={{
-          textAlign: 'center',
-          fontSize: '24px',
-          padding: '10px',
-        }}
-      >
-        Spritesheet: {props.appInterface.imageName}
+      <div style={{ backgroundColor: colors.darkGrey }}>
+        <Button
+          style={{ float: 'left', margin: '4px 48px 4px 4px' }}
+          onClick={() => appInterface.setImageName('')}
+        >
+          ← Back
+        </Button>
+        <SaveButton appInterface={appInterface} />
+        <div
+          className="no-select"
+          style={{
+            textAlign: 'center',
+            fontSize: '24px',
+            padding: '10px',
+          }}
+        >
+          {props.appInterface.imageName}
+        </div>
       </div>
       <div
         style={{
@@ -234,6 +255,7 @@ const Spritesheet = props => {
       >
         <div
           style={{
+            backgroundColor: colors.lightBlack,
             padding: '5px',
             display: 'flex',
             justifyContent: 'space-between',
@@ -256,7 +278,7 @@ const Spritesheet = props => {
             Set Sprite Size
           </Button>
         </div>
-        <div style={{ overflowY: 'auto', height: 'calc(100% - 133px)' }}>
+        <div style={{ overflowY: 'auto', height: 'calc(100% - 127px)' }}>
           <div
             style={{
               display: 'flex',

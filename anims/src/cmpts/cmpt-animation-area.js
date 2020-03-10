@@ -7,9 +7,10 @@ import display from 'content/display';
 import { addSpriteAtIndex } from 'cmpts/cmpt-frames-area';
 
 const AnimationPreview = ({ anim, appInterface }) => {
+  const [scale, setScale] = React.useState(2);
   const ref = React.useRef(null);
-  const canvasWidth = 225;
-  const canvasHeight = 225;
+  const canvasWidth = 256;
+  const canvasHeight = 256;
   React.useEffect(() => {
     display.setLoop(() => {
       display.setCanvas(ref.current);
@@ -17,11 +18,12 @@ const AnimationPreview = ({ anim, appInterface }) => {
       if (window.appInterface.animation) {
         display.drawAnimation(anim, canvasWidth / 2, canvasHeight / 2, {
           centered: true,
+          scale,
         });
       }
       display.restoreCanvas();
     });
-  });
+  }, [anim, scale]);
 
   return (
     <div
@@ -49,20 +51,63 @@ const AnimationPreview = ({ anim, appInterface }) => {
         >
           {anim ? anim.name : '(select animation)'}
         </div>
-        <canvas
+        <div
           style={{
-            margin: '5px',
-            border: '1px solid ' + colors.white,
-            backgroundColor: 'black',
+            display: 'flex',
+            justifyContent: 'center',
           }}
-          ref={ref}
-          width={canvasWidth}
-          height={canvasHeight}
-        ></canvas>
+        >
+          <canvas
+            style={{
+              margin: '5px',
+              border: '1px solid ' + colors.white,
+              backgroundColor: 'black',
+            }}
+            ref={ref}
+            width={canvasWidth}
+            height={canvasHeight}
+          ></canvas>
+        </div>
+        <div
+          style={{
+            display: 'flex',
+            justifyContent: 'space-around',
+            padding: '5px',
+          }}
+        >
+          <Button
+            type={scale === 1 ? 'primary' : null}
+            disabled={!anim ? true : false}
+            onClick={() => {
+              setScale(1);
+            }}
+          >
+            1X
+          </Button>
+          <Button
+            type={scale === 2 ? 'primary' : null}
+            disabled={!anim ? true : false}
+            onClick={() => {
+              setScale(2);
+            }}
+          >
+            2X
+          </Button>
+          <Button
+            type={scale === 4 ? 'primary' : null}
+            disabled={!anim ? true : false}
+            onClick={() => {
+              setScale(4);
+            }}
+          >
+            4X
+          </Button>
+        </div>
         <div style={{ display: 'flex', justifyContent: 'center' }}>
           <Button
+            style={{ width: '140px', marginTop: '10px' }}
             type="secondary"
-            disabled={anim ? false : true}
+            disabled={!anim || anim.loop ? true : false}
             onClick={() => {
               if (anim) {
                 anim.reset();
@@ -85,7 +130,7 @@ const AnimationTxt = ({ anim, appInterface }) => {
       <textarea
         style={{
           width: '100%',
-          height: '200px',
+          height: '100px',
           backgroundColor: colors.black,
           color: colors.white,
           border: '1px solid ' + colors.grey,
@@ -102,6 +147,7 @@ const AnimationArea = ({ appInterface }) => {
   const [defaultDuration, setDefaultDuration] = React.useState(100);
   const imageName = appInterface.imageName;
   const anim = appInterface.animation;
+  const { totalSprites } = display.pictures[appInterface.imageName] || {};
   return (
     <div>
       <div
@@ -119,6 +165,12 @@ const AnimationArea = ({ appInterface }) => {
       <AnimationTxt anim={anim} appInterface={appInterface} />
       {anim && (
         <div style={{ margin: '5px' }}>
+          <Text type="bold" ownLine={true} centered={false} lineHeight={5}>
+            Total Duration MS: {anim.totalDurationMs}
+          </Text>
+          <Text type="bold" ownLine={true} centered={false} lineHeight={5}>
+            Number of Frames: {anim.sprites.length}
+          </Text>
           <Input
             type="checkbox"
             name="loop"
@@ -141,7 +193,7 @@ const AnimationArea = ({ appInterface }) => {
           <Input
             type="number"
             name="duration"
-            label="Anim Duration"
+            label="Default Frame Duration"
             value={defaultDuration}
             style={{
               width: '160px',
@@ -151,21 +203,75 @@ const AnimationArea = ({ appInterface }) => {
               appInterface.setDefaultAnimDuration(defaultDuration);
             }}
           />
-          <Button
-            style={{ marginTop: '15px' }}
-            type="primary"
-            onClick={() => {
-              addSpriteAtIndex(
-                anim,
-                'invisible',
-                anim.sprites.length,
-                defaultDuration
-              );
-              appInterface.setAnimation(display.getAnimation(anim.name));
+          <div
+            style={{
+              display: 'flex',
+              marginTop: '7px',
+              justifyContent: 'space-around',
             }}
           >
-            + Add Invisible
-          </Button>
+            <Button
+              type="primary"
+              margin={2}
+              onClick={() => {
+                for (let i = 0; i < totalSprites; i++) {
+                  const a = display.getAnimation(anim.name);
+                  const spriteName = appInterface.imageName + '_' + i;
+                  const sprite = display.getSprite(spriteName);
+                  if (sprite.is_blank) {
+                    continue;
+                  }
+                  addSpriteAtIndex(
+                    a,
+                    spriteName,
+                    a.sprites.length,
+                    defaultDuration
+                  );
+                }
+                appInterface.setAnimation(display.getAnimation(anim.name));
+              }}
+            >
+              + Add All
+            </Button>
+            <Button
+              type="secondary"
+              margin={2}
+              onClick={() => {
+                for (let i = totalSprites - 1; i >= 0; i--) {
+                  const a = display.getAnimation(anim.name);
+                  const spriteName = appInterface.imageName + '_' + i;
+                  const sprite = display.getSprite(spriteName);
+                  if (sprite.is_blank) {
+                    continue;
+                  }
+                  addSpriteAtIndex(
+                    a,
+                    spriteName,
+                    a.sprites.length,
+                    defaultDuration
+                  );
+                }
+                appInterface.setAnimation(display.getAnimation(anim.name));
+              }}
+            >
+              + Add All Reverse
+            </Button>
+            <Button
+              type="cadence"
+              margin={2}
+              onClick={() => {
+                addSpriteAtIndex(
+                  anim,
+                  'invisible',
+                  anim.sprites.length,
+                  defaultDuration
+                );
+                appInterface.setAnimation(display.getAnimation(anim.name));
+              }}
+            >
+              + Add Invisible
+            </Button>
+          </div>
         </div>
       )}
     </div>

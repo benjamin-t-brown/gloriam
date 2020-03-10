@@ -43,30 +43,18 @@ module.exports = {
   },
   plugins: [
     new WebpackBeforeBuildPlugin(async (stats, callback) => {
-      const result = await execAsync(`cd ${__dirname}/dist/snd && find . -type f`);
-      const exp = JSON.stringify(
-        result
-          .split('\n')
-          .sort()
-          .map(url => url.slice(2))
-          .reduce((prev, curr) => {
-            prev[curr] = true;
-            return prev;
-          }, {}),
-        null,
-        2
-      );
-      fs.writeFileSync(`${__dirname}/dist/sounds.json`, `${exp}`);
-      try {
-        await execAsync(`cp -r ${__dirname}/../tiled/props/* ${__dirname}/dist/img/`);
-      } catch (e) {
-        return;
-      }
-      try {
-        await execAsync(`cp -r ${__dirname}/../tiled/stages/* ${__dirname}/dist/img/`);
-      } catch (e) {
-        return;
-      }
+      let result = await execAsync(`cd ${__dirname}/dist/voice && find . -type f`);
+      result = result
+        .split('\n')
+        .sort()
+        .map(url => url.slice(2))
+        .reduce((prev, curr) => {
+          prev[curr] = true;
+          return prev;
+        }, {});
+      delete result[''];
+      const exp = JSON.stringify(result, null, 2);
+      fs.writeFileSync(`${__dirname}/dist/voice.json`, `${exp}`);
       callback();
     }),
   ],

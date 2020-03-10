@@ -2,8 +2,8 @@ import { HEADINGS } from 'main/Actor';
 import RoomActor from 'room/RoomActor';
 import { getElem } from 'db';
 import display from 'display/Display';
-import { isPointWithinRect, pt, hexToRGBA } from 'utils';
-import { getWaypointPath, isInWall } from 'pathfinding';
+import { isPointWithinRect, hexToRGBA } from 'utils';
+import { getWaypointPath, getCollisionWalls } from 'pathfinding';
 import scene from 'main/Scene';
 import theme from 'main/theme';
 
@@ -39,7 +39,7 @@ class Room {
     this.allowInput = true;
 
     this.actors = [];
-    this.markers = [];
+    this.markers = {};
     this.walls = walls;
     this.particles = [];
     this.triggers = [];
@@ -53,23 +53,36 @@ class Room {
       const characterTemplate = getElem('characters', name);
       const act = new RoomActor(this, characterTemplate, this.camera, {
         heading: true,
+        character: true,
       });
       act.setAt(x, y);
-      act.setHeading(HEADINGS.DOWN);
       this.actors.push(act);
     });
 
     props.forEach(props => {
-      const { spriteName: spriteBase, name, x, y, width, height } = props;
-      const propTemplate = {
-        name,
-        spriteBase,
-      };
-      const act = new RoomActor(this, propTemplate, this.camera);
-      act.width = width;
-      act.height = height;
-      act.setAt(x, y);
-      this.actors.push(act);
+      const { spriteName: spriteBase, name, x, y, width, height, isMarker } = props;
+      if (isMarker) {
+        this.markers[name] = { x: x + width / 2, y: y + height / 2 };
+      } else {
+        const propTemplate = {
+          name,
+          spriteBase,
+        };
+        const dbProp = getElem('props', spriteBase, true);
+        // if there's a prop in the db, then apply those special properties here.  Most
+        // props probably don't have any special props, just animated ones, or ones that
+        // move.
+        if (dbProp) {
+          propTemplate.animName = dbProp.animName;
+          propTemplate.zOrdering = dbProp.zOrdering;
+          propTemplate.isBackground = dbProp.isBackground;
+        }
+        const act = new RoomActor(this, propTemplate, this.camera);
+        act.width = width;
+        act.height = height;
+        act.setAt(x, y);
+        this.actors.push(act);
+      }
     });
 
     triggers.forEach(trigger => {
@@ -118,20 +131,22 @@ class Room {
     }, null);
   }
 
-  getActorAt(x, y) {
+  getCharacterAt(x, y) {
     let ret = null;
 
     for (let i = 0; i < this.actors.length; i++) {
       const act = this.actors[i];
-      const { x: renderX, y: renderY } = act.getRenderLocation();
-      const { width, height } = act.getSize();
-      const xTopLeft = renderX - width / 2;
-      const yTopLeft = renderY - width / 2;
+      if (!act.isCharacter) {
+        continue;
+      }
+      const { x: actX, y: actY } = act;
+      const { width, height } = act.hitBox;
+      const xTopLeft = actX - width / 2;
+      const yTopLeft = actY - width / 2;
       if (isPointWithinRect({ x, y }, { x: xTopLeft, y: yTopLeft, width, height })) {
         if (!ret) {
           ret = act;
-        } else if (ret.getBottomYRenderLocation() < yTopLeft + height) {
-          ret = act;
+          break;
         }
       }
     }
@@ -212,6 +227,13 @@ class Room {
   }
 
   sortActors(a, b) {
+    if (a.isBackground && b.isBackground) {
+      return a.zOrdering < b.zOrdering ? -1 : 1;
+    } else if (a.isBackground) {
+      return -1;
+    } else if (b.isBackground) {
+      return 1;
+    }
     const aBottom = a.getBottomYRenderLocation();
     const bBottom = b.getBottomYRenderLocation();
     if (aBottom < bBottom) {
@@ -286,6 +308,20 @@ class Room {
       }
     }
 
+    const activeAct = this.getActiveActor();
+    const collidedTriggers = getCollisionWalls(
+      activeAct.getWalkPosition(),
+      this.triggers
+    );
+    for (let i = 0; i < collidedTriggers.length; i++) {
+      const trigger = collidedTriggers[i];
+      if (!scene.isExecutingBlockingScene()) {
+        console.log('CALL TRIGGER', trigger.name);
+        scene.callTrigger(this.name + '-' + trigger.name, 'step');
+      }
+    }
+
+    // DEBUG: draw wall rectangles
     // for (let i = 0; i < this.walls.length; i++) {
     //   const wall = this.walls[i];
     //   const { x, y } = this.worldToRenderCoords(wall);

@@ -28,10 +28,14 @@ const Input = ({
 
   const cStyles = {
     width,
-    overflow: 'hidden',
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'flex-start',
   };
   inputStyle = inputStyle || {};
   if (type === 'checkbox') {
+    delete cStyles.alignItems;
+    delete cStyles.flexDirection;
     cStyles.display = 'flex';
     cStyles.justifyContent = 'flex-start';
     cStyles.alignItems = 'center';
@@ -44,9 +48,7 @@ const Input = ({
       }}
     >
       {name && label ? (
-        <label style={{ color: colors.lightBlue }} htmlFor={name}>
-          {label}
-        </label>
+        <div style={{ color: colors.lightBlue }}>{label}</div>
       ) : null}
       <input
         ref={ref}

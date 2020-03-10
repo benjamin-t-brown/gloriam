@@ -1,14 +1,23 @@
 import { getElem } from 'db';
 import { Script, formatArgs } from 'db/map/ScriptParser';
 import display from 'display/Display';
-import { normalizeClamp } from 'utils';
+import { normalizeClamp, pt } from 'utils';
 import input from 'display/Input';
+import { getWaypointPath } from 'pathfinding';
+import { HEADINGS } from 'main/Actor';
 
 let scene = null;
 
 class Scene {
   constructor() {
-    this.storage = {};
+    this.storage = {
+      Rydo: {
+        items: {},
+      },
+      Ferelith: {
+        items: {},
+      },
+    };
     this.storageOnceKeys = {};
 
     this.room = null;
@@ -19,6 +28,7 @@ class Scene {
     this.blockers = [];
 
     this.voiceEnabled = true;
+    this.isWaitingForAnimation = false;
     this.isWaitingForTime = false;
     this.waitTimeoutId = 0;
     this.isWaitingForInput = false;
@@ -27,7 +37,7 @@ class Scene {
     this.scriptStack = [];
     this.onScriptCompleted = function() {};
 
-    //return true if you want to break evaluation of commands (for waiting mostly)
+    // return true to break evaluation of commands (for waiting mostly)
     const commands = (this.commands = {
       save: () => {
         this.gameInterface.save();
@@ -35,9 +45,11 @@ class Scene {
       restore: () => {
         this.gameInterface.restore();
       },
+      remove: actorName => {},
+      changeRoom: roomName => {
+        this.gameInterface.setRoom(roomName);
+      },
       playDialogue: (actorName, subtitle, soundName) => {
-        console.log('CONTROLLER');
-        console.log('PLAY DIALOG', actorName, subtitle, soundName);
         const actor = this.gameInterface.getActor(actorName);
         let ms = null;
         if (this.voiceEnabled) {
@@ -58,49 +70,170 @@ class Scene {
           input.setUIInputDisabled(false);
         });
       },
+      playDialogueInterruptable: (actorName, subtitle, soundName) => {
+        const actor = this.gameInterface.getActor(actorName);
+        let ms = null;
+        if (this.voiceEnabled) {
+          const soundObject = display.getSound(soundName);
+          if (soundObject) {
+            ms = soundObject.soundDuration * 1000;
+          } else {
+            ms = normalizeClamp(subtitle.length, 5, 40, 750, 3000);
+          }
+          actor.sayDialogue(subtitle, soundName);
+        } else {
+          ms = normalizeClamp(subtitle.length, 5, 40, 750, 3000);
+          actor.sayDialogue(subtitle);
+        }
+        setTimeout(() => {
+          actor.stopDialogue();
+        }, ms);
+      },
+      playSound: soundName => {
+        const soundObject = display.getSound(soundName);
+        display.playSound(soundObject);
+      },
       defaultDialogue: actorName => {},
-      callScript: () => {},
+      callScript: scriptName => {
+        scene.callScript(scriptName);
+        return true;
+      },
       setStorage: (key, value) => {},
       setStorageOnce: (key, value) => {
-        const newKey = this.currentScript.name + '-' + key;
-        if (!this.storageOnceKeys[newKey]) {
+        if (this.storage[key] === undefined) {
           this.storage[key] = value;
-          this.storageOnceKeys[newKey] = true;
         }
       },
       walkTowards: (x, y, time) => {},
       addActor: (actorName, x, y) => {},
       addActorAtMarker: (actorName, markerName) => {},
-      lookAt: (actorName, targetActorName) => {
+      lookAt: (actorName, targetActorName, cb) => {
         const act = this.gameInterface.getActor(actorName);
         const act2 = this.gameInterface.getActor(targetActorName);
-        if (!act) {
-          console.error('No actor exists with name', actorName);
-          return;
-        } else if (!act2) {
-          console.error('No actor exists with name', targetActorName);
-          return;
-        }
-        act.lookAt(act2.getWalkPosition());
+        this.isWaitingForAnimation = true;
+        act.setPositionToTurnTowards(act2.getWalkPosition(), () => {
+          if (cb) {
+            cb();
+          } else {
+            this.isWaitingForAnimation = false;
+          }
+        });
+        return true;
+      },
+      lookAtPoint: (actorName, point, cb) => {
+        const act = this.gameInterface.getActor(actorName);
+        this.isWaitingForAnimation = true;
+        act.setPositionToTurnTowards(point, () => {
+          if (cb) {
+            cb();
+          } else {
+            this.isWaitingForAnimation = false;
+          }
+        });
+        return true;
       },
       lookAtEachOther: (actorName, actorName2) => {
-        commands.lookAt(actorName, actorName2);
-        commands.lookAt(actorName2, actorName);
+        let ctr = 0;
+        this.isWaitingForAnimation = true;
+        const cb = () => {
+          ctr++;
+          if (ctr === 2) {
+            this.isWaitingForAnimation = false;
+          }
+        };
+        commands.lookAt(actorName, actorName2, cb);
+        commands.lookAt(actorName2, actorName, cb);
+        return true;
       },
       lookDirection: (actorName, direction) => {
         const act = this.gameInterface.getActor(actorName);
-        if (!act) {
-          console.error('No actor exists with name', actorName);
-          return;
+        let point = null;
+        switch (direction) {
+          case HEADINGS.UP:
+            point = pt(act.x, act.y - 100);
+            break;
+          case HEADINGS.DOWN:
+            point = pt(act.x, act.y + 100);
+            break;
+          case HEADINGS.LEFT:
+            point = pt(act.x - 100, act.y);
+            break;
+          case HEADINGS.RIGHT:
+            point = pt(act.x + 100, act.y);
+            break;
+          default:
+            console.warn(`[SCENE] Specified direction is not valid: '${direction}'`);
         }
-        act.setHeading(direction);
+
+        return commands.lookAtPoint(actorName, point);
       },
       setFacing: (actorName, direction) => {},
       setFacingTowards: (actorName, otherActorName) => {},
-      setAnimation: (actorName, animationName) => {},
-      setAnimationAndWait: (actorName, animationName) => {},
-      setAnimationState: function() {},
-      walkToMarker: function() {},
+      setAnimation: (actorName, animationName) => {
+        const act = this.gameInterface.getActor(actorName);
+        act.setAnimation(animationName);
+      },
+      setAnimationAndWait: (actorName, animationName) => {
+        const act = this.gameInterface.getActor(actorName);
+        const animation = display.getAnimation(animationName);
+        act.setAnimation(animationName);
+        commands.waitMS(animation.getDurationMs());
+        return true;
+      },
+      setAnimationState: (actorName, stateName) => {
+        const act = this.gameInterface.getActor(actorName);
+        act.setAnimationState(stateName, stateName === 'default' ? true : false);
+      },
+      setAnimationStateAndWait: (actorName, stateName) => {
+        const act = this.gameInterface.getActor(actorName);
+        const animation = act.setAnimationState(
+          stateName,
+          stateName === 'default' ? true : false
+        );
+        commands.waitMS(animation.getDurationMs());
+        return true;
+      },
+      walkToMarker: (actorName, markerName, concurrent) => {
+        const act = this.gameInterface.getActor(actorName);
+        const marker = this.gameInterface.getMarker(markerName);
+        if (!marker) {
+          console.error('No marker exists with name', markerName);
+          return;
+        }
+        const room = this.gameInterface.getRoom();
+        const path = getWaypointPath(act.getWalkPosition(), marker, room.walls, room);
+        if (path.length) {
+          const cb = commands.waitUntilPreemptible();
+          act.setWalkPath(path, cb);
+          return true;
+        }
+      },
+      moveFixed: (actorName, xOffset, yOffset) => {
+        const act = this.gameInterface.getActor(actorName);
+        act.setAt(act.x + xOffset, act.y + yOffset);
+      },
+      acquireItem: (actorName, itemName) => {
+        const actStorage = this.storage[actorName];
+        if (!actStorage) {
+          console.error(
+            'Cannot acquireItem, no actor storage exists with actorName:',
+            actorName
+          );
+          return;
+        }
+        actStorage[itemName] = actStorage[itemName] ? actStorage[itemName] + 1 : 1;
+      },
+      removeItem: (actorName, itemName) => {
+        const actStorage = this.storage[actorName];
+        if (!actStorage) {
+          console.error(
+            'Cannot removeItem, no actor storage exists with actorName:',
+            actorName
+          );
+          return;
+        }
+        actStorage[itemName] = actStorage[itemName] ? actStorage[itemName] - 1 : 0;
+      },
       openMenu: () => {},
       walkWait: function() {},
       waitSeconds: (seconds, cb) => {
@@ -117,7 +250,9 @@ class Scene {
         display.clearTimeout(this.waitTimeoutId);
         this.waitTimeoutId = display.setTimeout(() => {
           this.isWaitingForTime = false;
-          cb();
+          if (cb) {
+            cb();
+          }
         }, ms);
         return true;
       },
@@ -136,7 +271,9 @@ class Scene {
         };
         const _cb = () => {
           this.isWaitingForTime = false;
-          cb();
+          if (cb) {
+            cb();
+          }
           input.popEventListeners('mousedown', mouseEvents);
           input.popEventListeners('keydown', keyboardEvents);
         };
@@ -147,7 +284,16 @@ class Scene {
         this.waitTimeoutId = display.setTimeout(_cb, ms);
         return true;
       },
+      waitUntilPreemptible: () => {
+        this.isWaitingForTime = true;
+        return () => {
+          this.isWaitingForTime = false;
+        };
+      },
     });
+  }
+  isExecutingBlockingScene() {
+    return this.isWaiting();
   }
 
   setGameInterface(gameInterface) {
@@ -247,17 +393,17 @@ class Scene {
         }
         return true;
       } else if (type === 'as') {
-        const act = this.room.getActiveActor();
+        const act = this.gameInterface.getRoom().getActiveActor();
         return act.name === args[0];
       } else if (type === 'once') {
-        if (args[0]) {
+        const arg = args[0] || (this.currentScript || this.currentTrigger).name + '-once';
+        if (this.storageOnceKeys[arg]) {
+          console.log('NOT SET STORAGE', arg);
           return false;
-        } else {
-          this.commands.setStorageOnce(
-            this.currentTrigger.name + '-once-' + originalArgs[0]
-          );
-          return true;
         }
+        console.log('SET STORAGE', arg);
+        this.storageOnceKeys[arg] = true;
+        return true;
       }
       return false;
     }
@@ -271,7 +417,7 @@ class Scene {
         const scriptCall = trigger.scriptCalls[i];
         this.currentTrigger = trigger;
         const c = this.evalCondition(scriptCall.condition);
-        console.log('CONDITION', scriptCall.condition, c);
+        console.log('CONDITION', scriptCall.condition, scriptCall.type, c);
         if (scriptCall.type === type && c) {
           await this.callScript(scriptCall.scriptName);
           this.storage[trigger.name] = true;
@@ -316,7 +462,7 @@ class Scene {
   }
 
   isWaiting() {
-    return this.isWaitingForInput || this.isWaitingForTime;
+    return this.isWaitingForInput || this.isWaitingForTime || this.isWaitingForAnimation;
   }
 
   hasCommand(commandName) {

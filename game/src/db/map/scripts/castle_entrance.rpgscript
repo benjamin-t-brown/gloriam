@@ -1,11 +1,30 @@
-@CastleEntrance
-+setStorageOnce('room', 'CastleEntrance');
+@castle_entrance
++setStorage('room', 'castle_entrance');
 
-#GateGuard
-action,?once():CastleEntrance:GateGuardFirst
-action,CastleEntrance:GateGuardDefault
+#castle_entrance-toWelcomeGrounds
+step,this
+@this
++changeRoom('welcome_grounds', 'markerTop');
 
-@CastleEntrance-GateGuardFirst
+#castle_entrance-toServantEntrance
+step,this
+@this
++changeRoom('servant_entrance', 'markerRight');
+
+// this is wrong: fix this
+#castle_entrance-toEastWall
+step,this
+@this
++changeRoom('library_l1', 'markerLeft');
+
+#castle_entrance-GateGuard
+action,?once():castle_entrance-GateGuardFirst
+action,castle_entrance-GateGuardDefault
+
+@castle_entrance-GateGuardFirst
++save()
++walkToMarker(Rydo, markerB);
++lookAt('Rydo', 'Gate Guard');
 Gate Guard: "Hello there citizen?  What can I do for you today?"
 Rydo: "Hello there good sir!"
 Rydo: "I am Lord Rydo."
@@ -13,12 +32,27 @@ Rydo: "I'm certain you've been expecting me."
 Gate Guard: "A Guard at Siffsbury Castle must expect many things!"
 Gate Guard: "An attack can come at any moment."
 Gate Guard: "Like right now!"
-+setAnimationState(GateGuard, blocking_shake);
-+waitMS(200);
++playSound(sword_unsheath);
++setAnimationState(Gate Guard, sword);
++waitMS(500);
++setAnimationState(Gate Guard, sword_brandish);
 +setAnimationState(Rydo, hands_up);
++moveFixed(Rydo, 0, 2);
++waitMS(50);
++moveFixed(Rydo, 0, 4);
++waitMS(50);
++moveFixed(Rydo, 0, 5);
++waitMS(50);
++moveFixed(Rydo, 0, 4);
++waitMS(50);
++moveFixed(Rydo, 0, 2);
++waitMS(50);
 Rydo: "Fear not, my friend!  I do not wish to attack."
-Rydo: "Relinquish your weapon, if you please."
-+setAnimationState(GateGuard, default);
+Rydo: "Relinquish your weapon, at once!"
++playSound(sword_sheath);
++setAnimationState(Gate Guard, sword_away);
++waitMS(500);
++setAnimationState(Gate Guard, default);
 Gate Guard: "See?  Anything can happen in this castle."
 +setAnimationState(Rydo, default);
 Rydo: "That is very sage advice, friend."
@@ -27,48 +61,90 @@ Rydo: "I seek the throne room!"
 Rydo: "I have a very important request for the King that I must give in person."
 Gate Guard: "The throne room!"
 Gate Guard: "That room is closely guarded!"
-Gate Guard: "(Might he be an assassin in disguise?)" (aside)
-+setAnimationState(GateGuard, blocking);
-Gate Guard: "Who did you say you were again?" (suspicious)
+Gate Guard: "(Might he be an assassin in disguise?)"
+Gate Guard: "Who did you say you were again?"
++lookDirection(Rydo, d);
++setAnimationState(Rydo, smug);
 Rydo: "Why... you are speaking to the illustrious Lord Rydo..."
++setAnimationState(Rydo, default);
 Rydo: "...from the great lands of Elkhain!"
++setAnimationState(Rydo, smug);
 Gate Guard: "AHA!"
++setAnimationState(Rydo, default);
 Gate Guard: "I knew you were an assassin!"
++lookAt('Rydo', 'Gate Guard');
 Gate Guard: "No lands of that name exist!"
 Gate Guard: "To think you sought to outwit me with such a far-fetched story..."
++waitMS(200);
++lookDirection(Rydo, r);
 Rydo: "*ahem*"
++lookAt('Rydo', 'Gate Guard');
 Rydo: "You must be mistaken..."
 Rydo: "Elkhain most certainly exists."
-Rydo: "It resides in the Florwitch Valley to the far north, on the Warlow Road that leads through the Angol Mountains."
-Rydo: "The journey here has been long and treacherous..."
+Rydo: "It, of course, resides in the Florwitch Valley to the far north."
+Rydo: "One must take the Warlow Road through the Angol Mountains."
+Rydo: "A long and treacherous journey, truth be told..."
 Rydo: "...But a man such as I of pure Elkhain heritage could not be stopped on this important quest!"
 Gate Guard: "Your words belay your lies!"
 Gate Guard: "The Warlow Road ends at the Angol Mountains!"
 Gate Guard: "Everyone knows that!"
-Rydo: "You have me at a loss..."
+Rydo: "I'm afraid you have me at a loss..."
 Rydo: "The road does continue there."
 Rydo: "Elkhain does indeed exist."
 Rydo: "I do not know what further to say."
-+setAnimationState(GateGuard, blocking_shake);
-+waitMS(200);
++playSound(sword_unsheath);
++setAnimationState(Gate Guard, sword);
++waitMS(500);
 +setAnimationState(Rydo, hands_up);
 Gate Guard: "You need not say anything, assassin!"
 Gate Guard: "No more lies!"
 Gate Guard: "You'll not get past my post at any cost!"
-+setAnimationState(GateGuard, blocking);
-Rydo: "But I NEED to see the King!"
++setAnimationState(Gate Guard, sword_brandish);
+Rydo: "I have *great* *need*."
 Rydo: "I must get to the throne room."
-+setAnimationState(GateGuard, blocking_shake);
++setAnimationState(Rydo, hands_up);
++setAnimationState(Gate Guard, sword);
 Gate Guard: "Stay back, ruffian!"
 Gate Guard: "Any closer and I'll gut you like a kabaab."
++setAnimationState(Gate Guard, sword_brandish);
++setAnimationState(Rydo, default);
 +walkToMarker(Rydo, markerA);
++playSound(sword_sheath);
++setAnimationState(Gate Guard, sword_away);
 +setFacing(Rydo, down);
-Rydo: "What an utter bafoon."
-Rydo: "I cannot believe King Siff lets such men guard his gates."
-Rydo: "But if he won't let me pass, I must find another way inside..."
+Rydo: "What a bafoon of a man!"
+Rydo: "I cannot believe King Siff lets such people guard his gates."
+Rydo: "If he won't let me through, then perhaps I'll have to find another way inside."
++restore();
 
-@CastleEntrance-GateGuardDefault
-+setAnimationState(GateGuard, blocking_shake);
+@castle_entrance-GateGuardDefault
++walkToMarker(Rydo, markerB);
++lookAt('Rydo', 'Gate Guard');
++playSound(sword_unsheath);
++setAnimationState(Gate Guard, sword);
++waitMS(500);
++setAnimationState(Rydo, hands_up);
 Gate Guard: "Stay back, ruffian!"
 Gate Guard: "Any closer and I'll gut you like a kabaab."
-+walkWait(Rydo, markerA);
++setAnimationState(Rydo, default);
++walkToMarker(Rydo, markerA);
++playSound(sword_sheath);
++setAnimationState(Gate Guard, sword_away);
++waitMS(500);
+
+#castle_entrance-Cart
+action,this
+@this
++lookAt(Rydo, cart)
+Rydo: "It's an empty cart."
+Rydo: "Somebody has just left it here."
+Rydo: "I hope they get a parking ticket."
+
+#castle_entrance-Banner
+action,this
+@this
++lookAt(Rydo, banner1-prop)
+Rydo: "Those banners are not very impressive."
+Rydo: "In Elkhain, they would have spanned the length of the wall."
+Rydo: "And that shade of red is so drab."
+Rydo: "I struggle to imagine why King Siff displays it so proudly."

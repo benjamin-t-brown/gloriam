@@ -281,7 +281,7 @@ function createCastingSkill({
   });
   createEvent(s, {
     duration: 100,
-    animState: 'dedfending',
+    animState: 'defending',
     cb: activator => {
       activator.setStance('defending');
     },

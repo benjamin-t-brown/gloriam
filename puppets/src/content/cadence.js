@@ -133,6 +133,110 @@ export function hideCadenceMaker() {
   });
 }
 
+function formatNumber(n) {
+  if (n < 10) {
+    return '0' + n;
+  } else {
+    return String(n);
+  }
+}
+
+function getAllCadencesWithPrefix(prefix) {
+  const ret = [];
+  const cadences = getStatic('cadences');
+  for (let soundName in cadences) {
+    if (soundName.indexOf(prefix) > -1) {
+      if (cadences[soundName]) {
+        ret.push(cadences[soundName]);
+      }
+    }
+  }
+  return ret;
+}
+
+export async function insertAndSlideUp(soundName) {
+  const soundPrefix = soundName.slice(0, -2);
+  const cadences = getAllCadencesWithPrefix(soundPrefix);
+  const ind = Number(soundName.slice(-2)) - 1;
+  for (let i = cadences.length - 1; i >= ind; i--) {
+    const cadence = cadences[i];
+    const soundNumber = Number(cadence.soundName.slice(-2));
+    const newSoundName = soundPrefix + formatNumber(soundNumber + 1);
+    console.log(cadence.soundName, 'is now', newSoundName);
+    cadence.soundName = newSoundName;
+    assignStatic('cadences.' + newSoundName, cadence);
+  }
+  const lastSoundName = soundPrefix + formatNumber(cadences.length + 1);
+  assignStatic('cadences.' + soundName, null);
+  assignState('cadences', null, {
+    [soundName]: null,
+  });
+  assignState('cadences', null, {
+    [lastSoundName]: { exists: true },
+  });
+  const arr = getAllCadencesWithPrefix(soundPrefix);
+  for (let i = 0; i < arr.length; i++) {
+    await saveCadence(arr[i]);
+  }
+}
+
+export async function removeAndSlideDown(soundName) {
+  const soundPrefix = soundName.slice(0, -2);
+  const cadences = getAllCadencesWithPrefix(soundPrefix);
+  const cadencesStatic = getStatic('cadences');
+  if (!cadencesStatic[soundName]) {
+    return;
+  }
+  const ind = Number(soundName.slice(-2));
+  for (let i = ind; i < cadences.length - 1; i++) {
+    const cadence = cadences[i + 1];
+    const soundNumber = Number(cadence.soundName.slice(-2));
+    const newSoundName = soundPrefix + formatNumber(soundNumber - 1);
+    cadence.soundName = newSoundName;
+    assignStatic('cadences.' + newSoundName, cadence);
+  }
+  const lastSoundName = soundPrefix + formatNumber(cadences.length);
+  assignStatic('cadences.' + lastSoundName, null);
+  assignState('cadences', null, {
+    [lastSoundName]: null,
+  });
+  return Promise.all(getAllCadencesWithPrefix(soundPrefix).map(saveCadence));
+}
+
+export async function saveCadence(cadence) {
+  const soundName = cadence.soundName;
+  const type = 'POST';
+  const url = '/cadence';
+  const opts = {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      name: soundName,
+      cadence: cadence.toJson(),
+    }),
+  };
+  console.log('[fetch]', type, url, opts.body);
+  return fetch(url, opts)
+    .then(async response => {
+      const json = await response.json();
+      if (json.err) {
+        console.error(json.err);
+        throw new Error(json.err);
+      }
+      console.log('[fetch]', 'result', type, url, json);
+      assignStatic(`cadences.${soundName}`, cadence);
+      assignState(`cadences.${soundName}`, null, {
+        exists: true,
+      });
+      return json;
+    })
+    .catch(err => {
+      throw err;
+    });
+}
+
 export async function loadCadences() {
   const type = 'GET';
   const url = '/cadences';

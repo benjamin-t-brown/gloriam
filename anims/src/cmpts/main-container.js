@@ -36,9 +36,16 @@ export default () => {
     animations: [],
     animation,
     setAnimation: n => {
-      setAnimation(n);
       if (n) {
-        n.start();
+        if (appInterface.animation && n.name !== appInterface.animation.name) {
+          setAnimation(null);
+        }
+        setTimeout(() => {
+          setAnimation(n);
+          n.start();
+        });
+      } else {
+        setAnimation(n);
       }
       localStorage.setItem('animName', (n && n.name) || '');
     },
@@ -75,7 +82,7 @@ export default () => {
       >
         <div
           style={{
-            width: '250px',
+            width: '350px',
             height: '100%',
             backgroundColor: colors.darkGrey,
             borderRight: '1px solid ' + colors.grey,
@@ -83,8 +90,8 @@ export default () => {
         >
           <AnimationSelect appInterface={appInterface} />
         </div>
-        <div style={{ width: 'calc(100% - 500px)', height: '100%' }}>
-          {imageName ? (
+        <div style={{ width: 'calc(100% - 700px)', height: '100%' }}>
+          {imageName && display.pictures[imageName] ? (
             <Spritesheet appInterface={appInterface} />
           ) : (
             <ImageSelect appInterface={appInterface} />
@@ -92,10 +99,11 @@ export default () => {
         </div>
         <div
           style={{
-            width: '250px',
+            width: '350px',
             height: '100%',
             backgroundColor: colors.darkGrey,
             borderLeft: '1px solid ' + colors.grey,
+            overflowY: 'auto',
           }}
         >
           <AnimationArea appInterface={appInterface} />

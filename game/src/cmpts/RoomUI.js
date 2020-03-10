@@ -3,6 +3,8 @@ import display from 'display/Display';
 import input from 'display/Input';
 import { pt, drawPath } from 'utils';
 import TriggerIndicator from 'cmpts/TriggerIndicator';
+import MenuBackpack from 'cmpts/MenuBackpack';
+import scene from '../main/Scene';
 
 class RoomUI extends React.Component {
   constructor(props) {
@@ -18,9 +20,11 @@ class RoomUI extends React.Component {
         //   display.pause();
         // }
       },
-      r: ev => {
-        ev.preventDefault();
-        window.scene.callScript('rvb');
+    };
+
+    this.mouseEvents = {
+      1: ev => {
+        this.handleClick(ev);
       },
     };
 
@@ -28,19 +32,17 @@ class RoomUI extends React.Component {
   }
 
   handleClick = ev => {
-    if (input.isUIInputEnabled()) {
-      const act = this.props.room.getActiveActor();
-      const point = this.props.room.renderToWorldCoords(pt(ev.clientX, ev.clientY));
-      this.props.room.actorWalkTowards(act, point);
+    const point = this.props.room.renderToWorldCoords(pt(ev.clientX, ev.clientY));
+    if (input.isUIInputEnabled() && !scene.isExecutingBlockingScene()) {
+      const clickedAct = this.props.room.getCharacterAt(point.x, point.y);
+      console.log('clickedAct!', clickedAct);
+      if (clickedAct && clickedAct.talkTrigger) {
+        scene.callTrigger(clickedAct.talkTrigger, 'action');
+      } else {
+        const act = this.props.room.getActiveActor();
+        this.props.room.actorWalkTowards(act, point);
+      }
     }
-    // const newState = {
-    //   walk: {
-    //     end: point,
-    //     start: act.getWalkPosition(),
-    //     path: path && [...path],
-    //   },
-    // };
-    // this.setState(newState);
   };
 
   calculateAndSetScale() {
@@ -55,8 +57,10 @@ class RoomUI extends React.Component {
         scale = 0.25;
       }
     } else {
-      scale = Math.floor(scale);
+      // comment back in to scale to whole numbers
+      //scale = Math.floor(scale);
     }
+
     this.props.room.setBaseScale(scale);
   }
 
@@ -64,6 +68,7 @@ class RoomUI extends React.Component {
     this.handleResize = () => this.calculateAndSetScale();
     window.addEventListener('resize', this.handleResize);
     input.pushEventListeners('keydown', this.events);
+    input.pushEventListeners('mousedown', this.mouseEvents);
 
     const drawDebugMouse = () => {
       const mouse = this.mouse;
@@ -107,9 +112,14 @@ class RoomUI extends React.Component {
     //this.forceUpdate();
   }
 
+  componentDidUpdate() {
+    this.calculateAndSetScale();
+  }
+
   componentWillUnmount() {
     window.addEventListener('resize', this.handleResize);
     input.popEventListeners('keydown', this.events);
+    input.popEventListeners('mousedown', this.mouseEvents);
     display.setLoop(function() {});
   }
 
@@ -126,7 +136,7 @@ class RoomUI extends React.Component {
   render() {
     return (
       <div
-        onClick={this.handleClick}
+        id="cmpt-game"
         onMouseMove={ev => {
           this.mouse = {
             x: Math.round(ev.clientX),
@@ -143,6 +153,7 @@ class RoomUI extends React.Component {
         {this.props.room.triggers.map(trigger => {
           return <TriggerIndicator trigger={trigger} room={this.props.room} />;
         })}
+        <MenuBackpack items={[]} />
       </div>
     );
   }

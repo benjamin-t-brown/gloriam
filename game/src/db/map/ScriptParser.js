@@ -1,4 +1,4 @@
-export function splitNotInParens(str, spl) {
+function splitNotInParens(str, spl) {
   const ret = [];
   let agg = '';
   let quote = '';
@@ -33,7 +33,7 @@ export function splitNotInParens(str, spl) {
   return ret;
 }
 
-export function indexOfNotInParens(str, spl) {
+function indexOfNotInParens(str, spl) {
   let quote = '';
   let ignore = false;
   for (let i = 0; i < str.length; i++) {
@@ -60,7 +60,7 @@ export function indexOfNotInParens(str, spl) {
   return -1;
 }
 
-export function removeQuotes(args) {
+function removeQuotes(args) {
   return args.map(arg => {
     if (arg[0] === '"' || arg[0] === "'") {
       return arg.slice(1, -1);
@@ -70,7 +70,7 @@ export function removeQuotes(args) {
   });
 }
 
-export function formatArgs(args) {
+function formatArgs(args) {
   return removeQuotes(args).map(arg => {
     if (!isNaN(parseFloat(arg))) {
       return parseFloat(arg);
@@ -80,7 +80,7 @@ export function formatArgs(args) {
   });
 }
 
-export class Trigger {
+class Trigger {
   constructor(name, filename, lineNum) {
     this.name = name;
     this.filename = filename;
@@ -97,7 +97,7 @@ export class Trigger {
   }
 }
 
-export class Script {
+class Script {
   constructor(name, filename, lineNum) {
     this.name = name;
     this.filename = filename;
@@ -118,6 +118,9 @@ export class Script {
   }
 
   isValid(scene) {
+    if (!scene) {
+      return true;
+    }
     for (let i = 0; i < this.blocks.length; i++) {
       const block = this.blocks[i];
 
@@ -167,15 +170,11 @@ export class Script {
     if (n < 10) {
       n = '0' + n;
     }
-    const soundNameIndexed = this.name + '/' + this.name + '-' + this.sounds;
-    const soundNameCh = this.name + '/' + this.name + '-' + actorName + '-' + n;
+    const soundNameIndexed = this.name + '/' + this.sounds;
+    const soundNameCh = this.name + '/' + actorName + '-' + n;
 
     this.sounds++;
     return { soundNameIndexed, soundNameCh };
-  }
-
-  print() {
-    console.log('SCRIPT', this.name, this.blocks);
   }
 
   addCommandBlock() {
@@ -188,7 +187,7 @@ export class Script {
   }
 }
 
-export class ScriptParser {
+class ScriptParser {
   constructor(name) {
     this.name = name;
     this.soundsToLoad = [];
@@ -288,11 +287,16 @@ export class ScriptParser {
 
   createDialogCommand(line, script) {
     let [actorName, subtitle] = line.split(':');
+    let type = 'playDialogue';
+    if (actorName[0] === '_') {
+      actorName = actorName.slice(1);
+      type = 'playDialogueInterruptable';
+    }
     subtitle = subtitle.trim();
     const { soundNameCh, soundNameIndexed } = script.getNextDialog(actorName);
     this.soundsToLoad.push({ soundNameCh, soundNameIndexed });
     return {
-      type: 'playDialogue',
+      type,
       args: formatArgs([actorName, subtitle, soundNameCh]),
     };
   }
@@ -310,6 +314,7 @@ export class ScriptParser {
     let currentBlock = null;
     let currentScript = null;
     let currentTrigger = null;
+    let currentTriggerName = null;
     const lines = src.split('\n');
 
     lines.forEach((line, lineNum) => {
@@ -329,7 +334,10 @@ export class ScriptParser {
         isCodeBlock = false;
         currentBlock = null;
       } else if (firstCh === '@' && !isCodeBlock) {
-        const scriptName = line.substr(1, line.length - 1);
+        let scriptName = line.substr(1, line.length - 1);
+        if (scriptName === 'this') {
+          scriptName = currentTriggerName;
+        }
         if (scriptName.length === 0) {
           this.throwParsingError('Invalid script name', lineNum, line);
         }
@@ -355,6 +363,7 @@ export class ScriptParser {
       } else if (firstCh === '#') {
         isTrigger = true;
         isChoice = false;
+        currentTriggerName = line.substr(1);
         currentTrigger = new Trigger(line.substr(1), this.name, lineNum);
         addTrigger(line.substr(1), currentTrigger);
       } else if (firstCh === '+' || isCodeBlock) {
@@ -428,11 +437,11 @@ export class ScriptParser {
           triggerContents,
           lineNum
         );
-        currentTrigger.addScriptCall(
-          triggerType,
-          conditional,
-          triggerContents.substr(endIndex)
-        );
+        let scriptName = triggerContents.substr(endIndex);
+        if (scriptName === 'this') {
+          scriptName = currentTriggerName;
+        }
+        currentTrigger.addScriptCall(triggerType, conditional, scriptName);
       } else if (firstCh === '>') {
         currentBlock.commands.push({
           type: 'callScript',
@@ -455,4 +464,8 @@ export class ScriptParser {
   }
 }
 
-export default ScriptParser;
+module.exports = {
+  ScriptParser,
+  Script,
+  formatArgs,
+};

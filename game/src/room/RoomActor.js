@@ -7,16 +7,30 @@ import theme from 'main/theme';
 class RoomActor extends Actor {
   constructor(room, template, camera, props) {
     super(room, template.spriteBase || '');
-    const { heading } = props || {};
-    const { name, width, height } = template;
+    const { heading, character } = props || {};
+    const {
+      name,
+      width,
+      height,
+      animName,
+      displayName,
+      hitBox,
+      talkTrigger,
+      defaultHeading,
+      isBackground,
+      zOrdering,
+      useHeading,
+    } = template;
     this.camera = camera;
 
-    this.shouldUseHeading = !!heading;
-    this.shouldAnimUseHeading = !!heading;
-    this.heading = HEADINGS.DOWN;
-    this.name = name;
+    this.name = name || template.spriteBase;
+    this.displayName = displayName;
     this.width = width || room.baseSize;
     this.height = height || room.baseSize;
+    this.hitBox = hitBox || { width: this.width, height: this.height };
+    this.isCharacter = !!character;
+    this.isBackground = !!isBackground;
+    this.zOrdering = zOrdering || 0;
     this.walkPath = null;
     this.walkSpeedX = 100; // pixels per second
     this.walkSpeedY = 55;
@@ -27,10 +41,16 @@ class RoomActor extends Actor {
     this.isRotating = false;
     this.onWalkComplete = () => {};
     this.onRotateComplete = () => {};
-    this.animationStateName = null;
+    this.animationState = null;
     this.subtitleTextColor = template.textColor || theme.palette.white;
-
-    this.setAnimationState(); // sets default animation
+    this.talkTrigger = talkTrigger || null;
+    this.shouldAnimUseHeading = useHeading === undefined ? !!heading : useHeading;
+    if (animName) {
+      this.setAnimation(animName);
+    } else {
+      this.setAnimationState(); // sets default animation from spriteBase
+      this.setHeading(defaultHeading || HEADINGS.DOWN);
+    }
   }
 
   setAngle(angle) {
@@ -52,7 +72,7 @@ class RoomActor extends Actor {
     } else {
       this.heading = HEADINGS.LEFT;
     }
-    this.setAnimationState(this.animationStateName);
+    this.setAnimationState(this.animationState);
     return angle;
   }
 
@@ -74,7 +94,7 @@ class RoomActor extends Actor {
       default:
         this.setAngle(180);
     }
-    this.setAnimationState(this.animationStateName);
+    this.setAnimationState(this.animationState);
   }
 
   turn(direction, targetAngle) {
@@ -123,12 +143,6 @@ class RoomActor extends Actor {
       return true;
     }
     return isAtTarget;
-  }
-
-  setPositionToTurnTowards(position, onRotateComplete) {
-    this.nextRotationPoint = position;
-    this.isRotating = true;
-    this.onRotateComplete = onRotateComplete || function() {};
   }
 
   setWalkPath(walkPath, onWalkComplete) {
@@ -193,23 +207,41 @@ class RoomActor extends Actor {
     return pt(this.x, this.y + this.height / 3);
   }
 
-  setAnimationState(stateName) {
-    this.animationStateName = stateName;
+  setAnimationState(stateName, useHeading) {
+    let changed = false;
+
+    if (useHeading !== undefined) {
+      this.shouldAnimUseHeading = !!useHeading;
+    }
     if (stateName && stateName !== 'default') {
-      if (this.shouldUseHeading) {
-        this.setAnimation(this.spriteBase + '_' + stateName + '_' + this.heading);
+      if (this.shouldAnimUseHeading) {
+        changed = this.setAnimation(
+          this.spriteBase + '_' + stateName + '_' + this.heading
+        );
       } else {
-        this.setAnimation(this.spriteBase + '_' + stateName);
+        changed = this.setAnimation(this.spriteBase + '_' + stateName);
       }
     } else {
-      if (this.shouldUseHeading) {
-        this.setAnimation(this.spriteBase + '_' + this.heading);
+      if (this.shouldAnimUseHeading) {
+        changed = this.setAnimation(this.spriteBase + '_' + this.heading);
       } else {
-        this.setAnimation(this.spriteBase);
+        changed = this.setAnimation(this.spriteBase);
       }
     }
+    if (changed) {
+      this.animationState = stateName;
+    }
+    return this.getCurrentAnimation();
   }
 
+  // not instant
+  setPositionToTurnTowards(position, onRotateComplete) {
+    this.nextRotationPoint = position;
+    this.isRotating = true;
+    this.onRotateComplete = onRotateComplete || function() {};
+  }
+
+  // instant
   lookAt(position) {
     const angle = getAngleTowards(this.getWalkPosition(), position);
     this.setAngle(angle);
@@ -263,8 +295,9 @@ class RoomActor extends Actor {
   draw() {
     super.draw();
 
-    const { x, y } = this.room.worldToRenderCoords(this.getWalkPosition());
-    display.drawCircleOutline(x, y, this.walkRadius, 'lightgreen');
+    // DEBUG: draw circle at walk position
+    // const { x, y } = this.room.worldToRenderCoords(this.getWalkPosition());
+    // display.drawCircleOutline(x, y, this.walkRadius, 'lightgreen');
   }
 }
 

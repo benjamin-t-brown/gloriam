@@ -9,6 +9,8 @@ import {
   setFolder,
 } from 'content/sounds';
 import { urlToSoundName } from 'utils';
+import { removeAndSlideDown, insertAndSlideUp } from 'content/cadence';
+import { getStatic } from 'store';
 
 const mapStateToProps = state => {
   return {
@@ -40,7 +42,7 @@ const getClassName = (soundListObject, props) => {
   const { url, fileName } = soundListObject;
   let className = baseClassName;
   const soundName = urlToSoundName(fileName);
-  if (props.soundName === soundName) {
+  if (props.soundName.slice(-soundName.length) === soundName) {
     className += ' column-item-selected';
   }
   const cadence = props.cadences[url.slice(0, -4)];
@@ -64,6 +66,7 @@ const SoundItem = ({ currentSound, soundName, className, url }) => {
 
 const SoundSelectCmpt = props => {
   const [filter, setFilter] = React.useState('');
+  const [loading, setLoading] = React.useState(false);
 
   const sounds = getSoundList().filter(({ url }) => {
     if (filter) {
@@ -102,16 +105,12 @@ const SoundSelectCmpt = props => {
 
       if (folder) {
         if (!elemMap[folder]) {
-          elemMap[folder] = true;
-          elems.push(
-            <div
-              key={soundName}
-              className={'column-item column-item-folder'}
-              onClick={handleSelectFolder(folder)}
-            >
-              <span className="no-select">Folder: {folder}</span>
-            </div>
-          );
+          elemMap[folder] = 1;
+        }
+        // hack way to determine if a sound in this folder doesn't have a cadence to prevent
+        // duplicate checking.
+        if (className.indexOf('uninitialized') > -1) {
+          elemMap[folder] = 2;
         }
         return;
       }
@@ -126,9 +125,25 @@ const SoundSelectCmpt = props => {
         />
       );
     });
+
+    for (const folder in elemMap) {
+      const isComplete = elemMap[folder] === 1;
+      elems.push(
+        <div
+          key={folder}
+          className={`column-item column-item-folder${
+            isComplete ? '-complete' : ''
+          }`}
+          onClick={handleSelectFolder(folder)}
+        >
+          <span className="no-select">Folder: {folder}</span>
+        </div>
+      );
+    }
   }
+
   return (
-    <div className="column">
+    <div style={{ position: 'relative' }}>
       <div className="column-title">Sounds</div>
       {props.folder ? (
         <>
@@ -152,21 +167,79 @@ const SoundSelectCmpt = props => {
           >
             Folder: {folderName}
           </div>
+          {props.soundName && getStatic('cadences')[props.soundName] ? (
+            <div
+              className="button"
+              onClick={async () => {
+                setLoading(true);
+                await removeAndSlideDown(props.soundName);
+                setLoading(false);
+              }}
+              style={{
+                width: '20px',
+                padding: '3px',
+                float: 'right',
+                position: 'absolute',
+                top: '9px',
+                right: '79px',
+              }}
+            >
+              Remove
+            </div>
+          ) : null}
+          {props.soundName ? (
+            <div
+              className="button"
+              onClick={async () => {
+                setLoading(true);
+                await insertAndSlideUp(props.soundName);
+                setLoading(false);
+              }}
+              style={{
+                width: '20px',
+                padding: '3px',
+                float: 'right',
+                position: 'absolute',
+                top: '9px',
+                right: '9px',
+              }}
+            >
+              Insert
+            </div>
+          ) : null}
         </>
       ) : null}
-      <div>
-        <label htmlFor="filter">Filter:</label>
-        <input
-          name="filter"
-          id="filter"
-          type="text"
-          value={filter}
-          onChange={ev => {
-            setFilter(ev.target.value);
-          }}
-        ></input>
+      <div className="column">
+        <div>
+          <label htmlFor="filter">Filter:</label>
+          <input
+            name="filter"
+            id="filter"
+            type="text"
+            value={filter}
+            onChange={ev => {
+              setFilter(ev.target.value);
+            }}
+          ></input>
+        </div>
+        <div>{elems}</div>
       </div>
-      <div>{elems}</div>
+      <div
+        id="loading"
+        style={{
+          position: 'absolute',
+          left: 0,
+          top: 0,
+          width: '100%',
+          height: '100%',
+          backgroundColor: 'rgba(0,0,0,0.4)',
+          display: loading ? 'flex' : 'none',
+          justifyContent: 'center',
+          alignItems: 'center',
+        }}
+      >
+        Loading...
+      </div>
     </div>
   );
 };

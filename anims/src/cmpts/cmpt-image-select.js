@@ -6,11 +6,15 @@ const THUMB_HEIGHT = 64;
 
 const ImageButton = ({ appInterface, imageName }) => {
   const ref = React.useRef(null);
+  const { spriteWidth } = display.pictures[imageName];
   React.useEffect(() => {
     display.setCanvas(ref.current);
-    display.drawSprite(imageName, 0, 0);
+    display.drawSprite(imageName, 0, 0, {
+      scale: spriteWidth > 64 ? 0.25 : 1,
+    });
     display.restoreCanvas();
   });
+
   return (
     <div
       className="button"
@@ -71,7 +75,9 @@ const ImageSelect = props => {
               return imageName !== 'invisible';
             }
           })
-          .sort()
+          .sort((a, b) => {
+            return a.toUpperCase() < b.toUpperCase() ? -1 : 1;
+          })
           .map(imageName => (
             <ImageButton key={imageName} {...props} imageName={imageName} />
           ))}

@@ -10,6 +10,7 @@ const Text = ({
   color,
   noSelect,
   children,
+  styles,
 }) => {
   let elem = null;
   switch (type) {
@@ -54,6 +55,7 @@ const Text = ({
     marginBottom: lineHeight,
     textAlign: centered ? 'center' : null,
     color,
+    ...styles,
   };
 
   if (ownLine) {

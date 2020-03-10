@@ -4,6 +4,7 @@ import stages from './stages';
 import encounters from './encounters';
 import statuses from './statuses';
 import cadences from './cadences';
+import props from './props';
 import { get, exists } from './map';
 
 const _db = {
@@ -13,6 +14,7 @@ const _db = {
   stages,
   statuses,
   cadences,
+  props,
 };
 
 const MAP_CONTROLLED = ['rooms', 'triggers', 'scripts'];
@@ -27,7 +29,7 @@ export function addElem(type, key, data) {
   }
 }
 
-export function getElem(type, key) {
+export function getElem(type, key, ignoreNotFound) {
   let e = null;
   if (MAP_CONTROLLED.includes(type)) {
     return get(type, key);
@@ -40,9 +42,11 @@ export function getElem(type, key) {
     e = `Cannot get from db at key "${type}.${key}", it does not exist.`;
   }
 
-  if (e) {
+  if (e && !ignoreNotFound) {
     console.error(e);
     throw new Error('[DB] Error in db.getElem: ' + e);
+  } else if (e && ignoreNotFound) {
+    return null;
   }
   return db[type][key];
 }

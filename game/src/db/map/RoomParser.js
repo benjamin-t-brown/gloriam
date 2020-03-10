@@ -8,7 +8,7 @@ class RoomParser {
   }
 
   throwParsingError(err) {
-    console.error('[RoomParser]', this.name, err);
+    console.error('[RoomParser] while loading room =', this.name + '.', err);
     throw new Error('Tiled Parsing error: ' + err);
   }
 
@@ -31,8 +31,13 @@ class RoomParser {
     return null;
   }
 
+  extractSpriteNameFromImagePath(url) {
+    const arr = url.split('/');
+    return arr.slice(-1)[0].slice(0, -4);
+  }
+
   isMarker(propName) {
-    return propName.slice(0, 7) === 'marker:';
+    return propName.toLowerCase().indexOf('marker') > -1;
   }
 
   gidToSpriteName(gid, mapTilesets) {
@@ -117,11 +122,22 @@ class RoomParser {
     }
 
     roomTemplate.bgImage = bgImagePath
-      ? bgImagePath.split('/')[1].slice(0, -4)
+      ? this.extractSpriteNameFromImagePath(bgImagePath)
       : 'invisible';
     roomTemplate.fgImage = fgImagePath
-      ? fgImagePath.split('/')[1].slice(0, -4)
+      ? this.extractSpriteNameFromImagePath(fgImagePath)
       : 'invisible';
+
+    if (!display.getSprite(roomTemplate.bgImage)) {
+      this.throwParsingError(
+        'No Image loaded for background "' + roomTemplate.bgImage + '".'
+      );
+    }
+    if (!display.getSprite(roomTemplate.fgImage)) {
+      this.throwParsingError(
+        'No Image loaded for foreground "' + roomTemplate.fgImage + '".'
+      );
+    }
 
     roomTemplate.width = json.width;
     roomTemplate.height = json.height;
@@ -136,7 +152,7 @@ class RoomParser {
         width = clip_w;
         height = clip_h;
       }
-      roomTemplate.props.push({
+      const propTemplate = {
         name: name || '',
         spriteName: spriteName,
         isMarker: this.isMarker(name),
@@ -144,7 +160,8 @@ class RoomParser {
         y,
         width,
         height,
-      });
+      };
+      roomTemplate.props.push(propTemplate);
     });
 
     wallsLayer.objects.forEach(obj => {

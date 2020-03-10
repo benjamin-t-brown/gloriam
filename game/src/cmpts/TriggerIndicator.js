@@ -2,9 +2,6 @@ import React from 'react';
 import display from 'display/Display';
 import theme from 'main/theme';
 import { hexToRGBA } from 'utils';
-import { getWaypointPath } from 'pathfinding';
-import { pt } from 'utils';
-import { HEADINGS } from 'main/Actor';
 import scene from 'main/Scene';
 import input from 'display/Input';
 
@@ -54,40 +51,28 @@ const TriggerIndicator = props => {
   }, [trigger, room, room.baseScale]);
   const [visible, setVisible] = React.useState(false);
   const handleClick = ev => {
+    ev.stopPropagation();
+    ev.preventDefault();
     if (!input.isUIInputEnabled()) {
       return;
     }
     const triggerName = room.name + '-' + trigger.name;
-    const act = room.getActiveActor();
-    const triggerPoint = pt(
-      trigger.x + trigger.width / 2,
-      trigger.y + trigger.height + 1
-    );
-    if (act.isAtWalkPosition(triggerPoint)) {
-      act.setHeading(HEADINGS.UP);
-      scene.callTrigger(triggerName, 'action');
-      return;
-    }
-    const path = getWaypointPath(act.getWalkPosition(), triggerPoint, room.walls, room);
-    if (path.length) {
-      act.setWalkPath(path, () => {
-        act.setHeading(HEADINGS.UP);
-        scene.callTrigger(triggerName, 'action');
-      });
-    } else {
-      // TODO: say 'cant reach' text
-    }
-    ev.stopPropagation();
+    scene.callTrigger(triggerName, 'action');
   };
 
   return (
     <>
       <div
+        id={'cmpt-game-' + trigger.id}
         ref={div}
         onMouseOver={() => setVisible(true)}
         onMouseOut={() => setVisible(false)}
         onClick={handleClick}
         className="trigger-container"
+        style={{
+          border: visible ? '1px solid white' : 'none',
+          //visibility: visible ? 'visible' : 'hidden',
+        }}
       ></div>
       <div
         ref={text}

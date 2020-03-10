@@ -111,8 +111,8 @@ display.calculateSpritesheet = (imageName, spriteWidth, spriteHeight) => {
   }
   spriteWidth = spriteWidth || 1;
   spriteHeight = spriteHeight || 1;
-  let nX = (image ? image.width : 1) / spriteWidth;
-  let nY = (image ? image.height : 1) / spriteHeight;
+  let nX = Math.round((image ? image.width : 1) / spriteWidth);
+  let nY = Math.round((image ? image.height : 1) / spriteHeight);
   nX = nX || 0;
   nY = nY || 0;
   for (let i = 0; i < nY; i++) {
@@ -345,8 +345,8 @@ display.drawSprite = function(sprite, x, y, params) {
     if (opacity !== undefined) {
       ctx.globalAlpha = params.opacity;
     }
-    let w = width ? width * s.clip_w : s.clip_w;
-    let h = height ? height * s.clip_h : s.clip_h;
+    let w = width ? width : s.clip_w;
+    let h = height ? height : s.clip_h;
     if (scale !== undefined) {
       w = s.clip_w * scale;
       h = s.clip_h * scale;
@@ -474,30 +474,6 @@ display.loadTxt = async function loadTxt() {
   return data.files.reduce((prev, curr) => prev + '\n' + curr, '');
 };
 
-display.loadProps = async function loadProps() {
-  const type = 'GET';
-  const url = '/props';
-  const opts = {
-    method: type,
-    headers: {},
-  };
-  console.log('[fetch]', type, url);
-  const data = await fetch(url, opts)
-    .then(async function(response) {
-      const json = await response.json();
-      console.log('[fetch]', 'result', type, url, json);
-      return json;
-    })
-    .catch(err => {
-      throw err;
-    });
-
-  await data.files.map(async fileName => {
-    display.props.push(fileName.slice(0, -4));
-    await display.loadPicture(fileName.slice(0, -4), fileName);
-  });
-};
-
 display.loadImages = async function loadImages() {
   const type = 'GET';
   const url = '/spritesheets';
@@ -508,7 +484,13 @@ display.loadImages = async function loadImages() {
   console.log('[fetch]', type, url);
   const data = await fetch(url, opts)
     .then(async function(response) {
-      const json = await response.json();
+      let json;
+      try {
+        json = await response.json();
+      } catch (e) {
+        console.error('failed to parse json?', e);
+        throw e;
+      }
       console.log('[fetch]', 'result', type, url, json);
       return json;
     })

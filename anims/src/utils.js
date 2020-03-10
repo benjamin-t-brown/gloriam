@@ -35,6 +35,7 @@ export const colors = {
   purple: '#AE57A4',
   darkPurple: '#564064',
   darkerPurple: '#39314B',
+  lightBlack: '#101E29',
 };
 
 export const spritesheetModes = {

@@ -1,4 +1,4 @@
-import ScriptParser from './ScriptParser';
+import { ScriptParser } from './ScriptParser';
 import RoomParser from './RoomParser';
 import display from 'display/Display';
 import { fetchAsync } from 'utils';
@@ -39,16 +39,17 @@ export async function loadMapElements(db, scene) {
 
   const soundLoadErrors = [];
   if (scene.voiceEnabled) {
-    const sounds = JSON.parse(await fetchAsync('sounds.json'));
-
+    const sounds = JSON.parse(await fetchAsync(`${global.SOUND_PATH || ''}voice.json`));
+    window.load.markLoading(soundsToLoad.length);
     for (let i = 0; i < soundsToLoad.length; i++) {
       const { soundNameCh: soundName } = soundsToLoad[i];
       const soundUrl = soundName + SOUND_EXTENSION;
       if (sounds[soundUrl]) {
-        await display.loadSound(soundName, 'snd/' + soundName + SOUND_EXTENSION);
+        await display.loadSound(soundName, 'voice/' + soundName + SOUND_EXTENSION);
       } else {
         soundLoadErrors.push(soundUrl);
       }
+      window.load.markLoaded();
     }
   }
 

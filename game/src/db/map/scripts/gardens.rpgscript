@@ -1,0 +1,148 @@
+@gardens
++setStorage('room', 'Gardens');
+
+#gardens-toWestWall
+step,this
+@this
++changeRoom(west_wall, markerBottom, u);
+
+#gardens-toWelcomeGrounds
+step,this
+@this
++changeRoom(welcome_grounds, markerLeft2, r);
+
+#gardens-GardnerHarris
+action,?once():gardens-GardnerHarrisFirst
+action,?is(storage.ring):gardens-GardnerHarrisDefaultRing
+action,gardens-GardnerHarrisDefault
+
+@gardens-GardnerHarrisFirst
++walkToMarker(Rydo, markerB);
++lookAtEachOther(Rydo, GardnerHarris);
+Rydo: "Hello sir!  Could I have a word with you?"
+GardnerHarris: "And who might you be?"
+GardnerHarris: "Some new, good-for-nothing magic academy initiate I'd wager."
+_Rydo: "Actually, that's not--"
++waitMS(400);
+GardnerHarris: "All you delinquents do is cause me problems..."
++lookDirection(GardnerHarris, r);
+GardnerHarris: "Traipsing all over my flowers..."
++lookAtEachOther(Rydo, GardnerHarris);
+GardnerHarris: "Letting loose those horrible little monsters..."
+_Rydo: "Sir, if I could just--"
++waitMS(400);
+GardnerHarris: "And you don't take any sort of responsibility!"
++lookDirection(GardnerHarris, d);
+GardnerHarris: "I've just about had it up to *here* with the lot of you."
+_Rydo: "Please, sir--"
++waitMS(400);
++lookAtEachOther(Rydo, GardnerHarris);
+GardnerHarris: "Get out of my sight, you *cretin*."
+Rydo: "Cretin!"
++lookDirection(Rydo, d);
+GardnerHarris: "Go and tell your little friends that Gardner Harris says to keep away from his humble abode."
++lookAtEachOther(Rydo, GardnerHarris);
+_Rydo: "Sir--!"
++waitMS(200);
++lookDirection(GardnerHarris, d);
+GardnerHarris: "That oughta strike some fear into their hearts."
++lookAtEachOther(Rydo, GardnerHarris);
+GardnerHarris: "And stay off the flowers!"
++lookDirection(GardnerHarris, d);
+GardnerHarris: "They're the only souls with integrity in this whole castle."
+Rydo: "Fine."
++walkToMarker(Rydo, markerA);
++lookDirection(Rydo, d);
+Rydo: "Such rudeness would never have been tolerated in Elkhain."
+
+@gardens-GardnerHarrisDefault
++lookAt(Rydo, GardnerHarris)
+Rydo: "I have absolutely no desire to speak with such a rude man."
+
+@gardens-GardnerHarrisDefaultRing
++lookAt(Rydo, GardnerHarris)
+Rydo: "I already found that man's prized ring and have no need to speak with him further."
+
+#gardens-GardnerHarrisFlowers1
+step,gardens-GardnerHarrisFlowers
+#gardens-GardnerHarrisFlowers2
+step,gardens-GardnerHarrisFlowers
+#gardens-GardnerHarrisFlowers3
+step,gardens-GardnerHarrisFlowers
+@gardens-GardnerHarrisFlowers
+GardnerHarris: "Hey!"
+GardnerHarris: "Stay off the flowers!"
+
+@gardens-GardnerHarrisIdle1
+GardnerHarris: "*inaudible grumbling*"
+
+@gardens-GardnerHarrisIdle2
+GardnerHarris: "...that was a precious family heirloom."
+
+@gardens-GardnerHarrisIdle3
+GardnerHarris: "The nerve... *grumble* ...monsters..."
+
+@gardens-GardnerHarrisIdle4
+GardnerHarris: "How am I gonna... *grumble*"
+
+@gardens-GardnerHarrisIdle5
+GardnerHarris: "*inaudible grumbling*"
+
+@gardens-GardnerHarrisIdle6
+GardnerHarris: "*grumble* trolls *grumble*"
+
+@gardens-GardnerHarrisIdle7
+GardnerHarris: "I oughta... *grumble*"
+
+@gardens-GardnerHarrisIdle8
+GardnerHarris: "Grandmother *grumble* so angry."
+
+@gardens-GardnerHarrisFoundRing
++lookAtEachOther(Rydo, GardnerHarris)
+Rydo: "Sir--"
+GardnerHarris: "I thought I told you to stay away!"
+Rydo: "Sir!"
+GardnerHarris: "Don't you have ears?"
+Rydo: "SIR!!!"
+Rydo: "Even though you have been nothing but RUDE..."
+Rydo: "IMPERTINENT."
+GardnerHarris: "Hmph!"
+Rydo: "And quite honestly..."
+Rydo: "VILE."
+GardnerHarris: "--!"
+Rydo: "I have obtained your ring, that you, ostensibly, valued so greatly."
++setAnimationState(Rydo, presentItem);
++waitMS(1000);
+GardnerHarris: "Let me see that!"
++setAnimationState(GardnerHarris, snatchExamine);
++setAnimationState(Rydo, default);
++waitMS(1000);
++setAnimationState(GardnerHarris, default);
+GardnerHarris: "Where did you get this?"
+Rydo: "It wasn't easy."
+GardnerHarris: "Is that so..."
+Rydo: "But despite your considerable shortcomings..."
+Rydo: "I have assisted you, because it was the right thing to do."
+GardnerHarris: "Yeah, yeah."
+GardnerHarris: "This never should have been stolen in the first place."
+Rydo: "Perhaps not, but surely you realize now that event was no fault of mine."
+GardnerHarris: "Mmm..."
+GardnerHarris: "I suppose you want some kind of reward?"
+GardnerHarris: "Feeling entitled, are we?"
+Rydo: "I am not entitled, sir."
+Rydo: "I simply try to do the right thing."
+GardnerHarris: "*laughs*"
+GardnerHarris: "Chivalrous, eh?"
+GardnerHarris: "Here's the key to to my shed."
++setAnimationStateAndWait(GardnerHarris, presentItem);
++setAnimationStateAndWait(Rydo, takeItem);
++setAnimationState(GardnerHarris, default);
++setAnimationState(Rydo, default);
+Rydo: "I graciously accept this, sir."
+GardnerHarris: "Maybe you'll find something in there that suits your fancy."
+GardnerHarris: "Now off with you!"
+GardnerHarris: "Can't you see I have work to do?"
++walkToMarker(Rydo, markerB);
+Rydo: "This isn't even a key."
+Rydo: "It's a cube-like pice of stone."
+Rydo: "I'm not really sure what to do with this."

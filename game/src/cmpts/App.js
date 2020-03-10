@@ -6,8 +6,7 @@ import Room from 'room/Room';
 import scene from 'main/Scene';
 import { getElem } from 'db';
 
-const INITIAL_ROOM = 'castle_entrance';
-console.log('ENV', process.env);
+const INITIAL_ROOM = 'east_window';
 
 const App = class extends React.Component {
   constructor(props) {
@@ -19,10 +18,22 @@ const App = class extends React.Component {
     ];
 
     this.GameInterface = {
+      getRoom: () => {
+        return this.state.room.room;
+      },
       getActor: actorName => {
-        return this.state.room.room.getActor(actorName);
+        const act = this.state.room.room.getActor(actorName);
+        if (!act) {
+          console.error('No actor exists with name', actorName);
+          return null;
+        }
+        return act;
+      },
+      getMarker: markerName => {
+        return this.state.room.room.markers[markerName];
       },
       setRoom: roomName => {
+        console.log('SET ROOM', roomName);
         const newRoom = new Room(props.gameInterface, roomName, playerCharacters);
         this.setState({
           room: {
@@ -31,6 +42,7 @@ const App = class extends React.Component {
             roomName,
           },
         });
+        global.room = newRoom;
         scene.setRoom(newRoom);
       },
       setBattle: battleName => {},
@@ -58,8 +70,9 @@ const App = class extends React.Component {
         },
       },
     };
+    global.room = this.state.room.room;
 
-    scene.setRoom(this.state.room.room);
+    // scene.setRoom(this.state.room.room);
   }
 
   render() {

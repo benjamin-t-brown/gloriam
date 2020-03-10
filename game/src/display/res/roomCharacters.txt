@@ -1,6 +1,7 @@
 Picture,invisible,invisible.png
-Picture,youngguard,youngguard.png
-SpriteList,youngguard,1,64,64
+Picture,youngguard,youngguard.png,64,64
+Animation,youngguard_d,true
+AnimSprite,youngguard_0,500
 
 Picture,portraitsBattle,portraitsBattle.png
 Sprite,rydoBattlePortrait,0,0,24,24
@@ -97,3 +98,7 @@ Animation,talk0_l
 AnimSprite,simmons_9,100
 AnimSprite,simmons_10,100
 AnimSprite,simmons_11,100
+
+Cadence,youngguard_cadence,youngguard_0,youngguard_1,youngguard_2
+Cadence,youngguard_cadence_d,youngguard_0,youngguard_1,youngguard_2
+Cadence,youngguard_cadence_blocking,youngguard_3,youngguard_4,youngguard_5

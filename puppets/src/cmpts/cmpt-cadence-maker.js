@@ -5,6 +5,7 @@ import {
   showCadenceMaker,
   hideCadenceMaker,
   createCadence,
+  saveCadence,
 } from 'content/cadence';
 import {
   getSoundCurrentTime,
@@ -13,7 +14,6 @@ import {
   setEventOnSoundStop,
   selectSound,
 } from 'content/sounds';
-import { assignState, assignStatic } from 'store';
 
 class CadenceMakerCmpt extends Component {
   constructor(props) {
@@ -52,6 +52,7 @@ class CadenceMakerCmpt extends Component {
       if (this.props.makerMode !== 'making') {
         if (ev.keyCode === 32) {
           this.beginConstructingCadence();
+          ev.preventDefault();
         } else if (ev.keyCode === 13) {
           this.saveCadence();
         }
@@ -69,50 +70,20 @@ class CadenceMakerCmpt extends Component {
     });
   }
 
-  saveCadence() {
+  async saveCadence() {
     if (this.newCadence) {
       stopSound(this.props.sound);
       setEventOnSoundStop(this.props.sound, function() {});
       this.setState({
         loading: true,
       });
-
-      const type = 'POST';
-      const url = '/cadence';
-      const opts = {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          name: this.newCadence.soundName,
-          cadence: this.newCadence.toJson(),
-        }),
-      };
-      console.log('[fetch]', type, url, opts.body);
-      fetch(url, opts)
-        .then(async response => {
-          const json = await response.json();
-          if (json.err) {
-            console.error(json.err);
-            throw new Error(json.err);
-          }
-          console.log('[fetch]', 'result', type, url, json);
-          assignStatic(`cadences.${this.props.soundName}`, this.newCadence);
-          assignState(`cadences.${this.props.soundName}`, null, {
-            exists: true,
-          });
-          selectSound(this.props.soundName, this.props.sound.soundUrl);
-          this.setState({
-            loading: false,
-          });
-          this.newCadence = null;
-          hideCadenceMaker();
-          return json;
-        })
-        .catch(err => {
-          throw err;
-        });
+      await saveCadence(this.newCadence);
+      selectSound(this.props.soundName, this.props.sound.soundUrl);
+      this.setState({
+        loading: false,
+      });
+      this.newCadence = null;
+      hideCadenceMaker();
     }
   }
 

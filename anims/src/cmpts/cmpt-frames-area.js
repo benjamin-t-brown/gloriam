@@ -5,6 +5,9 @@ import Input from 'elements/input';
 import display from '../content/display';
 
 export const addSpriteAtIndex = (anim, spriteName, index, defaultDuration) => {
+  if (anim.isCadence) {
+    return;
+  }
   const sprObj = anim.createSprite({
     name: spriteName,
     duration: defaultDuration || 100,
@@ -20,6 +23,10 @@ const replaceSpriteAtIndex = (anim, spriteName, index) => {
 };
 
 const removeSpriteAtIndex = (anim, index) => {
+  if (anim.isCadence) {
+    return;
+  }
+
   const spr = anim.sprites[index];
   anim.sprites.splice(index, 1);
   if (!anim.hasSprite(spr.name)) {
@@ -56,7 +63,7 @@ const DragDivider = ({
   setParentIsDraggingOver,
 }) => {
   const [isDraggingOver, setIsDraggingOver] = React.useState(false);
-  const color = isDraggingOver ? colors.blue : 'transparent';
+  const color = isDraggingOver ? colors.lightBlue : 'transparent';
   return (
     <div style={{ display: 'inline-block' }}>
       <div
@@ -82,7 +89,7 @@ const DragDivider = ({
               anim,
               spriteName,
               spriteIndex >= 0 ? spriteIndex : anim.sprites.length,
-              appInterface.defaultDuration
+              appInterface.defaultAnimDuration
             );
             setParentIsDraggingOver(spriteIndex === -1 ? 'scroll' : null);
           } else if (dragType.slice(0, 5) === 'frame') {
@@ -102,30 +109,56 @@ const DragDivider = ({
           alignItems: 'center',
           overflow: 'hidden',
           width: spriteIndex === -1 ? '200px' : '30px',
-          height: '190px',
-          backgroundColor: isDraggingOver ? colors.darkRed : null,
+          height: '170px',
+          transition: 'background-color 0.5s',
+          backgroundColor:
+            isDraggingOver && spriteIndex !== -1 ? colors.darkGreen : null,
         }}
       >
-        <div
-          style={{
-            pointerEvents: 'none',
-            borderRight: '1px solid ' + color,
-            borderTop: '1px solid ' + color,
-            borderBottom: '1px solid ' + color,
-            width: '50%',
-            height: 'calc(100% - 2px)',
-          }}
-        />
-        <div
-          style={{
-            pointerEvents: 'none',
-            borderLeft: '1px solid ' + color,
-            borderTop: '1px solid ' + color,
-            borderBottom: '1px solid ' + color,
-            width: '50%',
-            height: 'calc(100% - 2px)',
-          }}
-        />
+        {spriteIndex === -1 ? (
+          <div
+            style={{
+              pointerEvents: 'none',
+              fontSize: '42px',
+              width: '150px',
+              height: '150px',
+              border:
+                '1px solid ' +
+                (!isDraggingOver ? colors.grey : colors.lightBlue),
+              color: !isDraggingOver ? colors.grey : colors.lightBlue,
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+              backgroundColor: isDraggingOver ? colors.darkGreen : null,
+              transition: 'background-color 0.5s',
+            }}
+          >
+            +
+          </div>
+        ) : (
+          <>
+            <div
+              style={{
+                pointerEvents: 'none',
+                borderRight: '1px solid ' + color,
+                borderTop: '1px solid ' + color,
+                borderBottom: '1px solid ' + color,
+                width: '50%',
+                height: 'calc(100% - 2px)',
+              }}
+            />
+            <div
+              style={{
+                pointerEvents: 'none',
+                borderLeft: '1px solid ' + color,
+                borderTop: '1px solid ' + color,
+                borderBottom: '1px solid ' + color,
+                width: '50%',
+                height: 'calc(100% - 2px)',
+              }}
+            />
+          </>
+        )}
       </div>
     </div>
   );
@@ -197,6 +230,7 @@ const Frame = ({ appInterface, spriteIndex, setParentIsDraggingOver }) => {
           width: '150px',
           height: '150px',
           border: '1px solid ' + colors.lightBlue,
+          transition: 'background-color 0.5s',
           backgroundColor: isDraggingOver ? colors.darkRed : colors.darkBlue,
         }}
       >
@@ -277,16 +311,15 @@ const Frame = ({ appInterface, spriteIndex, setParentIsDraggingOver }) => {
   );
 };
 
-let shouldScrollToRight = false;
-
 const FramesArea = ({ appInterface }) => {
   const ref = React.useRef();
+  const [shouldScrollToRight, setShouldScrollToRight] = React.useState(false);
   React.useEffect(() => {
     if (shouldScrollToRight) {
       ref.current.scrollLeft = 999999999;
-      shouldScrollToRight = false;
+      setShouldScrollToRight(false);
     }
-  });
+  }, [shouldScrollToRight, setShouldScrollToRight]);
 
   const isDragging = appInterface.isDragging;
   const anim = appInterface.animation;
@@ -301,11 +334,12 @@ const FramesArea = ({ appInterface }) => {
     >
       <div
         style={{
+          paddingTop: '5px',
           display: 'flex',
           justifyContent: 'flex-start',
           alignItems: 'flex-start',
-          height: '198px',
-          overflowX: 'auto',
+          height: '193px',
+          overflowX: 'scroll',
           overflowY: 'hidden',
         }}
         ref={ref}
@@ -320,7 +354,7 @@ const FramesArea = ({ appInterface }) => {
                   appInterface={appInterface}
                   setParentIsDraggingOver={shouldScroll => {
                     if (shouldScroll === 'scroll') {
-                      shouldScrollToRight = true;
+                      setShouldScrollToRight(true);
                     }
                   }}
                 />
@@ -337,7 +371,7 @@ const FramesArea = ({ appInterface }) => {
               appInterface={appInterface}
               setParentIsDraggingOver={shouldScroll => {
                 if (shouldScroll === 'scroll') {
-                  shouldScrollToRight = true;
+                  setShouldScrollToRight(true);
                 }
               }}
             />
