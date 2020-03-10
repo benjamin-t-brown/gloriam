@@ -344,6 +344,8 @@ class Room {
       }
     }
 
+    // display.drawRect(0, 0, window.innerWidth, window.innerHeight, 'rgba(0, 0, 0, 0.7)');
+
     // draw a sprite sheet with labels
     // const pictureName = 'ferelith';
     // const w = 8;

@@ -20,6 +20,10 @@ class RoomUI extends React.Component {
         //   display.pause();
         // }
       },
+      Escape: ev => {
+        ev.preventDefault();
+        this.props.gameInterface.setEscMenuOpen(true);
+      },
     };
 
     this.mouseEvents = {
@@ -35,7 +39,6 @@ class RoomUI extends React.Component {
     const point = this.props.room.renderToWorldCoords(pt(ev.clientX, ev.clientY));
     if (input.isUIInputEnabled() && !scene.isExecutingBlockingScene()) {
       const clickedAct = this.props.room.getCharacterAt(point.x, point.y);
-      console.log('clickedAct!', clickedAct);
       if (clickedAct && clickedAct.talkTrigger) {
         scene.callTrigger(clickedAct.talkTrigger, 'action');
       } else {

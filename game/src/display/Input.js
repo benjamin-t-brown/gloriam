@@ -58,6 +58,7 @@ const input = {
 };
 
 window.addEventListener('keydown', ev => {
+  console.log('KEYDOWN', ev);
   const cb = input.getEventCb('keydown', ev);
   if (cb) {
     cb(ev);

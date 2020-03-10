@@ -11,6 +11,7 @@ let scene = null;
 class Scene {
   constructor() {
     this.storage = {
+      activeItem: '',
       Rydo: {
         items: {},
       },
@@ -398,12 +399,13 @@ class Scene {
       } else if (type === 'once') {
         const arg = args[0] || (this.currentScript || this.currentTrigger).name + '-once';
         if (this.storageOnceKeys[arg]) {
-          console.log('NOT SET STORAGE', arg);
           return false;
         }
-        console.log('SET STORAGE', arg);
         this.storageOnceKeys[arg] = true;
         return true;
+      } else if (type === 'with') {
+        const arg = args[0];
+        return arg === this.storage.activeItem;
       }
       return false;
     }

@@ -29,12 +29,12 @@ file_extensions []     = rpgscript;
 
 __MY_CONSTANT \= (\b[a-z][a-z0-9]*)
 __LOGICKEYWORD \= (\?)
-__LOGIC \= (\b(isnot|gt|lt|is|all|one|as|once|eq|this))
+__LOGIC \= (\b(isnot|gt|lt|is|all|one|as|once|eq|this|with))
 __TRIGGERNAME \= (^#(.)+$)
 __SCENENAME \= (^@(.)+$)
 __INLINE \= (^\+(.)+$)
 __DIALOG \= ((^[\w \w]*:)|(^(\s)+(\w)+:))
-__TRIGGERTYPE \= (^(action|step),)
+__TRIGGERTYPE \= (^(action|step|item),)
 
 ################################################################
 ## Styles
@@ -286,6 +286,10 @@ logic : context {
 trigger : context {
    : eol_pop {}
    : include "logic_prefix" ;
+      : pattern {
+      regex \= ([\w]*,)
+      styles [] = .parameter;
+   }
    : pattern {
       regex \= (.*$)
       styles [] = .dialog;

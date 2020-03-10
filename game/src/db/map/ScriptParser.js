@@ -249,7 +249,18 @@ class ScriptParser {
 
   parseConditional(conditionalSrc, lineNum, script) {
     const { type, args } = this.parseCommand(conditionalSrc, lineNum, script);
-    const validTypes = ['is', 'isnot', 'gt', 'lt', 'eq', 'any', 'all', 'as', 'once'];
+    const validTypes = [
+      'is',
+      'isnot',
+      'gt',
+      'lt',
+      'eq',
+      'any',
+      'all',
+      'as',
+      'once',
+      'with',
+    ];
     if (!validTypes.includes(type)) {
       this.throwParsingError(
         `Invalid conditional, no type named "${type}"`,
@@ -267,6 +278,13 @@ class ScriptParser {
           return arg;
         }
       }),
+    };
+  }
+
+  combineConditionals(c1, c2, type) {
+    return {
+      type,
+      args: [c1, c2],
     };
   }
 
@@ -432,11 +450,30 @@ class ScriptParser {
           );
         }
         const triggerType = line.substr(0, firstCommaIndex);
-        const triggerContents = line.substr(firstCommaIndex + 1);
-        const { conditional, endIndex } = this.getConditionalFromLine(
+        let triggerContents = line.substr(firstCommaIndex + 1);
+        let itemConditional = null;
+        if (triggerType === 'item') {
+          const itemName = triggerContents.slice(0, triggerContents.indexOf(','));
+          itemConditional = {
+            type: 'with',
+            args: [itemName],
+          };
+          triggerContents = triggerContents.slice(triggerContents.indexOf(',') + 1);
+        }
+
+        const { conditional: localConditional, endIndex } = this.getConditionalFromLine(
           triggerContents,
           lineNum
         );
+        let conditional = localConditional;
+        if (itemConditional) {
+          conditional = this.combineConditionals(
+            itemConditional,
+            localConditional,
+            'and'
+          );
+        }
+
         let scriptName = triggerContents.substr(endIndex);
         if (scriptName === 'this') {
           scriptName = currentTriggerName;

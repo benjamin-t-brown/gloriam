@@ -52,7 +52,7 @@
         </dict>
         <dict>
           <key>begin</key>
-          <string>(^(action|step),)</string>
+          <string>(^(action|step|item),)</string>
           <key>beginCaptures</key>
           <dict>
             <key>1</key>
@@ -268,7 +268,7 @@
       <array> 
         <dict>
           <key>begin</key>
-          <string>(\b(isnot|gt|lt|is|all|one|as|once|eq|this))</string>
+          <string>(\b(isnot|gt|lt|is|all|one|as|once|eq|this|with))</string>
           <key>beginCaptures</key>
           <dict>
             <key>1</key>
@@ -590,6 +590,12 @@
         <dict>
           <key>include</key>
           <string>#logic_prefix</string>
+        </dict>
+        <dict>
+          <key>match</key>
+          <string>([\w]*,)</string>
+          <key>name</key>
+          <string>variable.parameter.rpgscript</string>
         </dict>
         <dict>
           <key>match</key>
