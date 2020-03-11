@@ -47,8 +47,14 @@ class Scene {
         this.gameInterface.restore();
       },
       remove: actorName => {},
-      changeRoom: roomName => {
+      changeRoom: (roomName, nextMarkerName, direction) => {
         this.gameInterface.setRoom(roomName);
+        if (nextMarkerName && direction) {
+          const player = this.gameInterface.getPlayer();
+          const marker = this.gameInterface.getMarker(nextMarkerName);
+          player.setAt(marker.x, marker.y);
+          player.setFacing(direction);
+        }
       },
       playDialogue: (actorName, subtitle, soundName) => {
         const actor = this.gameInterface.getActor(actorName);
@@ -86,9 +92,9 @@ class Scene {
           ms = normalizeClamp(subtitle.length, 5, 40, 750, 3000);
           actor.sayDialogue(subtitle);
         }
-        setTimeout(() => {
+        commands.waitMSPreemptible(ms, () => {
           actor.stopDialogue();
-        }, ms);
+        });
       },
       playSound: soundName => {
         const soundObject = display.getSound(soundName);

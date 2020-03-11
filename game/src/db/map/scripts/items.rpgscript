@@ -1,4 +1,5 @@
 #items-SmallRock
-step,this
+item,ConsiliumStatua,this
+action,this
 @this
-Rydo: "I found this rock on the ground near a window on the eastern wall."
+Rydo: "I found this rock on the ground near a window on an eastern wall of the castle."

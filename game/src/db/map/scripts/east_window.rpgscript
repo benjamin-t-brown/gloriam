@@ -11,8 +11,13 @@ step,this
 // @this
 // +changeRoom(east_wall, markerRight, l);
 
-#east_window-throwRock
+#east_window-EastWindow
 item,rock,?as(Rydo):this
+action,east_window-EastWindow-Rydo
+
+@east_window-EastWindow-Rydo
++lookAt(Rydo, KingsMaid)
+Rydo: "That window is too tall for me to reach."
 
 @east_window-throwRock
 // +setAnimation(Rydo, rydo_prep_rock);

@@ -34,6 +34,9 @@ const App = class extends React.Component {
         }
         return act;
       },
+      getPlayer: () => {
+        return this.GameInterface.getActor('Rydo');
+      },
       getMarker: markerName => {
         return this.state.room.room.markers[markerName];
       },

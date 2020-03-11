@@ -106,7 +106,7 @@ function createTemplate(name, battleOnly) {
   const c = createTemplate('KingsMaid');
   c.spriteBase = 'KingsMaid';
   c.displayName = 'Overlooking Window';
-  c.talkTrigger = 'east_window-throwRock';
+  c.talkTrigger = 'east_window-EastWindow';
   c.animName = 'KingsMaid_default';
   c.useHeading = false;
   c.hitBox = { width: 66, height: 92 };
