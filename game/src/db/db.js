@@ -5,6 +5,7 @@ import encounters from './encounters';
 import statuses from './statuses';
 import cadences from './cadences';
 import props from './props';
+import items from './items';
 import { get, exists } from './map';
 
 const _db = {
@@ -15,6 +16,7 @@ const _db = {
   statuses,
   cadences,
   props,
+  items,
 };
 
 const MAP_CONTROLLED = ['rooms', 'triggers', 'scripts'];
@@ -37,8 +39,7 @@ export function getElem(type, key, ignoreNotFound) {
 
   if (!db[type]) {
     e = `Cannot access db type="${type}", no type exists.`;
-  }
-  if (!db[type][key]) {
+  } else if (!db[type][key]) {
     e = `Cannot get from db at key "${type}.${key}", it does not exist.`;
   }
 

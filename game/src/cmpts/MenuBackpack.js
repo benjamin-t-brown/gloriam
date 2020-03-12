@@ -1,11 +1,42 @@
 import React from 'react';
-import input from 'display/Input';
 import display from 'display/Display';
+import Animation from 'cmpts/Animation';
+import { getElem } from 'db';
 
 const TRANSITION_TIME = 0.25;
 
 const DRAWER_SIZE = 125;
 const ITEM_SIZE = 115;
+
+const Item = ({ itemName, content, onClick, style }) => {
+  const item = itemName ? getElem('items', itemName) : null;
+  return (
+    <div
+      className="ui-elem"
+      onClick={
+        onClick ||
+        (ev => {
+          ev.preventDefault();
+        })
+      }
+      style={{
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        borderRadius: '1rem',
+        cursor: 'pointer',
+        fontSize: '4rem',
+        width: `${ITEM_SIZE}px`,
+        height: `${ITEM_SIZE}px`,
+        margin: '0px .75rem',
+        ...style,
+      }}
+    >
+      {itemName ? <Animation animName={item.animName} /> : null}
+      <span className="no-select">{content}</span>
+    </div>
+  );
+};
 
 const ScrollBar = ({ onDownClick, onUpClick, isColumn, style }) => {
   const buttonStyle = {
@@ -39,51 +70,8 @@ const ScrollBar = ({ onDownClick, onUpClick, isColumn, style }) => {
   );
 };
 
-const Item = ({ itemName, content, onClick, style }) => {
-  const ref = React.useRef(null);
-  React.useEffect(() => {
-    if (itemName) {
-      display.setCanvas(ref.current);
-      display.drawSprite(itemName, ITEM_SIZE / 2, ITEM_SIZE / 2, {
-        centered: true,
-      });
-      display.restoreCanvas();
-    }
-  });
-
-  return (
-    <div
-      className="ui-elem"
-      onClick={
-        onClick ||
-        (ev => {
-          ev.preventDefault();
-        })
-      }
-      style={{
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        backgroundColor: '#7A444A',
-        borderRadius: '1rem',
-        color: '#FFCE00',
-        cursor: 'pointer',
-        fontSize: '4rem',
-        width: `${ITEM_SIZE}px`,
-        height: `${ITEM_SIZE}px`,
-        border: '1px solid #FFCE00',
-        ...style,
-      }}
-    >
-      {itemName ? <canvas width={ITEM_SIZE} height={ITEM_SIZE}></canvas> : null}
-      <span className="no-select">{content}</span>
-    </div>
-  );
-};
-
 const MenuBackpack = ({ items }) => {
   const [open, setOpen] = React.useState(false);
-  const [hover, setHover] = React.useState(false);
   const isColumn = false; // window.innerWidth < window.innerHeight;
 
   const rowStyle = {
@@ -126,27 +114,42 @@ const MenuBackpack = ({ items }) => {
         <div
           style={{
             display: 'flex',
-            flexDirection: isColumn ? 'column' : 'row',
+            flexDirection: isColumn ? 'column-reverse' : 'row-reverse',
             position: open ? 'fixed' : 'absolute',
             right: 0,
             marginRight: `${(DRAWER_SIZE - ITEM_SIZE) / 2}px`,
           }}
         >
-          <ScrollBar isColumn={isColumn} />
           <Item
+            style={{
+              backgroundColor: '#7A444A',
+              color: '#FFCE00',
+              border: '1px solid #FFCE00',
+            }}
             content={isColumn ? '⯈' : '▼'}
             onClick={ev => {
+              display.playSoundName('bag_close');
               setOpen(false);
-              setHover(false);
               ev.preventDefault();
             }}
           />
+          <ScrollBar isColumn={isColumn} />
+          <div
+            style={{
+              display: 'flex',
+              justifyContent: 'flex-start',
+              flexDirection: 'row-reverse',
+            }}
+          >
+            {items.map(itemName => {
+              return <Item itemName={itemName} />;
+            })}
+          </div>
         </div>
       </div>
       <div
         className="ui-elem"
         style={{
-          // backgroundColor: 'rgba(0, 0, 0, 0.3)',
           borderRadius: '8px',
           padding: '5px',
           cursor: 'pointer',
@@ -161,14 +164,10 @@ const MenuBackpack = ({ items }) => {
           ev.preventDefault();
         }}
         onClick={ev => {
-          console.log('CLICK!');
-          input.setUIInputDisabled(true);
+          display.playSoundName('bag_open');
           setOpen(true);
           ev.preventDefault();
           ev.stopPropagation();
-          setTimeout(() => {
-            input.setUIInputDisabled(false);
-          });
         }}
       >
         <img

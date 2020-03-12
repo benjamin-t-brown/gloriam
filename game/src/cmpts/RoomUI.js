@@ -153,7 +153,7 @@ class RoomUI extends React.Component {
         {this.props.room.triggers.map(trigger => {
           return <TriggerIndicator trigger={trigger} room={this.props.room} />;
         })}
-        <MenuBackpack items={[]} />
+        <MenuBackpack items={['Small Rock', 'Small Rock', 'Small Rock', 'Small Rock']} />
       </div>
     );
   }

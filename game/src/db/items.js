@@ -14,7 +14,7 @@ function createTemplate(name) {
 
 {
   const t = createTemplate('Small Rock');
-  t.animName = 'small-rock';
+  t.animName = 'items-SmallRock';
   t.talkTrigger = 'items-SmallRock';
 }
 

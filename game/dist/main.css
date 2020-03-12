@@ -56,26 +56,3 @@ body {
   -ms-user-select: none;
   user-select: none;
 }
-
-
-/*
-@keyframes indicator-player-kf {
-	0% {
-		border-top: 1px solid #DFF6F5;
-		border-bottom: 1px solid #92F4FF;
-	}
-	50% {
-		border-top: 3px solid #DFF6F5;
-		border-bottom: 8px solid #DFF6F5;
-	}
-	100% {
-		border-top: 1px solid #DFF6F5;
-		border-bottom: 1px solid #92F4FF;
-	}
-}
-.indicator-player {
-	box-sizing: border-box;
-	animation-name: indicator-player-kf;
-	animation-duration: 2s;
-	animation-iteration-count: infinite;
-}*/

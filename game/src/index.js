@@ -14,17 +14,21 @@ const loadSave = async () => {
 };
 
 async function main() {
-  load.setLoadingText('Acquiring images & foley...');
-  await display.init();
-  load.reset();
-  load.setLoadingText('Acquiring voices...', '#827094');
-  await loadMapElements({ elemExists }, scene);
-  load.setLoadingText('Acquiring cadences...', '#71AA34');
-  await loadCadences({ addElem });
-  load.setLoadingText('Acquiring saves...');
-  await loadSave();
-  load.complete();
-  ReactDOM.render(<App />, document.getElementById('root'));
+  try {
+    load.setLoadingText('Acquiring images & foley...');
+    await display.init();
+    load.reset();
+    load.setLoadingText('Acquiring voices...', '#827094');
+    await loadMapElements({ elemExists }, scene);
+    load.setLoadingText('Acquiring cadences...', '#71AA34');
+    await loadCadences({ addElem });
+    load.setLoadingText('Acquiring saves...');
+    await loadSave();
+    load.complete();
+    ReactDOM.render(<App />, document.getElementById('root'));
+  } catch (e) {
+    console.error(e);
+  }
 }
 
 main();

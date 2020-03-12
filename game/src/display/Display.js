@@ -4,6 +4,7 @@ import { normalize, randomId } from 'utils';
 
 const display = {
   canvases: [],
+  storedCanvas: null,
   canvas: null,
   ctx: null,
   canvasId: 'canvas',
@@ -17,6 +18,7 @@ const display = {
   objects: {},
   screens: {},
   cadenceSprites: {},
+  renderables: [],
   frame: 0,
   width: 256,
   height: 256,
@@ -142,7 +144,7 @@ display.loadSound = async function(name, url) {
       resolve(sound);
     };
     sound.addEventListener('error', e => {
-      reject(e);
+      reject('Cannot load sound: name="' + name + '", url="' + url + '"');
     });
     sound.src = url;
   });
@@ -176,6 +178,10 @@ display.playSound = function(soundObj) {
   sound.play();
   soundObj.lastStartTimestamp = display.now;
   soundObj.isPlaying = true;
+};
+
+display.playSoundName = function(soundName) {
+  display.playSound(display.getSound(soundName));
 };
 
 display.stopSound = function(soundObj) {
@@ -277,12 +283,17 @@ display.getCtx = function() {
 };
 
 display.setCanvas = function(canvas) {
+  display.storedCanvas = display.canvas;
   display.canvasId = canvas.id;
   display.canvas = canvas;
   display.ctx = canvas.getContext('2d');
   display.ctx.mozImageSmoothingEnabled = false;
   display.ctx.webkitImageSmoothingEnabled = false;
   display.ctx.imageSmoothingEnabled = false;
+};
+
+display.restoreCanvas = function() {
+  display.canvas = display.storedCanvas;
 };
 
 display.pushCanvas = function(canvas) {
@@ -393,8 +404,8 @@ display.drawSprite = function(sprite, x, y, params) {
     if (opacity !== undefined) {
       ctx.globalAlpha = params.opacity;
     }
-    let w = width ? width * s.clip_w : s.clip_w;
-    let h = height ? height * s.clip_h : s.clip_h;
+    let w = width ? width : s.clip_w;
+    let h = height ? height : s.clip_h;
     if (scale !== undefined) {
       w = s.clip_w * scale;
       h = s.clip_h * scale;
