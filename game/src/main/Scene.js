@@ -11,6 +11,7 @@ let scene = null;
 class Scene {
   constructor() {
     this.storage = {
+      activeItem: '',
       Rydo: {
         items: {},
       },
@@ -46,8 +47,14 @@ class Scene {
         this.gameInterface.restore();
       },
       remove: actorName => {},
-      changeRoom: roomName => {
+      changeRoom: (roomName, nextMarkerName, direction) => {
         this.gameInterface.setRoom(roomName);
+        if (nextMarkerName && direction) {
+          const player = this.gameInterface.getPlayer();
+          const marker = this.gameInterface.getMarker(nextMarkerName);
+          player.setAt(marker.x, marker.y);
+          player.setFacing(direction);
+        }
       },
       playDialogue: (actorName, subtitle, soundName) => {
         const actor = this.gameInterface.getActor(actorName);
@@ -85,9 +92,9 @@ class Scene {
           ms = normalizeClamp(subtitle.length, 5, 40, 750, 3000);
           actor.sayDialogue(subtitle);
         }
-        setTimeout(() => {
+        commands.waitMSPreemptible(ms, () => {
           actor.stopDialogue();
-        }, ms);
+        });
       },
       playSound: soundName => {
         const soundObject = display.getSound(soundName);
@@ -398,12 +405,13 @@ class Scene {
       } else if (type === 'once') {
         const arg = args[0] || (this.currentScript || this.currentTrigger).name + '-once';
         if (this.storageOnceKeys[arg]) {
-          console.log('NOT SET STORAGE', arg);
           return false;
         }
-        console.log('SET STORAGE', arg);
         this.storageOnceKeys[arg] = true;
         return true;
+      } else if (type === 'with') {
+        const arg = args[0];
+        return arg === this.storage.activeItem;
       }
       return false;
     }

@@ -3,6 +3,7 @@ import ContainerDisplay from 'cmpts/ContainerDisplay';
 import BattleUI from 'cmpts/BattleUI';
 import RoomUI from 'cmpts/RoomUI';
 import Room from 'room/Room';
+import EscMenu from 'cmpts/EscMenu';
 import scene from 'main/Scene';
 import { getElem } from 'db';
 
@@ -11,6 +12,10 @@ const INITIAL_ROOM = 'east_window';
 const App = class extends React.Component {
   constructor(props) {
     super(props);
+
+    this.state = {
+      escMenuVisible: false,
+    };
 
     const playerCharacters = [
       getElem('characters', 'Rydo'),
@@ -29,6 +34,9 @@ const App = class extends React.Component {
         }
         return act;
       },
+      getPlayer: () => {
+        return this.GameInterface.getActor('Rydo');
+      },
       getMarker: markerName => {
         return this.state.room.room.markers[markerName];
       },
@@ -46,6 +54,11 @@ const App = class extends React.Component {
         scene.setRoom(newRoom);
       },
       setBattle: battleName => {},
+      setEscMenuOpen: v => {
+        this.setState({
+          escMenuVisible: v,
+        });
+      },
       save: () => this.state.room.room.save(),
       restore: () => this.state.room.room.restore(),
     };
@@ -71,19 +84,20 @@ const App = class extends React.Component {
       },
     };
     global.room = this.state.room.room;
-
-    // scene.setRoom(this.state.room.room);
   }
 
   render() {
     return (
-      <ContainerDisplay
-        child={RoomUI}
-        childProps={{
-          gameInterface: this.GameInterface,
-          ...this.state.room,
-        }}
-      />
+      <>
+        <ContainerDisplay
+          child={RoomUI}
+          childProps={{
+            gameInterface: this.GameInterface,
+            ...this.state.room,
+          }}
+        />
+        <EscMenu open={this.state.escMenuVisible} gameInterface={this.GameInterface} />
+      </>
     );
   }
 };
