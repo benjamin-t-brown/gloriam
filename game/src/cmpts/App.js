@@ -4,6 +4,7 @@ import BattleUI from 'cmpts/BattleUI';
 import RoomUI from 'cmpts/RoomUI';
 import Room from 'room/Room';
 import EscMenu from 'cmpts/EscMenu';
+import { MENU_HEIGHT } from 'cmpts/MenuBackpack'
 import scene from 'main/Scene';
 import { getElem } from 'db';
 
@@ -17,6 +18,8 @@ const App = class extends React.Component {
       escMenuVisible: false,
     };
 
+    let room = null;
+
     const playerCharacters = [
       getElem('characters', 'Rydo'),
       getElem('characters', 'Ferelith'),
@@ -24,10 +27,11 @@ const App = class extends React.Component {
 
     this.GameInterface = {
       getRoom: () => {
-        return this.state.room.room;
+        // return this.state.room.room;
+        return room;
       },
       getActor: actorName => {
-        const act = this.state.room.room.getActor(actorName);
+        const act = room.getActor(actorName);
         if (!act) {
           console.error('No actor exists with name', actorName);
           return null;
@@ -38,7 +42,7 @@ const App = class extends React.Component {
         return this.GameInterface.getActor('Rydo');
       },
       getMarker: markerName => {
-        return this.state.room.room.markers[markerName];
+        return room.markers[markerName];
       },
       setRoom: roomName => {
         console.log('SET ROOM', roomName);
@@ -50,6 +54,7 @@ const App = class extends React.Component {
             roomName,
           },
         });
+        room = newRoom;
         global.room = newRoom;
         scene.setRoom(newRoom);
       },
@@ -59,8 +64,12 @@ const App = class extends React.Component {
           escMenuVisible: v,
         });
       },
-      save: () => this.state.room.room.save(),
-      restore: () => this.state.room.room.restore(),
+      save: () => room.save(),
+      restore: () => room.restore(),
+      getGameAreaSize: () => ({
+        width: window.innerWidth,
+        height: window.innerHeight - MENU_HEIGHT,
+      }),
     };
     scene.setGameInterface(this.GameInterface);
 
@@ -83,6 +92,8 @@ const App = class extends React.Component {
         },
       },
     };
+
+    room = this.state.room.room;
     global.room = this.state.room.room;
   }
 

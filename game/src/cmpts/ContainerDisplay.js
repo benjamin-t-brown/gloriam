@@ -12,20 +12,23 @@ class ContainerDisplay extends React.Component {
     this.canvasRef = createRef();
 
     this.handleResize = () => {
+      const { width, height } = props.childProps.gameInterface.getGameAreaSize();
       this.setState({
-        width: window.innerWidth,
-        height: window.innerHeight,
+        width,
+        height,
       });
       setTimeout(() => {
-        display.resize(window.innerWidth, window.innerHeight);
+        const { width, height } = props.childProps.gameInterface.getGameAreaSize();
+        display.resize(width, height);
       });
     };
   }
 
   componentDidMount() {
+    const { width, height } = this.props.childProps.gameInterface.getGameAreaSize();
     window.addEventListener('resize', this.handleResize);
     display.setCanvas(this.canvasRef.current);
-    display.resize(window.innerWidth, window.innerHeight);
+    display.resize(width, height);
   }
 
   componentWillUnmount() {

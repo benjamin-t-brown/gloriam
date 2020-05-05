@@ -23,6 +23,7 @@ BillyAngusta: "Good day to you, citizen."
 
 #servant_entrance-BarryAdeps
 action,?once():servant_entrance-BarryAdeps-first
+item,Delectamentum Muffin,servant_entrance-BarryAdeps-muffin
 action,servant_entrance-BarryAdeps-default
 
 @servant_entrance-BarryAdeps-first
@@ -30,19 +31,21 @@ action,servant_entrance-BarryAdeps-default
 BarryAdeps: "Ho there, citizen!"
 +walkToMarker(Rydo, markerA);
 +lookAt(Rydo, BarryAdeps);
-Rydo: "What can I do for you, Sir Guard?"
+Rydo: "How can I assit you, Sir Guard?"
 BarryAdeps: "The name's Barry."
 BillyAngusta: "Barry *Adeps*"
-BillyAngusta: "Did you forget your full name."
-BarryAdeps: "Of course not!"
-BarryAdeps: "But yes.  Barry Adeps.  *Sir* Barry Adeps."
+BillyAngusta: "You forgot your full name."
+BarryAdeps: "Uhh, yeah..."
+BarryAdeps: "Barry Adeps.  *Sir* Barry Adeps."
 _Rydo: "Nice to meet you!  I am Lord Rydo--"
-+waitMs(200);
++waitMS(200);
 BarryAdeps: "Yes yes, that's all well and good."
 BarryAdeps: "But I called you over here to ask you a very important question."
 BarryAdeps: "Do you know where I could get some... dessert?"
 BillyAngusta: "Here we go again."
++lookAt(BarryAdeps, BillyAngusta);
 BarryAdeps: "Shutup Billy!"
++lookAt(BarryAdeps, Rydo);
 Rydo: "Uh..."
 BarryAdeps: "Well, speak up, lad!  Do you?"
 Rydo: "I... do not know..."
@@ -50,10 +53,10 @@ BarryAdeps: "Drat!"
 +setAnimationAndWait(BarryAdeps, angry);
 +setAnimation(BarryAdeps, default);
 BarryAdeps: "I stand out here all day guarding this castle..."
-BillyAngusta: "You mostly take breaks all day."
+BillyAngusta: "Eh... you mostly take breaks all day."
 BarryAdeps: "...Sweltering in this unfathomable heat..."
-BillyAngusta: "It's been really cloudy recently."
-BarryAdeps: "...And what do I get to look forward to for my struggles?"
+BillyAngusta: "It's been really quite cloudy recently."
+BarryAdeps: "...And what treat do I get to look forward to for my struggles?"
 BillyAngusta: "Well, you get paid, like any other guard."
 +lookAt(BarryAdeps, BillyAngusta);
 +lookDirection(BillyAngusta, l);
@@ -64,48 +67,105 @@ BarryAdeps: "It's this!"
 +setAnimation(BarryAdeps, present_milk);
 +waitMS(500);
 +setAnimation(BarryAdeps, default);
-BarryAdeps: "This good-for-nothing, rancid-tasting, appalling *liquid* that the kitchens call 'milk'!"
+BarryAdeps: "This good-for-nothing, rancid-tasting, appalling *liquid* that the the Cook calls 'milk'!"
 Rydo: "Excuse me."
 Rydo: "Did you say 'milk'?"
 BillyAngusta: "Yep, he did."
 BarryAdeps: "Disgusting."
 BillyAngusta: "Cmon!  It's not that bad."
 BillyAngusta: "Cats will drink it."
-BarryAdeps: "Well..."
-BarryAdeps: "Perhaps not."
-BarryAdeps: "But a dessert it is also *not*!"
+BarryAdeps: "Cats?"
+BarryAdeps: "A Cat I am not."
+BarryAdeps: "And a dessert this is also *not*!"
 BarryAdeps: "The Muffin Lady works steps away from our esteemed cook."
 BarryAdeps: "And she can't even be bothered to provide muffins with her sack lunches!"
-BillyAngusta: "Ah, I wish I could get another one of her muffins."
-BillyAngusta: "She won't let me inside the kitchens anymore though."
+BillyAngusta: "You've bot a point there..."
+BillyAngusta: "I wish I could get another one of her muffins."
+BillyAngusta: "She won't let me inside the kitchens anymore, though."
 BarryAdeps: "Nor me!"
-BarryAdeps: "We must rely on the Cook."
-BarryAdeps: "And with our patience we are rewarded with what?"
+BarryAdeps: "Hoards her treats, that one does."
+BarryAdeps: "So now we must rely on the Cook."
+BarryAdeps: "And with our patience we are rewarded with..."
+BarryAdeps: "'Milk'"
 +setAnimation(BarryAdeps, present_milk);
 +waitMS(500);
 +setAnimation(BarryAdeps, default);
-Rydo: "Your plight has been heard, good Guardsman."
-Rydo: "I wish you the utmost luck on your endeavors."
+Rydo: "Well..."
+Rydo: "I may not be as..."
+Rydo: "Appalled... as you seem to be."
+Rydo: "But rest assured, your plight has been heard, good Guardsman."
+Rydo: "If I come across one of these so-fabled muffins, I shall inform you."
 BarryAdeps: "Yeah Yeah."
+BarryAdeps: "Good luck with that."
+BarryAdeps: "They aren't just lying around you know."
 BarryAdeps: "One of these days I'll get what I want..."
 BillyAngusta: "Won't we all?"
++lookDirection(Rydo, down);
+
+@servant_entrance-BarryAdeps-muffin
+Rydo: "Hello there?"
+Rydo: "You were the one who desired this muffin, correct?"
++setAnimation(Rydo, present_item);
++waitMS(500);
++setAnimationState(Rydo, default);
+BarryAdeps: "What?"
+BarryAdeps: "How did you get that?"
+Rydo: "That's not important, good Guardsman."
+Rydo: "Do you still desire it?"
+BarryAdeps: "Of course I do!"
+BarryAdeps: "I'd give anything for that!"
+BarryAdeps: "The Muffin Lady's muffins are known to bestow reinvigoration beyond belief to those who eat them."
+BillyAngusta: "And they're sweeter than child's chocolate candy cake."
+BarryAdeps: "*sigh*"
+BarryAdeps: "My mouth waters just imagining it."
+Rydo: "Then I present this to you as a token of our friendship."
+BarryAdeps: "Thank you so much!"
+BillyAngust: "You know, Barry."
+BillyAngusta: "It's generally good practice to offer something suitble in return."
+BarryAdeps: "Uhh... Right!"
+BarryAdeps: "I present to you this... milk."
+BarryAdeps: "May you find some use for it..."
+BarryAdeps: "Except to use it as dessert."
+BarryAdeps: "Because it is certainly not that."
+Rydo: "Why, thank you!"
+BarryAdeps: "Well then..."
+BarryAdeps: "If you'll excuse me, I have a muffin to consume."
+Rydo: "I don't suppose you can let me inside the castle?"
+Rydo: "Even if it is through that servant entrance over there."
+Rydo: "I do not mind."
+BarryAdeps: "Hmm?"
+BillyAngusta: "I'm afraid not, traveller."
+BillyAngusta: "Not even a muffin is going to get you through this entrance."
+BillyAngusta: "Threatened to cut us off from muffins forever if we let anybody through here who wasn't a servant."
+BarryAdeps: "*shudders*"
+BarryAdeps: "Horrible thought."
+BillyAngusta:  "You'll have to go through the main gate if you want to get inside."
+Rydo: "*sigh*"
+Rydo: "Fine..."
+Rydo: "Farewell, then!"
++walkToMarker(Rydo, markerB);
+Rydo: "What am I to do with this... milk?"
 
 @servant_entrance-BarryAdeps-default
-?is(storage.items.Tepidus Milk):{
++?is(storage.items.Tepidus Milk):{
   BarryAdeps: "My saviour!"
   +walkToMarker(Rydo, markerA);
   +lookAt(Rydo, BarryAdeps);
   BarryAdeps: "I cannot thank you enough for the muffin."
-  Rydo: "It was nothing, friend!"
+  Rydo: "And thank you for the gratitude, friend!"
   Rydo: "I do my best to help any and all who find themselves in need."
   BarryAdeps: "Admirable!"
   BarryAdeps: "But I seem to have already eaten said muffin."
   BarryAdeps: "You don't, perchance, happen to have another one?"
   Rydo: "I do not!"
   Rydo: "That first one was not easy to come by."
-  BarrayAdeps: "Drat!"
+  BarryAdeps: "Drat!"
   BillyAngusta: "You just had to try, didn't you?"
 }
-?isnot(storage.items.Tepidus Milk):{
++?isnot(storage.items.Tepidus Milk):{
+  Rydo: "You wouldn't happen to kindly allow me into the castle would you?"
+  BarryAdeps: "What?  I'm not on duty right now."
+  BarryAdeps: "Go ask the guard at the gate."
+  Rydo: "I see..."
   BarryAdeps: "One of these days I'll get what I want..."
 }

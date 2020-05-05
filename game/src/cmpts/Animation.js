@@ -6,7 +6,7 @@ const Animation = ({ animName, style, width, height }) => {
   const anim = display.getAnimation(animName);
   const { width: canvasWidth, height: canvasHeight } = anim.getSpriteSize(0);
   React.useEffect(() => {
-    display.setLoop(() => {
+    const func = display.addRenderable(() => {
       display.setCanvas(ref.current);
       display.clearScreen();
       display.drawAnimation(anim, canvasWidth / 2, canvasHeight / 2, {
@@ -16,7 +16,10 @@ const Animation = ({ animName, style, width, height }) => {
       });
       display.restoreCanvas();
     });
-  });
+    return () => {
+      display.removeRenderable(func);
+    };
+  }, [anim, canvasWidth, canvasHeight, width, height]);
 
   return (
     <canvas

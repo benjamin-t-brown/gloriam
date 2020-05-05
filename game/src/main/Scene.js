@@ -52,8 +52,11 @@ class Scene {
         if (nextMarkerName && direction) {
           const player = this.gameInterface.getPlayer();
           const marker = this.gameInterface.getMarker(nextMarkerName);
-          player.setAt(marker.x, marker.y);
-          player.setFacing(direction);
+          if (!marker) {
+            console.error('Could not get marker named', nextMarkerName);
+          }
+          player.setAtWalkPosition(pt(marker.x, marker.y));
+          player.setHeading(direction);
         }
       },
       playDialogue: (actorName, subtitle, soundName) => {

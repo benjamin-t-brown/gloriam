@@ -8,6 +8,8 @@ const TRANSITION_TIME = 0.25;
 const DRAWER_SIZE = 125;
 const ITEM_SIZE = 115;
 
+export const MENU_HEIGHT = DRAWER_SIZE;
+
 const Item = ({ itemName, content, onClick, style }) => {
   const item = itemName ? getElem('items', itemName) : null;
   return (

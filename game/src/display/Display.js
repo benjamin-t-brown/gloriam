@@ -28,6 +28,7 @@ const display = {
   isBlurred: false,
   lastFocusTimestamp: 0,
   timePausedMs: 0,
+  started: false,
   now: 0,
   nowTotal: 0,
   error: false,
@@ -199,6 +200,20 @@ display.getCadenceSprites = function(name) {
   return display.cadenceSprites[name];
 };
 
+display.addRenderable = function(func) {
+  display.renderables.push(func);
+  return func;
+};
+
+display.removeRenderable = function(func) {
+  const ind = display.renderables.indexOf(func);
+  if (ind > -1) {
+    display.renderables.splice(ind, 1);
+    return true;
+  }
+  return false;
+};
+
 display.createSprite = function(name, pic, x, y, w, h) {
   if (!display.sprites[name]) {
     display.sprites[name] = new Sprite(pic, x, y, w, h);
@@ -244,9 +259,9 @@ display.getCurrentTime = function() {
 
 display.setLoop = function(cb) {
   let then = 0;
-  this.loopCb = cb;
-  this.now_ms = window.performance.now();
-  this.now = this.now_ms * 0.001;
+  display.loopCb = cb;
+  display.now_ms = window.performance.now();
+  display.now = this.now_ms * 0.001;
   const _loop = () => {
     if (display.isPaused) {
       return;
@@ -270,12 +285,20 @@ display.setLoop = function(cb) {
     }
     toDelete.forEach(id => display.clearTimeout(id));
 
-    cb();
+    for (let i = 0; i < display.renderables.length; i++) {
+      const func = display.renderables[i];
+      func();
+    }
+
+    display.loopCb();
     if (!display.error) {
       window.requestAnimationFrame(_loop);
     }
   };
-  window.requestAnimationFrame(_loop);
+  if (!display.started) {
+    display.started = true;
+    display.currentAnimationFrame = window.requestAnimationFrame(_loop);
+  }
 };
 
 display.getCtx = function() {

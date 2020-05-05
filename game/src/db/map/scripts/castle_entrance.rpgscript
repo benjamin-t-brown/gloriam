@@ -4,18 +4,18 @@
 #castle_entrance-toWelcomeGrounds
 step,this
 @this
-+changeRoom('welcome_grounds', 'markerTop');
++changeRoom('welcome_grounds', 'markerTop', 'd');
 
 #castle_entrance-toServantEntrance
 step,this
 @this
-+changeRoom('servant_entrance', 'markerRight');
++changeRoom('servant_entrance', 'markerRight', 'l');
 
 // this is wrong: fix this
 #castle_entrance-toEastWall
 step,this
 @this
-+changeRoom('library_l1', 'markerLeft');
++changeRoom('library_l1', 'markerLeft', 'r');
 
 #castle_entrance-GateGuard
 action,?once():castle_entrance-GateGuardFirst
