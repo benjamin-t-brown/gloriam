@@ -159,6 +159,9 @@ AnimSprite,indicators_4,100
 AnimSprite,indicators_5,100
 AnimSprite,indicators_4,100
 Picture,invisible,invisible.png,0,0
+Picture,item-sprites,item-sprites.png,32,32
+Animation,item-sprites-SmallRock,true
+AnimSprite,item-sprites_0,100
 Picture,items,items.png,115,115
 Animation,items-SmallRock,true
 AnimSprite,items_0,100

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<tileset version="1.2" tiledversion="1.3.1" name="control" tilewidth="64" tileheight="64" tilecount="7" columns="0">
+<tileset version="1.2" tiledversion="1.3.1" name="control" tilewidth="64" tileheight="64" tilecount="8" columns="0">
  <grid orientation="orthogonal" width="1" height="1"/>
  <tile id="0">
   <image width="64" height="64" source="../props/indicator1.png"/>
@@ -21,5 +21,8 @@
  </tile>
  <tile id="6">
   <image width="64" height="64" source="../props/person.png"/>
+ </tile>
+ <tile id="7">
+  <image width="64" height="64" source="../props/item.png"/>
  </tile>
 </tileset>

@@ -2,23 +2,20 @@ import React from 'react';
 import ContainerDisplay from 'cmpts/ContainerDisplay';
 import BattleUI from 'cmpts/BattleUI';
 import RoomUI from 'cmpts/RoomUI';
+import NarrativeUI from 'cmpts/NarrativeUI';
 import Room from 'room/Room';
 import EscMenu from 'cmpts/EscMenu';
-import { MENU_HEIGHT } from 'cmpts/MenuBackpack'
-import scene from 'main/Scene';
+import { MENU_HEIGHT } from 'cmpts/MenuBackpack';
+import scene, { MODES } from 'main/Scene';
 import { getElem } from 'db';
-
-const INITIAL_ROOM = 'east_window';
 
 const App = class extends React.Component {
   constructor(props) {
     super(props);
 
-    this.state = {
-      escMenuVisible: false,
-    };
-
     let room = null;
+    let mode = MODES.ROOM;
+    let narrative = {};
 
     const playerCharacters = [
       getElem('characters', 'Rydo'),
@@ -26,8 +23,15 @@ const App = class extends React.Component {
     ];
 
     this.GameInterface = {
+      getMode: () => {
+        return mode;
+      },
       getRoom: () => {
         // return this.state.room.room;
+        if (this.state.mode.room !== MODES.ROOM) {
+          console.warn('Warning, call to getRoom when not in ROOM mode');
+          return null;
+        }
         return room;
       },
       getActor: actorName => {
@@ -48,6 +52,7 @@ const App = class extends React.Component {
         console.log('SET ROOM', roomName);
         const newRoom = new Room(props.gameInterface, roomName, playerCharacters);
         this.setState({
+          mode: MODES.ROOM,
           room: {
             ...this.state.room,
             room: newRoom,
@@ -59,6 +64,9 @@ const App = class extends React.Component {
         scene.setRoom(newRoom);
       },
       setBattle: battleName => {},
+      isEscMenuOpen: () => {
+        return this.state.escMenuVisible;
+      },
       setEscMenuOpen: v => {
         this.setState({
           escMenuVisible: v,
@@ -68,15 +76,56 @@ const App = class extends React.Component {
       restore: () => room.restore(),
       getGameAreaSize: () => ({
         width: window.innerWidth,
-        height: window.innerHeight - MENU_HEIGHT,
+        height: window.innerHeight - (this.state.mode === MODES.ROOM ? MENU_HEIGHT : 0),
       }),
+      setMode: m => {
+        mode = m;
+        this.setState({
+          mode: m,
+        });
+      },
+      setNarrativeText: (speakerName, text) => {
+        const newState = {
+          narrative: {
+            ...narrative,
+            speakerName,
+            text,
+          },
+        };
+        narrative = newState.narrative;
+        this.setState(newState);
+      },
+      setNarrativeBackground: backgroundImage => {
+        const newState = {
+          narrative: {
+            ...narrative,
+            backgroundImage,
+          },
+        };
+        narrative = newState.narrative;
+        this.setState(newState);
+      },
+      setNarrativeTextPosition: style => {
+        const newState = {
+          narrative: {
+            ...narrative,
+            textPosition: {
+              ...style,
+            },
+          },
+        };
+        narrative = newState.narrative;
+        this.setState(newState);
+      },
     };
     scene.setGameInterface(this.GameInterface);
 
     this.state = {
+      mode: MODES.ROOM,
+      escMenuVisible: false,
       room: {
-        room: new Room(this.GameInterface, INITIAL_ROOM, playerCharacters),
-        roomName: INITIAL_ROOM,
+        room: null,
+        roomName: '',
         activeCharacter: null,
         selectedActor: null,
         hoveredActor: null,
@@ -91,22 +140,51 @@ const App = class extends React.Component {
           y: 0,
         },
       },
+      narrative: {
+        speakerName: '',
+        text: '',
+        backgroundImage: '',
+        textPosition: {
+          left: 0,
+          top: 0,
+          width: '33%',
+          height: '33%',
+        },
+      },
     };
 
-    room = this.state.room.room;
-    global.room = this.state.room.room;
+    narrative = this.state.narrative;
+
+    window.gameInterface = this.GameInterface;
+  }
+
+  componentDidMount() {
+    console.log('Run setup script...');
+    scene.callScript('setup');
   }
 
   render() {
+    console.log('render app', this.state);
     return (
       <>
-        <ContainerDisplay
-          child={RoomUI}
-          childProps={{
-            gameInterface: this.GameInterface,
-            ...this.state.room,
-          }}
-        />
+        {this.state.mode === MODES.ROOM && this.state.room.room ? (
+          <ContainerDisplay
+            child={RoomUI}
+            childProps={{
+              gameInterface: this.GameInterface,
+              ...this.state.room,
+            }}
+          />
+        ) : null}
+        {this.state.mode === MODES.NARRATIVE ? (
+          <ContainerDisplay
+            child={NarrativeUI}
+            childProps={{
+              gameInterface: this.GameInterface,
+              ...this.state.narrative,
+            }}
+          />
+        ) : null}
         <EscMenu open={this.state.escMenuVisible} gameInterface={this.GameInterface} />
       </>
     );

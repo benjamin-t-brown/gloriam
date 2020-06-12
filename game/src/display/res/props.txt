@@ -20,6 +20,7 @@ Picture,guard-prop,guard-prop.png
 Picture,indicator-small,indicator-small.png
 Picture,indicator1,indicator1.png
 Picture,indicator2,indicator2.png
+Picture,item,item.png
 Picture,ladder,ladder.png
 Picture,ladderR,ladderR.png
 Picture,person,person.png
@@ -29,6 +30,7 @@ Picture,pond,pond.png
 Picture,rydo-prop,rydo-prop.png
 Picture,shield,shield.png
 Picture,sign,sign.png
+Picture,small-rock,small-rock.png
 Picture,table,table.png
 Picture,tree1-prop,tree1-prop.png
 Picture,tree2-prop,tree2-prop.png

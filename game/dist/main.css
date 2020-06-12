@@ -57,6 +57,43 @@ body {
   }
 }
 
+@keyframes anim-clouds-f {
+  from {
+    background-position: 0px 0px;
+  }
+  to {
+    background-position: -2048px 0px;
+  }
+}
+
+.anim-clouds {
+  animation: anim-clouds-f 90s linear infinite;
+  background-repeat: repeat-x;
+  background-image: url(img/mistyness.png);
+}
+
+@keyframes anim-ui-item {
+  0% {
+    filter: brightness(80%);
+  }
+  50% {
+    filter: brightness(120%);
+  }
+  100% {
+    filter: brightness(80%);
+  }
+}
+
+.ui-item:hover {
+  filter: brightness(120%)
+}
+.ui-item:active {
+  filter: brightness(80%);
+}
+.ui-item-selected {
+  animation: anim-ui-item 1s infinite;
+}
+
 .no-select {
   -webkit-touch-callout: none;
   -webkit-user-select: none;

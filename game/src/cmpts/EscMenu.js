@@ -81,6 +81,7 @@ const EscMenu = ({ open, gameInterface }) => {
 
   return (
     <div
+      className="anim-clouds"
       style={{
         position: 'fixed',
         left: 0,
@@ -90,16 +91,22 @@ const EscMenu = ({ open, gameInterface }) => {
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
-        background: 'rgba(0, 0, 0, 0.7)',
         opacity: open ? '1' : '0',
         pointerEvents: open ? undefined : 'none',
-        transition: 'opacity 0.25s linear',
+        transition: 'opacity 0.25s linear, border-width 0.25s linear',
+        boxSizing: 'border-box',
+        // border: `50px ridge ${colors.greyBlue}`,
+        borderStyle: 'ridge',
+        borderColor: colors.greyBlue,
+        borderWidth: open ? '50px' : '0px',
       }}
     >
       <div
         style={{
-          borderRadius: '5px',
+          border: `15px ridge ${colors.yellow}`,
           minWidth: '750px',
+          background: 'rgba(0, 0, 0, 0.7)',
+          padding: '30px',
         }}
       >
         {elem}

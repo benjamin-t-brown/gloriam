@@ -1,6 +1,6 @@
 import React from 'react';
 import display from 'display/Display';
-import theme from 'main/theme';
+import { colors } from 'theme';
 import { hexToRGBA } from 'utils';
 import scene from 'main/Scene';
 import input from 'display/Input';
@@ -79,11 +79,11 @@ const TriggerIndicator = props => {
         style={{
           visibility: visible ? 'visible' : 'hidden',
           whiteSpace: 'pre',
-          color: theme.palette.white,
+          color: colors.white,
           position: 'fixed',
           fontSize: room.getFontSize(),
           padding: getPadding(room),
-          backgroundColor: hexToRGBA(theme.palette.black, 0.5),
+          backgroundColor: hexToRGBA(colors.black, 0.5),
           pointerEvents: 'none',
         }}
       >

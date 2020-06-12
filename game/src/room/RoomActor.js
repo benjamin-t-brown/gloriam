@@ -2,8 +2,7 @@ import Actor, { HEADINGS } from 'main/Actor';
 import display from 'display/Display';
 import { getAngleTowards, circleCollides, pt } from 'utils';
 import { isInWall } from '../pathfinding';
-import theme from 'main/theme';
-
+import { colors } from 'theme';
 class RoomActor extends Actor {
   constructor(room, template, camera, props) {
     super(room, template.spriteBase || '');
@@ -24,11 +23,27 @@ class RoomActor extends Actor {
     this.camera = camera;
 
     this.name = name || template.spriteBase;
-    this.displayName = displayName;
-    this.width = width || room.baseSize;
-    this.height = height || room.baseSize;
-    this.hitBox = hitBox || { width: this.width, height: this.height };
     this.isCharacter = !!character;
+    this.isItem = false;
+    this.displayName = displayName;
+    this.width = room.baseSize;
+    this.height = room.baseSize;
+    let setSizeBasedOnSprite = this.isCharacter ? false : true;
+    if (width >= 0) {
+      setSizeBasedOnSprite = false;
+      this.width = width;
+    }
+    if (height >= 0) {
+      setSizeBasedOnSprite = false;
+      this.height = height;
+    }
+    if (setSizeBasedOnSprite && template.spriteBase) {
+      const { width, height } = display.getSpriteSize(template.spriteBase);
+      this.width = width;
+      this.height = height;
+    }
+
+    this.hitBox = hitBox || { width: this.width, height: this.height };
     this.isBackground = !!isBackground;
     this.zOrdering = zOrdering || 0;
     this.walkPath = null;
@@ -42,9 +57,10 @@ class RoomActor extends Actor {
     this.onWalkComplete = () => {};
     this.onRotateComplete = () => {};
     this.animationState = null;
-    this.subtitleTextColor = template.textColor || theme.palette.white;
+    this.subtitleTextColor = template.textColor || colors.white;
     this.talkTrigger = talkTrigger || null;
     this.shouldAnimUseHeading = useHeading === undefined ? !!heading : useHeading;
+    this.shouldDrawHitBox = true;
     if (animName) {
       this.setAnimation(animName);
     } else {
@@ -296,8 +312,23 @@ class RoomActor extends Actor {
     super.draw();
 
     // DEBUG: draw circle at walk position
-    // const { x, y } = this.room.worldToRenderCoords(this.getWalkPosition());
-    // display.drawCircleOutline(x, y, this.walkRadius, 'lightgreen');
+    const { x, y } = this.room.worldToRenderCoords(this.getWalkPosition());
+    display.drawCircleOutline(x, y, this.walkRadius, 'lightgreen');
+
+    if (this.shouldDrawHitBox) {
+      const { width, height } = this.hitBox;
+      const { x, y } = this.room.worldToRenderCoords(
+        pt(this.x - width / 2, this.y - height / 2)
+      );
+      display.drawRectOutline(
+        x,
+        y,
+        width * this.room.baseScale,
+        height * this.room.baseScale,
+        'white',
+        2
+      );
+    }
   }
 }
 

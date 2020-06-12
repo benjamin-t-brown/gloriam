@@ -5,6 +5,7 @@ export const colors = {
   lightBlue: '#42CAFD',
   blue: '#3978A8',
   darkBlue: '#2E3740',
+  greyBlue: '#50576B',
   veryDarkBlue: '#101E29',
   black: '#000',
   lightGreen: '#B6D53C',
@@ -17,4 +18,5 @@ export const colors = {
   darkPurple: '#564064',
   darkerPurple: '#39314B',
   lightBlack: '#101E29',
+  yellow: '#FFCE00',
 };

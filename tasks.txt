@@ -1,0 +1,65 @@
+Bug: Characters visually clip through walls when facing up/down
+ - Solution: Make the collision box wider than it is tall
+
+Bug: Characters can stop pathing when moving around collision boxes
+ - Solution: ?? Need to look into pathing code again.  Make sure this fix doesn't allow characters to get stuck
+
+Bug: Game is not paused when entering ESC menu
+
+Bug: Double clicking/clicking too fast in narrative mode selects the text of the text box
+
+Task: Create a small fade transition when moving between Rooms
+
+Story: Narrative Mode
+  Subtasks: 
+    DONE * Feature: Narrative mode can be set and can run rpgscripts that advance dialogue on user input
+    Feature: Dialogue is shown as a series of paragraphs with a background image.  Paragraphs are cleared with an rpgscript command.
+    Feature: User can go backwards (is this hard?  is this necessary?  Maybe just show the subtitles like P5 does... it would also be easy to just scroll down when the screen is 'cleared' and the user can scroll up at any time)
+
+Story: Item usage for puzzles
+  Subtasks: 
+    Feature: Item bar component.
+      DONE * always visible (crop game world above it)
+      DONE * can scroll to items out of view
+      DONE * currently using item is highlighted, animated
+      - Settings menu:
+        - can query item (to hear Rydo/Ferelith talk about it)
+        - can drop item
+    Feature: Use an item from the item bar with a trigger or character in the game.    
+    Feature: Can pick up an item on the ground
+
+Story: Async scenes
+  Subtasks:
+    Feature: The Scene can run a script without removing control from the player
+      - these scripts can be interrupted at any time and overridden by a script initiated by the player
+    Feature: Specify a walk route for a character
+      - given a set of points that represent a polygon, character walks to each point.
+      - each position has a time to wait at that position and a callback
+    Feature: Specify timer callbacks for character
+      - A content creator can specify a function that runs either [every n ms] or [after n ms]
+      - can be used for idle animations
+
+Story: Smart loading of voice assets
+  Subtasks:
+    Feature: The RoomParser should provide a list of all rooms that are 'adjacent' to the current room
+    Feature: The script parser should provide a list of all voice files required to load a certain scene
+    Feature: Given a list of voice files, determine if they have been loaded.  If not, load them.
+    Feature: If voice files haven't been loaded when transitioning a scene, show a loading screen first and load them.
+    Feature: If voice files haven't been loaded when running a script, show a loading screen first and load them.
+    Feature: If voice files haven't been loaded for an adjacent scene, load them silently in the background.
+
+Story: Save and Load
+  Subtasks:
+    Task: Create schema for a save file in JSON
+    Task: Create SaveLoader which takes the save file and loads a game
+    Task: Create a save file that is loaded when the game begins
+    Feature: Save to local storage
+    Feature: Load a save file from local storage
+    Feature: Download a save file.
+    Feature: Upload a save file.
+
+DONE:
+
+* Task: When moving between rooms, characters should be placed at a marker and facing the direction the moveRoom scene transition specifies
+* Story: Menu pazaaz
+  Subtasks: When accessing the `esc` menu, show a semi-transparent, misty fog + add bezels to the borders that make it look like it's part of a game controller

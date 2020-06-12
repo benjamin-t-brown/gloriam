@@ -114,7 +114,14 @@ async function main() {
   console.log('OUTPUT', stagesDir, '\n' + stagesRes);
   fs.writeFileSync(stagesDir, stagesRes);
 
+  const misc = await getFolder('misc');
+  const miscRes = createResFile(misc);
+  const miscDir = '../game/src/display/res/misc.txt';
+  console.log('OUTPUT', miscDir, '\n' + miscRes);
+  fs.writeFileSync(miscDir, miscRes);
+
   await execAsync('cp -r props/*.png ../game/dist/img/');
   await execAsync('cp -r stages/*.png ../game/dist/img/');
+  await execAsync('cp -r misc/*.png ../game/dist/img/');
 }
 main();

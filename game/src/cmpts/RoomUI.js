@@ -1,7 +1,7 @@
 import React from 'react';
 import display from 'display/Display';
 import input from 'display/Input';
-import { pt, drawPath } from 'utils';
+import { pt, drawPath, calculateAndSetScale } from 'utils';
 import TriggerIndicator from 'cmpts/TriggerIndicator';
 import MenuBackpack from 'cmpts/MenuBackpack';
 import scene from '../main/Scene';
@@ -22,7 +22,9 @@ class RoomUI extends React.Component {
       },
       Escape: ev => {
         ev.preventDefault();
-        this.props.gameInterface.setEscMenuOpen(true);
+        this.props.gameInterface.setEscMenuOpen(
+          !this.props.gameInterface.isEscMenuOpen()
+        );
       },
     };
 
@@ -38,7 +40,7 @@ class RoomUI extends React.Component {
   handleClick = ev => {
     const point = this.props.room.renderToWorldCoords(pt(ev.clientX, ev.clientY));
     if (input.isUIInputEnabled() && !scene.isExecutingBlockingScene()) {
-      const clickedAct = this.props.room.getCharacterAt(point.x, point.y);
+      const clickedAct = this.props.room.getItemOrCharacterAt(point.x, point.y);
       if (clickedAct && clickedAct.talkTrigger) {
         scene.callTrigger(clickedAct.talkTrigger, 'action');
       } else {
@@ -49,22 +51,9 @@ class RoomUI extends React.Component {
   };
 
   calculateAndSetScale() {
-    let scale = Math.min(
-      display.height / this.props.room.height,
-      display.width / this.props.room.width
+    this.props.room.setBaseScale(
+      calculateAndSetScale(this.props.room.width, this.props.room.height)
     );
-    if (scale < 1) {
-      if (scale > 0.5) {
-        scale = 0.5;
-      } else if (scale > 0.25) {
-        scale = 0.25;
-      }
-    } else {
-      // comment back in to scale to whole numbers
-      //scale = Math.floor(scale);
-    }
-
-    this.props.room.setBaseScale(scale);
   }
 
   componentDidMount() {
@@ -156,7 +145,10 @@ class RoomUI extends React.Component {
         {this.props.room.triggers.map(trigger => {
           return <TriggerIndicator trigger={trigger} room={this.props.room} />;
         })}
-        <MenuBackpack items={['Small Rock', 'Small Rock', 'Small Rock', 'Small Rock']} />
+        <MenuBackpack
+          gameInterface={this.props.gameInterface}
+          items={['Small Rock', 'Small Rock', 'Small Rock', 'Small Rock']}
+        />
       </div>
     );
   }

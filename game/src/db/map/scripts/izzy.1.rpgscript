@@ -1,0 +1,168 @@
+@izzy1
++setMode(Narrative);
+
+// All pictures in this scene are drawn with black line art, preferably as little alike the pixel art of the main game.
+
+// fade in?
+// [Car wheel running over pothole]
++setNarrativeBackground(narrative1);
++setNarrativeTextLocation(left, top);
++playSound(caChunk);
+Narrator: "The top of my head slammed into the roof as I drove over a pothole in the driveway of my Uncle's estate."
+Narrator: "The large cardboard boxes in the back seat rattled and clanked dangerously."
+// [Three cardboard boxes in the backseat of a sedan]
++setNarrativeBackground(narrative2);
++setNarrativeTextLocation(right, top);
++playSound(carBreaks);
+Narrator: "Slamming the breaks, I rubbed the raspberry forming under my hair and shot a glance over my shoulder.  No spills.  No broken glass.  Good."
+Narrator: "Returning my attention to the road, I wondered why Uncle hadn't bothered to take care of his driveway.  Surely he had the means?  Maybe he's had other things on his mind..."
+// [Sedan parked at the foot of a large mansion, camera on the ground pointing past it]
++setNarrativeBackground(narrative3);
++setNarrativeTextLocation(center, bottom);
++playSound(carDriving);
+Narrator: "After a more careful drive, I pulled up to the narrow walkway that lead to the gate.  I looked out the window and stared up at the old mansion.  Three stories tall, with a five-car garage and a gated grotto in the front yard.  I sighed and got out of the car."
+// [A large, wooden double door, carved with an intricate/expensive design]
++setNarrativeBackground(narrative4);
++playSound(doorbell);
+Narrator: "Uncle took his time coming to the front door.  My hands were beginning to cramp under the weight of the boxes by the time I heard his measured footsteps approaching."
+// [The door is open, revealing a late-middle-aged man, balding, with a pointy goatee.  He has a joyful expression.]
++setNarrativeBackground(narrative5);
++playSound(openDoor);
+UncleAmun: "`Izzy!  Welcome, welcome!  Come on inside.`"
+// [The atrium of the mansion, camera at the base of the front door.  Uncle Amun gestures towards a bench.  A door is visible in the hallway behind him.]
++setNarrativeBackground(narrative6);
++playSound(closeDoor);
+UncleAmun: "`You can set your mother's china on that bench there.  I'll have someone take it upstairs later.`"
+// [The same picture, Izzy has moved forward into the house and placed three large boxes on the bench.]
++setNarrativeBackground(narrative7);
++playSound(thunk);
++shakeScreen(100);
+Narrator: "I carefully deposited the boxes and wiped a bead of sweat from my eyebrow.  `Upstairs?  You mean you're not going to use it?  Why did you have me bring it here in the first place?`"
+// [The same picture, Uncle is talking]
++setNarrativeBackground(narrative8);
+UncleAmun: "`There's a dining room upstairs.`"
+Narrator: "`Oh...`  I gave a thoughful glance around the atrium.  Uncle's house had always been a mystery.  I hadn't been anywhere inside except for the the foyer and the 'downstairs' dining room."
+Narrator: "Uncle saw me looking around and a small smile formed on his lips."
+// [The same picture, Uncle has turned to Izzy. His face is clearly visible, and he stares intently at her.]
+UncleAmun: "`To be completely honest, I also wanted to see you.`"
+Narrator: "`Me?` That was odd.  `Why?`"
++setNarrativeBackground(narrative9);
+Narrator: "For answer, Uncle gave me an intent stare, peering straight into my eyes as if trying to scan my thoughts."
+Narrator: "I looked away uncomfortably.  Mom had always called him an oddball."
+UncleAmun: "`That's right.  I wanted to give you a present."
+// [The same picture, Uncle has opened the door to his left and gone through it.]
++setNarrativeBackground(narrative10);
+Narrator: "Abrutply he turned and left the room through a door I had never seen open.  I hesitated for a moment, then followed."
+// [Izzy follows Uncle Amun through a narrow hallway.  Camera in corner.  She looks away from the camera at pictures on the walls as Uncle Amun walks steadily in front of her.]
++setNarrativeBackground(narrative11);
++setNarrativeTextLocation(center, top);
++playSound(footstepsOnCarpet);
+Narrator: "For the first time I entered the core of Uncle's mansion.  One narrow hallway led to another as Uncle made his way with a steady purpose towards wherever he wanted to take me."
+Narrator: "On the walls we passed a surprising number of portraits.  Vast landscapes, lush countrysides, and magestic mountains, paintings of old, medeival cities and ports."
+Narrator: "I hadn't seen them before.  Uncle had never expressed interested in such things.  At least, not in front of me."
+// [Picture of the below-described painting]
++setNarrativeBackground(narrative12);
++setNarrativeTextLocation(left, top);
++playSound(churchBell);
+Narrator: "I paused by a painting that caught my eye."
+Narrator: "It depicted the inside of an old church.  Beams of sunlight shown through stained glass windows, dust in the air partially obscuring the rotting pews below it."
+Narrator: "On the alter at the far end was a bright light, and something barely recognizable..."
++setNarrativeTextLocation(left, bottom);
+UncleAmun: "`Come on, Izzy.  I don't want you to get lost in here.`"
++setNarrativeTextLocation(left, top);
+Narrator: "I took one last glance at the picture.  It felt like I had seen it before.  The thing on the alter."
+Narrator: "It appeaed to be a crystal of some kind.  But what was it for?"
+Narrator: "I shook my head and continued to follow Uncle."
+// [Izzy and Uncle Amun stand atop a set of narrow stairs, camera at the foot of these stairs pointing up.  Only their silhouettes are visible]
++setNarrativeBackground(narrative13);
++setNarrativeTextLocation(right, top);
++playSound(footstepsOnWood);
+Narrator: "We climbed a set of stairs and Uncle paused at the top to catch his breath.  He was getting on in age and had trouble dealing with chronic Asthsma."
+Narrator: "I took the opportunity to ask my thus-far, unvoiced question."
+Narrator: "`What are all those paintings of?  They were kind of interesting.`"
+UncleAmun: "`Some places I wish I had visited.  Nothing too important to you.  I imagine you'll have your own set one day.`"
+Narrator: "I frowned up at him.  `Why do you say that?`"
+Narrator: "He gave me that penetrating stare once more.  This time I was ready for it and looked back at him without flinching."
+UncleAmun: "`You and I are more alike than you realize.`"
+Narrator: "I wasn't sure what he meant, but Uncle nodded to himself, as if he had confirmed his assesment of me, and once more turned away."
+Narrator: "He struck up a more brisk pace than before."
+// [An outside view of the estate, a large grass yard extends beyond the camera of a building surrounded by pine woods]
++setNarrativeBackground(narrative14);
++setNarrativeTextLocation(center, top);
+Narrator: "We passed through a room on the second floor with a window that looked out over Uncle's vast grounds."
+Narrator: "I was tempted to stop again, to take in the view, but he rounded a corner and I lost sight of him."
+Narrator: "I hustled to catch up.  He seemed... eager."
+// [The below-depicted room.  Uncle Amun stands by the string with a hand on the hook.]
++setNarrativeBackground(narrative15);
++setNarrativeTextLocation(center, bottom);
+Narrator: "Eventually we came to an empty room except for a hook hanging from a string."
+Narrator: "Uncle grabbed this hook and gave it a firm tug."
+// [Uncle Amun has pulled the hook, the ladder has come down in front of the camera.  The attic above is dark.]
++setNarrativeBackground(narrative16);
++playSound(clatter);
++shakeScreen(200);
+Narrator: "A latch opened to let a wooden ladder tumble down from the ceiling.  It bounced on the floor just a few feet in front of me."
+Narrator: "The wood looked old and rotten, as if it would disintegrate at a moment's notice."
+UncleAmun: "`This leads to my attic.  Go up there pick one thing.  You can keep it.`"
+Narrator: "`What's up there?` I asked, curiously."
+UncleAmun: "`Just some stuff from before I retired.`"
+Narrator: "I gaped at him.  `You're joking.`"
+// [Uncle Amun points up, into the attic]
++setNarrativeBackground(narrative17);
+UncleAmun: "He just gestured to the attic, a twinkle in his eye."
+UncleAmun: "Why don't you take a look?"
+// [The camera has moved forwared and up slightly]
++setNarrativeBackground(narrative18);
++playSound(creak);
+Narrator: "I placed my hands on the rough wood of the ladder and tentatively put my weight on it."
+Narrator: "The boards creaked ominously but seemed likely to hold me up."
+Narrator: "I looked back at Uncle.  `Your sure about this?  I can have anything?`"
+UncleAmun: "`Pick one thing.  That's all.`"
+// [Animation of camera zooming in to that black attic, camera bouncing left and right, emulating somebody moving up it quickly]
++setNarrativeBackground(narrative19);
+
+// The next sequence is done as a "comic" where each background image depicts a pane.
+
++setNarrativeBackground(narrative20);
++setNarrativeTextLocation(center, top);
+Narrator: "Even as a child, I had always been interested in games."
+// Izzy: "Mom, can we play Go Fish again?"
+// Mom: "Again? We've played ten times today already!"
+// Izzy: "It's FUN!"
+
++setNarrativeBackground(narrative21);
+Narrator: "Some I am very good at."
+// - in an arcade at a fighting game station
+// Boy: *grumbles*
+// Izzy: "So who's next!"
+// - turns to see a long line of contestants
+
++setNarrativeBackground(narrative22);
+Narrator: "Others... Well at least they were still fun to play!"
+// Boy: "Checkmate!"
+// Izzy: "The knight can move like that?!"
+
+
++setNarrativeBackground(narrative23);
+Narrator: "To me, discovering a new game is special."
+// Izzy: "Oh! What's that!"
+// Other: "It's just a wooden chest, there's probably nothing exciting inside--"
+// Izzy: "How do I get up there!?"
+
++setNarrativeBackground(narrative24);
+Narrator: "And the the old ones? I sometimes think that those can be even more special."
+// - bargain bin antique store
+// Izzy: "King's Quest?  What's this?"
+
+// [previous picture of Izzy climbing the ladder]
++setNarrativeBackground(narrative25);
++setNarrativeTextLocation(center, bottom);
+Narrator: "So when Uncle told me I could take something from his attic--"
+Narrator: "--An attic that held who knows what original copies, unreleased prototypes, and never-before-seen demos of games from his storied career as a game director--"
+Narrator: "--I scrambled up that ladder as fast as I could."
+
+// Enter loading screen and change room...
++setMode(Room)
+// +changeRoom(attic, markerBottom, u);
+
+// The player now has a view of the attic and can click on various things inside.  Izzy examines them and recognizes some things, but is mostly disinterested.  When the player selectes the prototype game device, Izzy gets excited, and the next narrative cutscene plays.

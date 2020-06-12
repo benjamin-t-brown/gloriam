@@ -72,6 +72,7 @@ window.addEventListener('keyup', ev => {
 });
 window.addEventListener('mousedown', ev => {
   // skip triggering these events when clicking ui elements (so buttons and such don't count for clicks)
+  console.log('INPUT MOUSE', ev.target && ev.target.id);
   if (ev.target && ev.target.id && ev.target.id.includes('cmpt-game')) {
     const cb = input.getEventCb('mousedown', ev);
     if (cb) {

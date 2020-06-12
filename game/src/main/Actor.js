@@ -1,5 +1,5 @@
 import display from 'display/Display';
-import theme from 'main/theme';
+import { colors } from 'theme';
 import { getElem, elemExists } from 'db';
 
 export const HEADINGS = {
@@ -18,7 +18,7 @@ class Actor {
     this.shouldAnimUseHeading = false;
     this.name = spriteBase;
     this.subtitleText = '';
-    this.subtitleTextColor = theme.palette.white;
+    this.subtitleTextColor = colors.white;
     this.subtitleSound = null;
     this.cadence = null;
     this.cadenceSprites = {};
@@ -114,7 +114,6 @@ class Actor {
       cadenceBase = this.animationName;
     }
     cadenceBase += '_cad';
-    console.log('CADENCE BASE!', cadenceBase, this.animationState);
     const desiredSprites = display.getCadenceSprites(cadenceBase);
     if (desiredSprites) {
       return desiredSprites;

@@ -1,66 +1,62 @@
-import React, { createRef } from 'react';
+import React from 'react';
 import display from 'display/Display';
 
-class ContainerDisplay extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      width: window.innerWidth,
-      height: window.innerHeight,
-    };
+const ContainerDisplay = props => {
+  const canvasRef = React.useRef(null);
+  const [size, setSize] = React.useState(
+    props.childProps.gameInterface.getGameAreaSize()
+  );
+  const { width, height } = props.childProps.gameInterface.getGameAreaSize();
 
-    this.canvasRef = createRef();
-
-    this.handleResize = () => {
+  React.useEffect(() => {
+    const handleResize = () => {
       const { width, height } = props.childProps.gameInterface.getGameAreaSize();
-      this.setState({
+      setSize({
         width,
         height,
       });
       setTimeout(() => {
         const { width, height } = props.childProps.gameInterface.getGameAreaSize();
         display.resize(width, height);
-      });
+      }, 50);
     };
-  }
 
-  componentDidMount() {
-    const { width, height } = this.props.childProps.gameInterface.getGameAreaSize();
-    window.addEventListener('resize', this.handleResize);
-    display.setCanvas(this.canvasRef.current);
+    setSize({
+      width,
+      height,
+    });
+    window.addEventListener('resize', handleResize);
+    display.setCanvas(canvasRef.current);
     display.resize(width, height);
-  }
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, [width, height, props.childProps.gameInterface]);
 
-  componentWillUnmount() {
-    window.removeEventListener('resize', this.handleResize);
-  }
-
-  render() {
-    const Child = this.props.child;
-    return (
-      <div>
-        <canvas
-          className="screen"
-          key="screen"
-          id="screen"
-          ref={this.canvasRef}
-          width={this.state.width}
-          height={this.state.height}
-          style={{
-            position: 'fixed',
-            left: 0,
-            top: 0,
-          }}
-        />
-        <Child
-          width={this.state.width}
-          height={this.state.height}
-          canvasRef={this.canvasRef}
-          {...this.props.childProps}
-        />
-      </div>
-    );
-  }
-}
+  const Child = props.child;
+  return (
+    <div>
+      <canvas
+        className="screen"
+        key="screen"
+        id="screen"
+        ref={canvasRef}
+        width={size.width}
+        height={size.height}
+        style={{
+          position: 'fixed',
+          left: 0,
+          top: 0,
+        }}
+      />
+      <Child
+        width={size.width}
+        height={size.height}
+        canvasRef={canvasRef}
+        {...props.childProps}
+      />
+    </div>
+  );
+};
 
 export default ContainerDisplay;

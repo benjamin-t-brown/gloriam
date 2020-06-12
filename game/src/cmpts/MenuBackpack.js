@@ -2,23 +2,39 @@ import React from 'react';
 import display from 'display/Display';
 import Animation from 'cmpts/Animation';
 import { getElem } from 'db';
+import { colors } from 'theme';
 
 const TRANSITION_TIME = 0.25;
 
-const DRAWER_SIZE = 125;
+const DRAWER_SIZE = 145;
 const ITEM_SIZE = 115;
 
 export const MENU_HEIGHT = DRAWER_SIZE;
 
-const Item = ({ itemName, content, onClick, style }) => {
+const Item = ({
+  itemName,
+  i,
+  content,
+  isActive,
+  setActiveItem,
+  unsetActiveItem,
+  onClick,
+  style,
+}) => {
   const item = itemName ? getElem('items', itemName) : null;
   return (
     <div
-      className="ui-elem"
+      className={`ui-elem ui-item ${isActive ? 'ui-item-selected' : ''}`}
       onClick={
         onClick ||
         (ev => {
+          if (isActive) {
+            unsetActiveItem();
+          } else {
+            setActiveItem(i, itemName);
+          }
           ev.preventDefault();
+          ev.stopPropagation();
         })
       }
       style={{
@@ -27,14 +43,17 @@ const Item = ({ itemName, content, onClick, style }) => {
         alignItems: 'center',
         borderRadius: '1rem',
         cursor: 'pointer',
-        fontSize: '4rem',
+        fontSize: '2rem',
         width: `${ITEM_SIZE}px`,
         height: `${ITEM_SIZE}px`,
         margin: '0px .75rem',
+        boxSizing: 'border-box',
+        border: isActive ? `4px groove ${colors.yellow}` : '',
+        background: isActive ? `${colors.darkGrey}` : '',
         ...style,
       }}
     >
-      {itemName ? <Animation animName={item.animName} /> : null}
+      {itemName ? <Animation animName={item.menuAnimName} /> : null}
       <span className="no-select">{content}</span>
     </div>
   );
@@ -72,9 +91,53 @@ const ScrollBar = ({ onDownClick, onUpClick, isColumn, style }) => {
   );
 };
 
-const MenuBackpack = ({ items }) => {
-  const [open, setOpen] = React.useState(false);
+const MenuBackpack = ({ items, gameInterface }) => {
+  const [open, setOpen] = React.useState(true);
+  const [activeItem, setActiveItemObj] = React.useState({ index: -1, itemName: '' });
+  const [itemRow, setItemRow] = React.useState(0);
   const isColumn = false; // window.innerWidth < window.innerHeight;
+
+  const setActiveItem = (index, itemName) => {
+    setActiveItemObj({
+      itemName,
+      index,
+    });
+  };
+
+  const unsetActiveItem = () => {
+    setActiveItem(-1, '');
+  };
+
+  const increaseItemRow = () => {
+    const numItemsToDisplay = getNumItemsToDisplay();
+    const currentStartingIndex = itemRow * numItemsToDisplay;
+    const currentEndingIndex = currentStartingIndex + numItemsToDisplay - 1;
+    if (currentEndingIndex < items.length - 1) {
+      setItemRow(itemRow + 1);
+    } else {
+      setItemRow(Math.floor((items.length - 1) / numItemsToDisplay));
+    }
+  };
+
+  const decreaseItemRow = () => {
+    if (itemRow - 1 >= 0) {
+      setItemRow(itemRow - 1);
+    } else {
+      setItemRow(0);
+    }
+  };
+
+  const getNumItemsToDisplay = () => {
+    const width = window.innerWidth - ITEM_SIZE - 185;
+    return Math.floor(width / ITEM_SIZE) || 1;
+  };
+
+  const numItemsToDisplay = getNumItemsToDisplay();
+  let startingIndex = itemRow * numItemsToDisplay;
+  if (numItemsToDisplay >= items.length) {
+    startingIndex = 0;
+  }
+  const itemsToDisplay = items.slice(startingIndex, startingIndex + numItemsToDisplay);
 
   const rowStyle = {
     position: 'fixed',
@@ -84,35 +147,40 @@ const MenuBackpack = ({ items }) => {
     width: '100%',
     height: open ? `${DRAWER_SIZE}px` : '0px',
     transition: `height ${TRANSITION_TIME}s ease-out, opacity ${TRANSITION_TIME}s`,
-    backgroundColor: '#50576B',
-    borderTop: open ? '5px solid #FFCE00' : '0px solid white',
-    overflow: 'hidden',
+    backgroundColor: colors.greyBlue,
+    border: open ? `10px ridge ${colors.yellow}` : '0px solid white',
     display: 'flex',
     justifyContent: 'flex-start',
     alignItems: 'center',
     opacity: open ? 1 : 0,
-  };
-
-  const columnStyle = {
-    position: 'fixed',
-    bottom: 0,
-    right: 0,
-    top: 0,
-    height: '100%',
-    width: open ? `${DRAWER_SIZE}px` : '0px',
-    transition: `width ${TRANSITION_TIME}s ease-out, opacity ${TRANSITION_TIME}s`,
-    backgroundColor: '#50576B',
-    borderLeft: open ? '5px solid #FFCE00' : '0px solid white',
-    overflow: 'hidden',
-    display: 'flex',
-    flexDirection: 'column-reverse',
-    justifyContent: 'flex-start',
-    alignItems: 'center',
-    opacity: open ? 1 : 0,
+    boxSizing: 'border-box',
   };
   return (
     <>
-      <div className="ui-elem" style={isColumn ? columnStyle : rowStyle}>
+      <div
+        className="ui-elem"
+        style={rowStyle}
+        onClick={() => {
+          if (activeItem.index > -1) {
+            unsetActiveItem();
+          }
+        }}
+      >
+        <div
+          style={{
+            position: 'absolute',
+            color: colors.white,
+            right: '-10px',
+            top: '-67px',
+            padding: '0px 8px',
+            fontSize: '32px',
+            background: 'rgba(0, 0, 0, 0.7)',
+            border: `10px ridge ${colors.purple}`,
+            display: activeItem.index > -1 ? 'block' : 'none',
+          }}
+        >
+          {activeItem.index > -1 ? `Use ${activeItem.itemName} with what?` : ''}
+        </div>
         <div
           style={{
             display: 'flex',
@@ -128,14 +196,19 @@ const MenuBackpack = ({ items }) => {
               color: '#FFCE00',
               border: '1px solid #FFCE00',
             }}
-            content={isColumn ? '⯈' : '▼'}
+            content="Menu"
             onClick={ev => {
-              display.playSoundName('bag_close');
-              setOpen(false);
+              // display.playSoundName('bag_close');
+              // setOpen(false);
+              gameInterface.setEscMenuOpen(true);
               ev.preventDefault();
             }}
           />
-          <ScrollBar isColumn={isColumn} />
+          <ScrollBar
+            isColumn={isColumn}
+            onUpClick={decreaseItemRow}
+            onDownClick={increaseItemRow}
+          />
           <div
             style={{
               display: 'flex',
@@ -143,42 +216,19 @@ const MenuBackpack = ({ items }) => {
               flexDirection: 'row-reverse',
             }}
           >
-            {items.map(itemName => {
-              return <Item itemName={itemName} />;
+            {itemsToDisplay.map((itemName, i) => {
+              return (
+                <Item
+                  itemName={itemName}
+                  i={i + startingIndex}
+                  isActive={i + startingIndex === activeItem.index}
+                  setActiveItem={setActiveItem}
+                  unsetActiveItem={unsetActiveItem}
+                />
+              );
             })}
           </div>
         </div>
-      </div>
-      <div
-        className="ui-elem"
-        style={{
-          borderRadius: '8px',
-          padding: '5px',
-          cursor: 'pointer',
-          transition: `opacity ${TRANSITION_TIME}s ease-out`,
-          opacity: open ? 0 : 1,
-          pointerEvents: open ? 'none' : null,
-          position: 'fixed',
-          bottom: 0,
-          right: 0,
-        }}
-        onDragStart={ev => {
-          ev.preventDefault();
-        }}
-        onClick={ev => {
-          display.playSoundName('bag_open');
-          setOpen(true);
-          ev.preventDefault();
-          ev.stopPropagation();
-        }}
-      >
-        <img
-          src="/img/static-bag.png"
-          alt="inventory"
-          style={{
-            cursor: 'pointer',
-          }}
-        ></img>
       </div>
     </>
   );

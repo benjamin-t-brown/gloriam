@@ -204,3 +204,19 @@ export function drawPath(start, end, path, room) {
     display.drawLine(p.x, p.y, p2.x, p2.y, 'white');
   }
 }
+
+export function calculateAndSetScale(width, height) {
+  let scale = Math.min(display.height / height, display.width / width);
+  if (scale < 1) {
+    if (scale > 0.5) {
+      scale = 0.5;
+    } else if (scale > 0.25) {
+      scale = 0.25;
+    }
+  } else {
+    // comment back in to scale to whole numbers
+    //scale = Math.floor(scale);
+  }
+
+  return scale;
+}

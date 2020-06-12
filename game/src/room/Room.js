@@ -1,11 +1,10 @@
-import { HEADINGS } from 'main/Actor';
 import RoomActor from 'room/RoomActor';
 import { getElem } from 'db';
 import display from 'display/Display';
 import { isPointWithinRect, hexToRGBA } from 'utils';
 import { getWaypointPath, getCollisionWalls } from 'pathfinding';
 import scene from 'main/Scene';
-import theme from 'main/theme';
+import { colors } from 'theme';
 
 class Room {
   constructor(gameInterface, roomName, playerCharacters) {
@@ -17,6 +16,7 @@ class Room {
       characters,
       walls,
       triggers,
+      items,
       bgImage,
       fgImage,
       width,
@@ -89,6 +89,23 @@ class Room {
       this.triggers.push(trigger);
     });
 
+    items.forEach(({ itemName, x, y }) => {
+      const itemTemplate = getElem('items', itemName);
+      const act = new RoomActor(
+        this,
+        {
+          ...itemTemplate,
+          spriteBase: itemTemplate.animName,
+        },
+        this.camera
+      );
+      act.width = 32;
+      act.height = 32;
+      act.isItem = true;
+      act.setAt(x, y);
+      this.actors.push(act);
+    });
+
     console.log('RoomController', this);
   }
 
@@ -129,6 +146,28 @@ class Room {
         return prev;
       }
     }, null);
+  }
+
+  getItemOrCharacterAt(x, y) {
+    let ret = null;
+
+    for (let i = 0; i < this.actors.length; i++) {
+      const act = this.actors[i];
+      if (act.isCharacter || act.isItem) {
+        const { x: actX, y: actY } = act;
+        const { width, height } = act.hitBox;
+        const xTopLeft = actX - width / 2;
+        const yTopLeft = actY - width / 2;
+        if (isPointWithinRect({ x, y }, { x: xTopLeft, y: yTopLeft, width, height })) {
+          if (!ret) {
+            ret = act;
+            break;
+          }
+        }
+      }
+    }
+
+    return ret;
   }
 
   getCharacterAt(x, y) {
@@ -177,9 +216,9 @@ class Room {
   }
 
   actorWalkTowards(act, point) {
-    //console.log('WALK TO POSITION', act.getWalkPosition(), point);
+    // console.log('WALK TO POSITION', act.getWalkPosition(), point);
     const path = getWaypointPath(act.getWalkPosition(), point, this.walls, this);
-    //console.log('PATH', path);
+    // console.log('PATH', path);
     if (path.length) {
       //console.log('ACTOR WALK PATH', path);
       act.setWalkPath(path, () => {
@@ -297,7 +336,7 @@ class Room {
           window.innerWidth / 2,
           {
             color: act.subtitleTextColor,
-            backgroundColor: hexToRGBA(theme.palette.black, 0.9),
+            backgroundColor: hexToRGBA(colors.black, 0.9),
             backgroundPadding: 2,
             size: this.baseScale * 5 + 8,
             centered: true,
@@ -322,17 +361,17 @@ class Room {
     }
 
     // DEBUG: draw wall rectangles
-    // for (let i = 0; i < this.walls.length; i++) {
-    //   const wall = this.walls[i];
-    //   const { x, y } = this.worldToRenderCoords(wall);
-    //   display.drawRectOutline(
-    //     x,
-    //     y,
-    //     wall.width * this.baseScale,
-    //     wall.height * this.baseScale,
-    //     'red'
-    //   );
-    // }
+    for (let i = 0; i < this.walls.length; i++) {
+      const wall = this.walls[i];
+      const { x, y } = this.worldToRenderCoords(wall);
+      display.drawRectOutline(
+        x,
+        y,
+        wall.width * this.baseScale,
+        wall.height * this.baseScale,
+        'red'
+      );
+    }
 
     for (let i = 0; i < this.renderables.length; i++) {
       const r = this.renderables[i];

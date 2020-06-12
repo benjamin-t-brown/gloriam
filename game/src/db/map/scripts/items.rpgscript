@@ -1,5 +1,7 @@
-#items-SmallRock
-item,ConsiliumStatua,this
+// This file contains all the talk triggers for an item when a user clicks them in the 
+// game.
+
+#items-menu-SmallRock
 action,this
 @this
 Rydo: "I found this rock on the ground near a window on an eastern wall of the castle."

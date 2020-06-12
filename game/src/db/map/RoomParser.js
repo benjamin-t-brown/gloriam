@@ -1,5 +1,7 @@
 import display from 'display/Display';
 
+const GID_ITEM = 8;
+
 class RoomParser {
   constructor(name, tilesets) {
     this.name = name;
@@ -105,6 +107,7 @@ class RoomParser {
       props: [],
       characters: [],
       triggers: [],
+      items: [],
       walls: [],
       width: 0,
       height: 0,
@@ -178,12 +181,23 @@ class RoomParser {
     });
 
     triggersLayer.objects.forEach(obj => {
-      const { name, width, height, x: xW, y: yW, type } = obj;
+      const { name, width, height, x: xW, y: yW, type, gid } = obj;
       const x = xW;
       const y = yW;
-      if (name && !db.elemExists('triggers', this.name + '-' + name)) {
+      if (gid === GID_ITEM) {
+        if (!db.elemExists('items', name)) {
+          this.warn(`Warning, item specified, but no item exists: ${name}`);
+          return;
+        }
+        roomTemplate.items.push({
+          itemName: name,
+          x,
+          y,
+        });
+        return;
+      } else if (name && !db.elemExists('triggers', this.name + '-' + name)) {
         this.warn(
-          `Warning, trigger created with name and no associated trigger: "${this.name}/${name}"`
+          `Warning, trigger specified with name and no definition: "${this.name}-${name}"`
         );
       }
       const trigger = {

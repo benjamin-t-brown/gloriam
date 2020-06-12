@@ -478,6 +478,18 @@ display.drawSprite = function(sprite, x, y, params) {
   }
 };
 
+display.getSpriteSize = function(spriteName) {
+  const sprite = display.getSprite(spriteName);
+  if (sprite) {
+    return {
+      width: sprite.clip_w,
+      height: sprite.clip_h,
+    };
+  } else {
+    throw new Error(`Cannot get sprite with name ${spriteName}`);
+  }
+};
+
 display.measureText = function({ text, font, size }) {
   const ctx = display.getCtx();
   ctx.textAlign = 'left';
@@ -655,7 +667,7 @@ display.resize = function(width, height) {
   display.setCanvas(ctx.canvas);
 };
 
-display.init = async function(canvasId) {
+display.init = async function(canvasId, width, height) {
   if (display.loaded) {
     console.warn('[DISPLAY] already loaded!');
     return;
@@ -673,12 +685,17 @@ display.init = async function(canvasId) {
   display.setCanvas(
     document.getElementById(display.canvasId) || document.createElement('canvas')
   );
-  display.width = display.canvas.width;
-  display.height = display.canvas.height;
+  display.width = width || display.canvas.width;
+  display.height = height || display.canvas.height;
+
+  if (width && height) {
+    display.canvas.width = width;
+    display.canvas.height = height;
+  }
 
   const l = new AssetLoader();
   await l.loadAssets();
-  display.resize(window.innerWidth, window.innerHeight);
+  display.resize(display.width, display.height);
   console.log('[DISPLAY] successfully loaded.');
   display.loading = false;
 };

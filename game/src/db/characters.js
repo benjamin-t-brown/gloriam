@@ -1,4 +1,4 @@
-import theme from 'main/theme';
+import { colors } from 'theme';
 import { HEADINGS } from 'main/Actor';
 
 const characters = {};
@@ -35,7 +35,7 @@ function createTemplate(name, battleOnly) {
 {
   const c = createTemplate('Ferelith');
   c.spriteBase = 'ferelith';
-  c.textColor = theme.palette.lightRed;
+  c.textColor = colors.lightRed;
   c.skills = ['Poison', 'Shield Cracker'];
   c.POW = 15;
   c.ACC = 8;
@@ -51,7 +51,7 @@ function createTemplate(name, battleOnly) {
 {
   const c = createTemplate('Rydo');
   c.spriteBase = 'rydo';
-  c.textColor = theme.palette.lightBlue;
+  c.textColor = colors.lightBlue;
   c.skills = ['Poison', 'Shield Cracker', 'Punch'];
   c.POW = 15;
   c.ACC = 8;
@@ -89,7 +89,7 @@ function createTemplate(name, battleOnly) {
   const c = createTemplate('CorneliusLiber');
   c.spriteBase = 'cornelius';
   c.displayName = 'Cornelius Liber';
-  c.textColor = theme.palette.lightPurple;
+  c.textColor = colors.lightPurple;
   c.talkTrigger = 'library_l1-CorneliusLiber';
   c.defaultHeading = HEADINGS.UP;
 }
@@ -98,7 +98,7 @@ function createTemplate(name, battleOnly) {
   const c = createTemplate('GardnerHarris');
   c.spriteBase = 'GardnerHarris';
   c.displayName = 'Gardner Harris';
-  c.textColor = theme.palette.green;
+  c.textColor = colors.green;
   c.talkTrigger = 'gardens-GardnerHarris';
   c.defaultHeading = HEADINGS.UP;
 }

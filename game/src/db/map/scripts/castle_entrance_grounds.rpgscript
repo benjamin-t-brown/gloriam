@@ -15,3 +15,11 @@ step,this
 step,this
 @this
 +changeRoom(east_window, markerLeft, r);
+
+#castle_entrance_grounds-getSmallRock
+action,this
+@this
++walkToMarker(Rydo, markerA);
+Rydo: "Hmm, a small rock?"
+Rydo: "What should I do with this?"
++acquireItem(Rydo, Small Rock);

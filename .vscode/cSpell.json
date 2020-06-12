@@ -8,9 +8,11 @@
     "words": [
         "anim",
         "anims",
+        "canv",
         "cmpt",
         "cmpts",
         "cooldown",
+        "Crkr",
         "cutscene",
         "elem",
         "Elems",
@@ -19,9 +21,11 @@
         "Ferelith",
         "firstgid",
         "grif",
+        "Interruptable",
         "Iroha",
         "isnot",
         "nframes",
+        "panzoom",
         "pathfinding",
         "preemptible",
         "readyroom",
@@ -29,13 +33,15 @@
         "renderables",
         "rpgscript",
         "Rydo",
+        "shockwaves",
         "spritesheet",
         "spritesheets",
         "tileset",
         "tilesets",
         "unmount",
         "verts",
-        "waypoint"
+        "waypoint",
+        "zzfx"
     ],
     // flagWords - list of words to be always considered incorrect
     // This is useful for offensive words and common spelling errors.
