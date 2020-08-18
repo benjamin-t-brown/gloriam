@@ -210,15 +210,25 @@ class ScriptParser {
     }
 
     if (firstParenIndex === -1 || firstParenIndex === 0) {
-      this.throwParsingError('Invalid command, no name provided', lineNum, commandSrc);
+      this.throwParsingError(
+        'Invalid command, no name provided',
+        lineNum,
+        commandSrc
+      );
     }
     if (lastParenIndex === -1 || lastParenIndex === 0) {
-      this.throwParsingError('Invalid command, no end parens', lineNum, commandSrc);
+      this.throwParsingError(
+        'Invalid command, no end parens',
+        lineNum,
+        commandSrc
+      );
     }
 
     let args = commandSrc.substr(
       firstParenIndex + 1,
-      commandSrc.length - (firstParenIndex + 1) - (commandSrc.length - lastParenIndex)
+      commandSrc.length -
+        (firstParenIndex + 1) -
+        (commandSrc.length - lastParenIndex)
     );
     args = splitNotInParens(args, ',').map(arg => arg.trim());
     args.forEach(arg => {
@@ -293,10 +303,18 @@ class ScriptParser {
     if (conditionalStartIndex > -1) {
       const colonIndex = line.indexOf(':');
       if (colonIndex === -1) {
-        this.throwParsingError(`Invalid conditional, no ending ':'`, lineNum, line);
+        this.throwParsingError(
+          `Invalid conditional, no ending ':'`,
+          lineNum,
+          line
+        );
       }
       const conditionalSrc = line.slice(conditionalStartIndex + 1, colonIndex);
-      const conditional = this.parseConditional(conditionalSrc.trim(), lineNum, script);
+      const conditional = this.parseConditional(
+        conditionalSrc.trim(),
+        lineNum,
+        script
+      );
       return { conditional, endIndex: colonIndex + 1 };
     } else {
       return { conditional: true, endIndex: 0 };
@@ -408,7 +426,11 @@ class ScriptParser {
           commandSrc = commandSrc.slice(1);
         }
 
-        const { type, args } = this.parseCommand(commandSrc, lineNum, currentScript);
+        const { type, args } = this.parseCommand(
+          commandSrc,
+          lineNum,
+          currentScript
+        );
         let block = null;
         if (isCodeBlock) {
           if (currentBlock === null) {
@@ -453,18 +475,23 @@ class ScriptParser {
         let triggerContents = line.substr(firstCommaIndex + 1);
         let itemConditional = null;
         if (triggerType === 'item') {
-          const itemName = triggerContents.slice(0, triggerContents.indexOf(','));
+          const itemName = triggerContents.slice(
+            0,
+            triggerContents.indexOf(',')
+          );
           itemConditional = {
             type: 'with',
             args: [itemName],
           };
-          triggerContents = triggerContents.slice(triggerContents.indexOf(',') + 1);
+          triggerContents = triggerContents.slice(
+            triggerContents.indexOf(',') + 1
+          );
         }
 
-        const { conditional: localConditional, endIndex } = this.getConditionalFromLine(
-          triggerContents,
-          lineNum
-        );
+        const {
+          conditional: localConditional,
+          endIndex,
+        } = this.getConditionalFromLine(triggerContents, lineNum);
         let conditional = localConditional;
         if (itemConditional) {
           conditional = this.combineConditionals(

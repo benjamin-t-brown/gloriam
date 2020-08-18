@@ -1,5 +1,5 @@
 import React from 'react';
-import MenuBack from 'elements/MenuBack';
+import MenuBack from 'cmpts/MenuBack';
 import { MENU_STATES } from 'cmpts/EscMenu';
 import { colors } from 'theme';
 
@@ -34,7 +34,7 @@ const OptionsMenuContent = ({ setCurrentMenu }) => {
             }}
             type="checkbox"
           ></input>
-          <label for="sound"> Enable Sound</label>
+          <label htmlFor="sound"> Enable Sound</label>
         </div>
         <div
           style={{
@@ -54,7 +54,7 @@ const OptionsMenuContent = ({ setCurrentMenu }) => {
             }}
             type="checkbox"
           ></input>
-          <label for="voice"> Enable Voice</label>
+          <label htmlFor="voice"> Enable Voice</label>
         </div>
       </div>
     </div>

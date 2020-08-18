@@ -593,7 +593,7 @@
         </dict>
         <dict>
           <key>match</key>
-          <string>([\w]*,)</string>
+          <string>([\w\x{0020}]*,)</string>
           <key>name</key>
           <string>variable.parameter.rpgscript</string>
         </dict>

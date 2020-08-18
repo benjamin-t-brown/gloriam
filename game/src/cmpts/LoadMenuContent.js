@@ -1,6 +1,6 @@
 import React from 'react';
-import MenuList from 'elements/MenuList';
-import MenuBack from 'elements/MenuBack';
+import MenuList from 'cmpts/MenuList';
+import MenuBack from 'cmpts/MenuBack';
 import { MENU_STATES } from 'cmpts/EscMenu';
 import { colors } from 'theme';
 

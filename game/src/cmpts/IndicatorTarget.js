@@ -2,7 +2,7 @@ import React from 'react';
 import ContainerTargetFollower from 'cmpts/ContainerTargetFollower';
 import ScaledAnimation from 'cmpts/ScaledAnimation';
 
-export default function(props) {
+export default function (props) {
   const { ch, battle, type } = props;
 
   const size = battle.baseScale * 64;

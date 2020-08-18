@@ -66,11 +66,11 @@ Narrator: "I hadn't seen them before.  Uncle had never expressed interested in s
 +playSound(churchBell);
 Narrator: "I paused by a painting that caught my eye."
 Narrator: "It depicted the inside of an old church.  Beams of sunlight shown through stained glass windows, dust in the air partially obscuring the rotting pews below it."
-Narrator: "On the alter at the far end was a bright light, and something barely recognizable..."
+Narrator: "On the altar at the far end was a bright light, and something barely recognizable..."
 +setNarrativeTextLocation(left, bottom);
 UncleAmun: "`Come on, Izzy.  I don't want you to get lost in here.`"
 +setNarrativeTextLocation(left, top);
-Narrator: "I took one last glance at the picture.  It felt like I had seen it before.  The thing on the alter."
+Narrator: "I took one last glance at the picture.  It felt like I had seen it before.  The thing on the altar."
 Narrator: "It appeaed to be a crystal of some kind.  But what was it for?"
 Narrator: "I shook my head and continued to follow Uncle."
 // [Izzy and Uncle Amun stand atop a set of narrow stairs, camera at the foot of these stairs pointing up.  Only their silhouettes are visible]
@@ -110,7 +110,7 @@ Narrator: "I gaped at him.  `You're joking.`"
 // [Uncle Amun points up, into the attic]
 +setNarrativeBackground(narrative17);
 UncleAmun: "He just gestured to the attic, a twinkle in his eye."
-UncleAmun: "Why don't you take a look?"
+UncleAmun: "`Why don't you take a look?`"
 // [The camera has moved forwared and up slightly]
 +setNarrativeBackground(narrative18);
 +playSound(creak);

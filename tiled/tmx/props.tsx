@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<tileset version="1.2" tiledversion="1.3.1" name="props" tilewidth="256" tileheight="256" tilecount="23" columns="0">
+<tileset version="1.2" tiledversion="1.3.1" name="props" tilewidth="256" tileheight="256" tilecount="24" columns="0">
  <grid orientation="orthogonal" width="1" height="1"/>
  <tile id="0">
   <image width="36" height="36" source="../props/bench.png"/>
@@ -69,5 +69,8 @@
  </tile>
  <tile id="22">
   <image width="140" height="46" source="../props/garden-fence-prop.png"/>
+ </tile>
+ <tile id="23">
+  <image width="42" height="245" source="../props/fence-welcome-grounds.png"/>
  </tile>
 </tileset>

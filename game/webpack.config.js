@@ -17,11 +17,11 @@ const execAsync = cmd => {
 };
 
 module.exports = {
-  entry: './src/index.js',
+  entry: './src/index.tsx',
   mode: 'development',
   devtool: 'inline-source-map',
   resolve: {
-    extensions: ['*', '.js', '.jsx'],
+    extensions: ['*', '.js', '.jsx', '.ts', '.tsx'],
     modules: [path.resolve(__dirname, 'src'), 'node_modules'],
   },
   output: {
@@ -39,11 +39,18 @@ module.exports = {
         exclude: /node_modules/,
         use: ['babel-loader'],
       },
+      {
+        test: /\.tsx?$/,
+        use: 'ts-loader',
+        exclude: /node_modules/,
+      },
     ],
   },
   plugins: [
     new WebpackBeforeBuildPlugin(async (stats, callback) => {
-      let result = await execAsync(`cd ${__dirname}/dist/voice && find . -type f`);
+      let result = await execAsync(
+        `cd ${__dirname}/dist/voice && find . -type f`
+      );
       result = result
         .split('\n')
         .sort()

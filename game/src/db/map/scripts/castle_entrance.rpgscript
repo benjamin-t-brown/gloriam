@@ -18,8 +18,16 @@ step,this
 +changeRoom('library_l1', 'markerLeft', 'r');
 
 #castle_entrance-GateGuard
+action,?all(with(Small Rock),once()):castle_entrance-GateGuardSmallRock1
+action,?with(Small Rock):castle_entrance-GateGuardSmallRock2
 action,?once():castle_entrance-GateGuardFirst
 action,castle_entrance-GateGuardDefault
+
+@castle_entrance-GateGuardSmallRock1
+Rydo: "If I throw a rock at that bafoon, he'll skewer me with his sword."
+
+@castle_entrance-GateGuardSmallRock2
+Rydo: "I shouldn't do that."
 
 @castle_entrance-GateGuardFirst
 +save()
@@ -146,5 +154,3 @@ action,this
 +lookAt(Rydo, banner1-prop)
 Rydo: "Those banners are not very impressive."
 Rydo: "In Elkhain, they would have spanned the length of the wall."
-Rydo: "And that shade of red is so drab."
-Rydo: "I struggle to imagine why King Siff displays it so proudly."

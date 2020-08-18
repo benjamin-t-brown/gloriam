@@ -4,3 +4,6 @@ Sound,light_impact,foley/light_impact.mp3
 Sound,small_woosh,foley/small_woosh.mp3
 Sound,bag_open,foley/bag_open.mp3
 Sound,bag_close,foley/bag_close.mp3
+Sound,get_small_item,foley/get_small_item.mp3
+Sound,use_item,foley/use_item.mp3
+Sound,unuse_item,foley/unuse_item.mp3

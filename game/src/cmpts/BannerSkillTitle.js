@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default function(props) {
+export default function (props) {
   const { battle, scale } = props;
   const skillObj = battle.pendingSkills[0];
 

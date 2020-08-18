@@ -1,5 +1,5 @@
 import { colors } from 'theme';
-import { HEADINGS } from 'main/Actor';
+import { HEADING } from 'utils';
 
 const characters = {};
 
@@ -8,6 +8,7 @@ function createTemplate(name, battleOnly) {
     name,
     spriteBase: 'person',
     talkTrigger: '',
+    defaultTrigger: '',
     skills: ['Punch', 'Shield Cracker', 'Defend', 'Counter'],
     hitBox: { width: 25, height: 52 },
     baseHp: 10,
@@ -62,6 +63,7 @@ function createTemplate(name, battleOnly) {
   c.EVA = 10;
   c.baseHp = 100;
   c.baseShieldHp = 15;
+  c.defaultTrigger = 'default-Rydo';
 }
 
 {
@@ -91,7 +93,7 @@ function createTemplate(name, battleOnly) {
   c.displayName = 'Cornelius Liber';
   c.textColor = colors.lightPurple;
   c.talkTrigger = 'library_l1-CorneliusLiber';
-  c.defaultHeading = HEADINGS.UP;
+  c.defaultHeading = HEADING.UP;
 }
 
 {
@@ -100,7 +102,7 @@ function createTemplate(name, battleOnly) {
   c.displayName = 'Gardner Harris';
   c.textColor = colors.green;
   c.talkTrigger = 'gardens-GardnerHarris';
-  c.defaultHeading = HEADINGS.UP;
+  c.defaultHeading = HEADING.UP;
 }
 {
   const c = createTemplate('KingsMaid');

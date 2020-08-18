@@ -4,7 +4,7 @@ import input from 'display/Input';
 import { pt, drawPath, calculateAndSetScale } from 'utils';
 import TriggerIndicator from 'cmpts/TriggerIndicator';
 import MenuBackpack from 'cmpts/MenuBackpack';
-import scene from '../main/Scene';
+import scene from 'game/Scene';
 
 class RoomUI extends React.Component {
   constructor(props) {
@@ -37,15 +37,32 @@ class RoomUI extends React.Component {
     this.calculateAndSetScale();
   }
 
-  handleClick = ev => {
-    const point = this.props.room.renderToWorldCoords(pt(ev.clientX, ev.clientY));
+  handleClick = async ev => {
+    const point = this.props.room.renderToWorldCoords(
+      pt(ev.clientX, ev.clientY)
+    );
     if (input.isUIInputEnabled() && !scene.isExecutingBlockingScene()) {
       const clickedAct = this.props.room.getItemOrCharacterAt(point.x, point.y);
-      if (clickedAct && clickedAct.talkTrigger) {
-        scene.callTrigger(clickedAct.talkTrigger, 'action');
+      const activeItemName = scene.getActiveItem();
+      if (activeItemName) {
+        if (clickedAct) {
+          // if (clickedAct.defaultTrigger) {
+          //   scene.callTrigger(clickedAct.defaultTrigger, 'action');
+          // }
+          await scene.callTrigger(clickedAct.talkTrigger, 'action');
+        } else {
+          scene.getCommands().playSound('unuse_item');
+        }
+        // render to update backpack
+        scene.unsetActiveItem();
+        this.props.gameInterface.render();
       } else {
-        const act = this.props.room.getActiveActor();
-        this.props.room.actorWalkTowards(act, point);
+        if (clickedAct && clickedAct.talkTrigger) {
+          scene.callTrigger(clickedAct.talkTrigger, 'action');
+        } else {
+          const act = this.props.room.getActiveActor();
+          this.props.room.actorWalkTowards(act, point);
+        }
       }
     }
   };
@@ -112,7 +129,7 @@ class RoomUI extends React.Component {
     window.addEventListener('resize', this.handleResize);
     input.popEventListeners('keydown', this.events);
     input.popEventListeners('mousedown', this.mouseEvents);
-    display.setLoop(function() {});
+    display.setLoop(function () {});
   }
 
   setSelectedActor = act => {
@@ -142,13 +159,16 @@ class RoomUI extends React.Component {
           position: 'relative',
         }}
       >
-        {this.props.room.triggers.map(trigger => {
-          return <TriggerIndicator trigger={trigger} room={this.props.room} />;
+        {this.props.room.triggers.map((trigger, i) => {
+          return (
+            <TriggerIndicator
+              key={i}
+              trigger={trigger}
+              room={this.props.room}
+            />
+          );
         })}
-        <MenuBackpack
-          gameInterface={this.props.gameInterface}
-          items={['Small Rock', 'Small Rock', 'Small Rock', 'Small Rock']}
-        />
+        <MenuBackpack gameInterface={this.props.gameInterface} />
       </div>
     );
   }

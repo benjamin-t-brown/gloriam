@@ -1,4 +1,4 @@
-import Cadence from 'main/Cadence';
+import Cadence from 'game/Cadence';
 
 const cadenceFiles = {};
 

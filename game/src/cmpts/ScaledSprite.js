@@ -21,7 +21,13 @@ class ScaledSprite extends React.Component {
     const { scale, spriteName } = this.props;
     const { clip_w, clip_h } = display.getSprite(spriteName);
 
-    return <canvas ref={this.canvasRef} width={scale * clip_w} height={scale * clip_h} />;
+    return (
+      <canvas
+        ref={this.canvasRef}
+        width={scale * clip_w}
+        height={scale * clip_h}
+      />
+    );
   }
 }
 

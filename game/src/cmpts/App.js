@@ -3,10 +3,10 @@ import ContainerDisplay from 'cmpts/ContainerDisplay';
 import BattleUI from 'cmpts/BattleUI';
 import RoomUI from 'cmpts/RoomUI';
 import NarrativeUI from 'cmpts/NarrativeUI';
-import Room from 'room/Room';
+import Room from 'game/Room';
 import EscMenu from 'cmpts/EscMenu';
 import { MENU_HEIGHT } from 'cmpts/MenuBackpack';
-import scene, { MODES } from 'main/Scene';
+import scene, { MODES } from 'game/Scene';
 import { getElem } from 'db';
 
 const App = class extends React.Component {
@@ -23,16 +23,21 @@ const App = class extends React.Component {
     ];
 
     this.GameInterface = {
+      render: () => {
+        this.setState({
+          render: !this.state.render,
+        });
+      },
       getMode: () => {
         return mode;
       },
       getRoom: () => {
         // return this.state.room.room;
-        if (this.state.mode.room !== MODES.ROOM) {
+        if (this.GameInterface.getMode() !== MODES.ROOM) {
           console.warn('Warning, call to getRoom when not in ROOM mode');
           return null;
         }
-        return room;
+        return room || this.state.room;
       },
       getActor: actorName => {
         const act = room.getActor(actorName);
@@ -50,7 +55,11 @@ const App = class extends React.Component {
       },
       setRoom: roomName => {
         console.log('SET ROOM', roomName);
-        const newRoom = new Room(props.gameInterface, roomName, playerCharacters);
+        const newRoom = new Room(
+          props.gameInterface,
+          roomName,
+          playerCharacters
+        );
         this.setState({
           mode: MODES.ROOM,
           room: {
@@ -61,7 +70,7 @@ const App = class extends React.Component {
         });
         room = newRoom;
         global.room = newRoom;
-        scene.setRoom(newRoom);
+        // scene.setRoom(newRoom);
       },
       setBattle: battleName => {},
       isEscMenuOpen: () => {
@@ -76,7 +85,9 @@ const App = class extends React.Component {
       restore: () => room.restore(),
       getGameAreaSize: () => ({
         width: window.innerWidth,
-        height: window.innerHeight - (this.state.mode === MODES.ROOM ? MENU_HEIGHT : 0),
+        height:
+          window.innerHeight -
+          (this.state.mode === MODES.ROOM ? MENU_HEIGHT : 0),
       }),
       setMode: m => {
         mode = m;
@@ -122,6 +133,7 @@ const App = class extends React.Component {
 
     this.state = {
       mode: MODES.ROOM,
+      render: true,
       escMenuVisible: false,
       room: {
         room: null,
@@ -185,7 +197,10 @@ const App = class extends React.Component {
             }}
           />
         ) : null}
-        <EscMenu open={this.state.escMenuVisible} gameInterface={this.GameInterface} />
+        <EscMenu
+          open={this.state.escMenuVisible}
+          gameInterface={this.GameInterface}
+        />
       </>
     );
   }

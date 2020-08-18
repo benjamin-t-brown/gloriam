@@ -1,7 +1,7 @@
 import React from 'react';
 import display from 'display/Display';
 import input from 'display/Input';
-import scene from 'main/Scene';
+import scene from 'game/Scene';
 import { calculateAndSetScale } from 'utils';
 
 const TRANSITION_TIME = 200;
@@ -70,7 +70,7 @@ const NarrativeUI = ({
     return () => {
       input.popEventListeners('keydown', events);
       input.popEventListeners('mousedown', mouseEvents);
-      display.setLoop(function() {});
+      display.setLoop(function () {});
     };
   }, [gameInterface, events, mouseEvents, backgroundImage, width, height]);
 

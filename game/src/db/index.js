@@ -1,1 +1,1 @@
-export { default, getElem, elemExists, addElem, db } from './db.js';
+export { default, getElem, elemExists, addElem, db } from './db';

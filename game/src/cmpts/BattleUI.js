@@ -64,7 +64,8 @@ class ContainerBattle extends React.Component {
         ev.preventDefault();
         if (this.state.selectedPlayer) {
           this.battle.addPendingSkill(
-            this.battle.getCharacter(this.state.targetedEnemyIndex, 'enemies').skills[1],
+            this.battle.getCharacter(this.state.targetedEnemyIndex, 'enemies')
+              .skills[1],
             this.battle.getCharacter(this.state.selectedPlayerIndex, 'players')
           );
         }
@@ -79,7 +80,7 @@ class ContainerBattle extends React.Component {
       },
     };
 
-    this.selectNextTarget = function(direction) {
+    this.selectNextTarget = function (direction) {
       if (direction === 'left') {
         if (this.state.selectedPlayer) {
           const newIndex = cycleNextIndex(
@@ -152,7 +153,10 @@ class ContainerBattle extends React.Component {
           ch={this.state.selectedPlayer ? this.state.targetedEnemy : null}
           type="enemy"
         />
-        <BannerSkillTitle battle={this.battle} scale={this.battle.baseScale - 1} />
+        <BannerSkillTitle
+          battle={this.battle}
+          scale={this.battle.baseScale - 1}
+        />
         <PanePartyStatus
           battle={this.battle}
           scale={this.battle.baseScale}
@@ -169,7 +173,12 @@ class ContainerBattle extends React.Component {
           ? this.battle.enemies.map((ch, i) => {
               const size = this.battle.baseScale * 64;
               return (
-                <ContainerTargetFollower key={i} target={ch} width={size} height={size}>
+                <ContainerTargetFollower
+                  key={i}
+                  target={ch}
+                  width={size}
+                  height={size}
+                >
                   <div
                     className="indicator-target"
                     onClick={() => {

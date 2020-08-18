@@ -33,12 +33,12 @@ class MenuSkillSelect extends React.Component {
       },
     };
 
-    this.handleMouseOver = function(i) {
+    this.handleMouseOver = function (i) {
       const { ch } = this.props;
       ch.selectSkill(i);
     };
 
-    this.handleMouseDown = function(i) {
+    this.handleMouseDown = function (i) {
       const { battle, ch } = this.props;
       ch.selectSkill(i);
       battle.addPendingSkill(ch.getSelectedSkill(), battle.getTarget());

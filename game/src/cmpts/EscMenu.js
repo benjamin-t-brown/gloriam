@@ -1,7 +1,7 @@
 import React from 'react';
-import MenuList from 'elements/MenuList';
-import MenuBack from 'elements/MenuBack';
-import MenuClose from 'elements/MenuClose';
+import MenuList from 'cmpts/MenuList';
+import MenuBack from 'cmpts/MenuBack';
+import MenuClose from 'cmpts/MenuClose';
 import SaveMenuContent from 'cmpts/SaveMenuContent';
 import LoadMenuContent from 'cmpts/LoadMenuContent';
 import OptionsMenuContent from 'cmpts/OptionsMenuContent';
@@ -75,7 +75,10 @@ const EscMenu = ({ open, gameInterface }) => {
     case MENU_STATES.MAIN:
     default:
       elem = (
-        <EscMenuContent setCurrentMenu={setCurrentMenu} gameInterface={gameInterface} />
+        <EscMenuContent
+          setCurrentMenu={setCurrentMenu}
+          gameInterface={gameInterface}
+        />
       );
   }
 

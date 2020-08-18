@@ -1,6 +1,6 @@
 import { getElem } from 'db';
 import Stage from 'battle/Stage';
-import Camera from 'main/Camera';
+import Camera from 'game/Camera';
 import BattleActor from 'battle/BattleActor';
 
 import display from 'display/Display';
@@ -110,7 +110,11 @@ class Battle {
       playerX -
       (playerX < 0 ? 1 : -1) * (this.getUnitLength() / 3) -
       (playerX < 0 ? 1 : -1) * this.enemyTarget.battleX * this.baseScale * 4;
-    this.cameraFg.moveTo(cameraFgX, cameraFgY - this.baseScale * 4, this.cameraSpeedMs);
+    this.cameraFg.moveTo(
+      cameraFgX,
+      cameraFgY - this.baseScale * 4,
+      this.cameraSpeedMs
+    );
 
     this.setState({
       targetedEnemyIndex: i,

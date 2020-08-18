@@ -1,13 +1,20 @@
-parser: 'babel-eslint'
+parser: '@typescript-eslint/parser'
+
+parserOptions:
+  ecmaVersion: 2018
+  sourceType: 'module'
+  project: './tsconfig.json'
 
 extends:
   - 'react-app'
   - 'plugin:prettier/recommended'
+  - 'plugin:react/recommended'
+  - 'plugin:@typescript-eslint/recommended'
 
 plugins:
   - 'babel'
   - 'prettier'
-  - 'mocha'
+  - '@typescript-eslint'
 
 settings:
   react:
@@ -15,21 +22,25 @@ settings:
 
 env:
   browser: true
-  mocha: true
-
-overrides:
-  - files: '**/*.test.js'
-    rules:
-      no-class-assign: 0
-      no-console: 0
-      no-unused-expressions: 0
 
 rules:
-  prettier/prettier:
-    - 2
-    - bracketSpacing: true
-      singleQuote: true
-      tabWidth: 2
-      trailingComma: 'es5'
-  no-lone-blocks: 0
-  no-throw-literal: 0
+  no-debugger: 2
+  prettier/prettier: 2
+  prefer-const: 0
+  import/first: off
+  'react/prop-types': off
+  '@typescript-eslint/no-explicit-any': off
+  '@typescript-eslint/explicit-boundary-types': off
+  '@typescript-eslint/no-angle-bracket-type-assertion': off
+  '@typescript-eslint/interface-name-prefix': off
+  '@typescript-eslint/explicit-function-return-type': off
+  '@typescript-eslint/no-empty-function': off
+  'react/display-name': off
+  'react/no-unescaped-entities': off
+  '@typescript-eslint/explicit-member-accessibility': off 
+  "@typescript-eslint/explicit-module-boundary-types": off
+  "@typescript-eslint/no-var-requires": off
+  '@typescript-eslint/consistent-type-assertions':
+    - error
+    - assertionStyle: 'as'
+      objectLiteralTypeAssertions: 'allow'

@@ -10,13 +10,19 @@ const ContainerDisplay = props => {
 
   React.useEffect(() => {
     const handleResize = () => {
-      const { width, height } = props.childProps.gameInterface.getGameAreaSize();
+      const {
+        width,
+        height,
+      } = props.childProps.gameInterface.getGameAreaSize();
       setSize({
         width,
         height,
       });
       setTimeout(() => {
-        const { width, height } = props.childProps.gameInterface.getGameAreaSize();
+        const {
+          width,
+          height,
+        } = props.childProps.gameInterface.getGameAreaSize();
         display.resize(width, height);
       }, 50);
     };

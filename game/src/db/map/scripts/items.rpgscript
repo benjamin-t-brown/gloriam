@@ -1,7 +1,8 @@
 // This file contains all the talk triggers for an item when a user clicks them in the 
 // game.
 
-#items-menu-SmallRock
+#items-mTalkTriggerSmallRock
 action,this
 @this
 Rydo: "I found this rock on the ground near a window on an eastern wall of the castle."
+

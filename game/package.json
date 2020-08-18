@@ -2,7 +2,7 @@
   "name": "gloriam",
   "version": "1.0.0",
   "description": "Gloriam game+comic",
-  "main": "index.js",
+  "main": "index.tsx",
   "scripts": {
     "start": "yarn watch",
     "test": "cross-env NODE_ENV=test ./node_modules/.bin/mocha --require @babel/register --timeout 99999",
@@ -21,36 +21,23 @@
   "author": "Benjamin Brown",
   "license": "ISC",
   "babel": {
+    "presets": [
+      "@babel/preset-react"
+    ],
     "plugins": [
       [
         "module-resolver",
         {
           "root": [
             "./src"
-          ],
-          "alias": {
-            "react": "preact/compat",
-            "react-dom": "preact/compat"
-          }
+          ]
         }
       ],
       "@babel/plugin-proposal-class-properties"
-    ],
-    "presets": [
-      "@babel/preset-react",
-      [
-        "@babel/preset-env",
-        {
-          "targets": {
-            "browsers": "last 1 chrome versions"
-          }
-        }
-      ]
     ]
   },
   "dependencies": {
     "before-build-webpack": "^0.2.9",
-    "preact": "^10.0.5",
     "require-dir": "^1.2.0"
   },
   "devDependencies": {
@@ -61,29 +48,39 @@
     "@babel/preset-env": "^7.4.5",
     "@babel/preset-react": "^7.0.0",
     "@babel/register": "^7.4.4",
+    "@types/jest": "^24.0.6",
+    "@types/node": "^11.9.4",
+    "@types/react": "^16.8.3",
+    "@types/react-dom": "^16.8.2",
+    "@typescript-eslint/eslint-plugin": "^3.1.0",
+    "@typescript-eslint/parser": "^3.1.0",
     "babel-eslint": "^10.0.1",
     "babel-loader": "^8.0.5",
     "babel-plugin-module-resolver": "^3.2.0",
     "chai": "^4.2.0",
     "cross-env": "^5.2.0",
-    "eslint": "^5.16.0",
+    "eslint": "^7.7.0",
     "eslint-config-prettier": "^6.4.0",
-    "eslint-config-react-app": "^4.0.1",
+    "eslint-config-react-app": "^5.2.1",
     "eslint-plugin-babel": "^5.3.0",
     "eslint-plugin-flowtype": "^3.10.1",
     "eslint-plugin-import": "^2.17.3",
     "eslint-plugin-jsx-a11y": "^6.2.1",
     "eslint-plugin-mocha": "^5.3.0",
-    "eslint-plugin-prettier": "^3.1.0",
+    "eslint-plugin-prettier": "^3.1.4",
     "eslint-plugin-react": "^7.13.0",
     "eslint-plugin-react-hooks": "^1.6.0",
     "mocha": "^6.1.4",
-    "prettier": "^1.18.2",
-    "raw-loader": "^3.1.0",
-    "terser": "^4.0.0",
-    "webpack": "^4.31.0",
+    "prettier": "^2.0.5",
+    "raw-loader": "^4.0.1",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1",
+    "terser": "^5.1.0",
+    "ts-loader": "^8.0.2",
+    "typescript": "^3.9.7",
+    "webpack": "^4.44.1",
     "webpack-bundle-analyzer": "^3.6.0",
-    "webpack-cli": "^3.3.2",
+    "webpack-cli": "^3.3.12",
     "webpack-dev-server": "^3.7.2",
     "xml2js": "^0.4.22"
   }

@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default function(props) {
+export default function (props) {
   const { target, containerKey, width, height, className, children } = props;
 
   return (

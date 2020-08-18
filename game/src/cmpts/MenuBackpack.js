@@ -3,6 +3,7 @@ import display from 'display/Display';
 import Animation from 'cmpts/Animation';
 import { getElem } from 'db';
 import { colors } from 'theme';
+import scene from 'game/Scene';
 
 const TRANSITION_TIME = 0.25;
 
@@ -91,21 +92,40 @@ const ScrollBar = ({ onDownClick, onUpClick, isColumn, style }) => {
   );
 };
 
-const MenuBackpack = ({ items, gameInterface }) => {
+const MenuBackpack = ({ gameInterface }) => {
   const [open, setOpen] = React.useState(true);
-  const [activeItem, setActiveItemObj] = React.useState({ index: -1, itemName: '' });
+  const [activeItem, setActiveItemObj] = React.useState({
+    index: -1,
+    itemName: '',
+  });
   const [itemRow, setItemRow] = React.useState(0);
-  const isColumn = false; // window.innerWidth < window.innerHeight;
+  const isColumn = false; // window.innerWidth < window.innerHeight
+
+  React.useEffect(() => {
+    if (!scene.getActiveItem() && activeItem.itemName) {
+      unsetActiveItem();
+    }
+  });
+
+  const room = gameInterface.getRoom();
+  const act = room.getActiveActor();
+  const items = scene.getInventory(act.name);
 
   const setActiveItem = (index, itemName) => {
     setActiveItemObj({
       itemName,
       index,
     });
+    scene.getCommands().playSound('use_item');
+    scene.setActiveItem(itemName);
   };
 
   const unsetActiveItem = () => {
-    setActiveItem(-1, '');
+    setActiveItemObj({
+      itemName: '',
+      index: -1,
+    });
+    scene.unsetActiveItem();
   };
 
   const increaseItemRow = () => {
@@ -137,7 +157,10 @@ const MenuBackpack = ({ items, gameInterface }) => {
   if (numItemsToDisplay >= items.length) {
     startingIndex = 0;
   }
-  const itemsToDisplay = items.slice(startingIndex, startingIndex + numItemsToDisplay);
+  const itemsToDisplay = items.slice(
+    startingIndex,
+    startingIndex + numItemsToDisplay
+  );
 
   const rowStyle = {
     position: 'fixed',
@@ -219,11 +242,16 @@ const MenuBackpack = ({ items, gameInterface }) => {
             {itemsToDisplay.map((itemName, i) => {
               return (
                 <Item
+                  key={i}
                   itemName={itemName}
                   i={i + startingIndex}
                   isActive={i + startingIndex === activeItem.index}
-                  setActiveItem={setActiveItem}
-                  unsetActiveItem={unsetActiveItem}
+                  setActiveItem={(ind, itemName) => {
+                    setActiveItem(ind, itemName);
+                  }}
+                  unsetActiveItem={() => {
+                    unsetActiveItem();
+                  }}
                 />
               );
             })}

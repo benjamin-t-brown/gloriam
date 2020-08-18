@@ -9,6 +9,7 @@ Picture,cell-door,cell-door.png
 Picture,chairL,chairL.png
 Picture,chairR,chairR.png
 Picture,desk,desk.png
+Picture,fence-welcome-grounds,fence-welcome-grounds.png
 Picture,ferelith-prop,ferelith-prop.png
 Picture,flower1-prop,flower1-prop.png
 Picture,flower2-prop,flower2-prop.png

@@ -1,4 +1,4 @@
-import Actor from 'main/Actor';
+import Actor from 'game/Actor';
 import { getElem } from 'db';
 import Skill from 'battle/Skill';
 import BattleStats from 'battle/BattleStats';
@@ -133,10 +133,15 @@ class BattleActor extends Actor {
   }
 
   draw() {
-    display.drawAnimation(this.getCurrentAnimation(), this.renderX, this.renderY, {
-      centered: true,
-      scale: this.scale,
-    });
+    display.drawAnimation(
+      this.getCurrentAnimation(),
+      this.renderX,
+      this.renderY,
+      {
+        centered: true,
+        scale: this.scale,
+      }
+    );
     for (let i = 0; i < this.stats.statuses.length; i++) {
       const status = this.stats.statuses[i];
       status.draw();

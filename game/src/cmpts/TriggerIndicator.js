@@ -2,7 +2,7 @@ import React from 'react';
 import display from 'display/Display';
 import { colors } from 'theme';
 import { hexToRGBA } from 'utils';
-import scene from 'main/Scene';
+import scene from 'game/Scene';
 import input from 'display/Input';
 
 const getPadding = room => {
